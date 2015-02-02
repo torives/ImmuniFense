@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4F4A8BE61A7FD837009F36FF /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F4A8BE51A7FD837009F36FF /* SpriteKit.framework */; };
-		4F4A8BE91A7FD8A4009F36FF /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4A8BE81A7FD8A4009F36FF /* GameScene.m */; };
+		4F4A8BE91A7FD8A4009F36FF /* Level1.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4A8BE81A7FD8A4009F36FF /* Level1.m */; };
 		4F9E910F1A7DA2EA0044962D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9E910E1A7DA2EA0044962D /* main.m */; };
 		4F9E91121A7DA2EA0044962D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9E91111A7DA2EA0044962D /* AppDelegate.m */; };
 		4F9E91151A7DA2EA0044962D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9E91141A7DA2EA0044962D /* ViewController.m */; };
@@ -30,9 +30,9 @@
 
 /* Begin PBXFileReference section */
 		4F4A8BE51A7FD837009F36FF /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
-		4F4A8BE71A7FD8A4009F36FF /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
-		4F4A8BE81A7FD8A4009F36FF /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
-		4F9E91091A7DA2EA0044962D /* ImmuniFence.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImmuniFence.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F4A8BE71A7FD8A4009F36FF /* Level1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Level1.h; sourceTree = "<group>"; };
+		4F4A8BE81A7FD8A4009F36FF /* Level1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Level1.m; sourceTree = "<group>"; };
+		4F9E91091A7DA2EA0044962D /* ImmuniFense.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImmuniFense.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F9E910D1A7DA2EA0044962D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4F9E910E1A7DA2EA0044962D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4F9E91101A7DA2EA0044962D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -42,7 +42,7 @@
 		4F9E91171A7DA2EA0044962D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4F9E91191A7DA2EA0044962D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4F9E911C1A7DA2EA0044962D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		4F9E91221A7DA2EA0044962D /* ImmuniFenceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImmuniFenceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F9E91221A7DA2EA0044962D /* ImmuniFenseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImmuniFenseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F9E91271A7DA2EA0044962D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4F9E91281A7DA2EA0044962D /* ImmuniFenceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImmuniFenceTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -70,8 +70,8 @@
 			isa = PBXGroup;
 			children = (
 				4F4A8BE51A7FD837009F36FF /* SpriteKit.framework */,
-				4F9E910B1A7DA2EA0044962D /* ImmuniFence */,
-				4F9E91251A7DA2EA0044962D /* ImmuniFenceTests */,
+				4F9E910B1A7DA2EA0044962D /* ImmuniFense */,
+				4F9E91251A7DA2EA0044962D /* ImmuniFenseTests */,
 				4F9E910A1A7DA2EA0044962D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -79,19 +79,20 @@
 		4F9E910A1A7DA2EA0044962D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4F9E91091A7DA2EA0044962D /* ImmuniFence.app */,
-				4F9E91221A7DA2EA0044962D /* ImmuniFenceTests.xctest */,
+				4F9E91091A7DA2EA0044962D /* ImmuniFense.app */,
+				4F9E91221A7DA2EA0044962D /* ImmuniFenseTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4F9E910B1A7DA2EA0044962D /* ImmuniFence */ = {
+		4F9E910B1A7DA2EA0044962D /* ImmuniFense */ = {
 			isa = PBXGroup;
 			children = (
-				4F4A8BE71A7FD8A4009F36FF /* GameScene.h */,
-				4F4A8BE81A7FD8A4009F36FF /* GameScene.m */,
+				4F4A8BE71A7FD8A4009F36FF /* Level1.h */,
+				4F4A8BE81A7FD8A4009F36FF /* Level1.m */,
 				4F9E910C1A7DA2EA0044962D /* Supporting Files */,
 			);
+			name = ImmuniFense;
 			path = ImmuniFence;
 			sourceTree = "<group>";
 		};
@@ -111,12 +112,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		4F9E91251A7DA2EA0044962D /* ImmuniFenceTests */ = {
+		4F9E91251A7DA2EA0044962D /* ImmuniFenseTests */ = {
 			isa = PBXGroup;
 			children = (
 				4F9E91281A7DA2EA0044962D /* ImmuniFenceTests.m */,
 				4F9E91261A7DA2EA0044962D /* Supporting Files */,
 			);
+			name = ImmuniFenseTests;
 			path = ImmuniFenceTests;
 			sourceTree = "<group>";
 		};
@@ -131,9 +133,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4F9E91081A7DA2EA0044962D /* ImmuniFence */ = {
+		4F9E91081A7DA2EA0044962D /* ImmuniFense */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4F9E912C1A7DA2EA0044962D /* Build configuration list for PBXNativeTarget "ImmuniFence" */;
+			buildConfigurationList = 4F9E912C1A7DA2EA0044962D /* Build configuration list for PBXNativeTarget "ImmuniFense" */;
 			buildPhases = (
 				4F9E91051A7DA2EA0044962D /* Sources */,
 				4F9E91061A7DA2EA0044962D /* Frameworks */,
@@ -143,14 +145,14 @@
 			);
 			dependencies = (
 			);
-			name = ImmuniFence;
+			name = ImmuniFense;
 			productName = ImmuniFence;
-			productReference = 4F9E91091A7DA2EA0044962D /* ImmuniFence.app */;
+			productReference = 4F9E91091A7DA2EA0044962D /* ImmuniFense.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4F9E91211A7DA2EA0044962D /* ImmuniFenceTests */ = {
+		4F9E91211A7DA2EA0044962D /* ImmuniFenseTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4F9E912F1A7DA2EA0044962D /* Build configuration list for PBXNativeTarget "ImmuniFenceTests" */;
+			buildConfigurationList = 4F9E912F1A7DA2EA0044962D /* Build configuration list for PBXNativeTarget "ImmuniFenseTests" */;
 			buildPhases = (
 				4F9E911E1A7DA2EA0044962D /* Sources */,
 				4F9E911F1A7DA2EA0044962D /* Frameworks */,
@@ -161,9 +163,9 @@
 			dependencies = (
 				4F9E91241A7DA2EA0044962D /* PBXTargetDependency */,
 			);
-			name = ImmuniFenceTests;
+			name = ImmuniFenseTests;
 			productName = ImmuniFenceTests;
-			productReference = 4F9E91221A7DA2EA0044962D /* ImmuniFenceTests.xctest */;
+			productReference = 4F9E91221A7DA2EA0044962D /* ImmuniFenseTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -184,7 +186,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4F9E91041A7DA2EA0044962D /* Build configuration list for PBXProject "ImmuniFence" */;
+			buildConfigurationList = 4F9E91041A7DA2EA0044962D /* Build configuration list for PBXProject "ImmuniFense" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -197,8 +199,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4F9E91081A7DA2EA0044962D /* ImmuniFence */,
-				4F9E91211A7DA2EA0044962D /* ImmuniFenceTests */,
+				4F9E91081A7DA2EA0044962D /* ImmuniFense */,
+				4F9E91211A7DA2EA0044962D /* ImmuniFenseTests */,
 			);
 		};
 /* End PBXProject section */
@@ -230,7 +232,7 @@
 			files = (
 				4F9E91151A7DA2EA0044962D /* ViewController.m in Sources */,
 				4F9E91121A7DA2EA0044962D /* AppDelegate.m in Sources */,
-				4F4A8BE91A7FD8A4009F36FF /* GameScene.m in Sources */,
+				4F4A8BE91A7FD8A4009F36FF /* Level1.m in Sources */,
 				4F9E910F1A7DA2EA0044962D /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -248,7 +250,7 @@
 /* Begin PBXTargetDependency section */
 		4F9E91241A7DA2EA0044962D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4F9E91081A7DA2EA0044962D /* ImmuniFence */;
+			target = 4F9E91081A7DA2EA0044962D /* ImmuniFense */;
 			targetProxy = 4F9E91231A7DA2EA0044962D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -355,7 +357,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ImmuniFence/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ImmuniFense;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -366,7 +368,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ImmuniFence/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ImmuniFense;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -385,7 +387,7 @@
 				);
 				INFOPLIST_FILE = ImmuniFenceTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ImmuniFenseTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ImmuniFence.app/ImmuniFence";
 			};
 			name = Debug;
@@ -400,7 +402,7 @@
 				);
 				INFOPLIST_FILE = ImmuniFenceTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ImmuniFenseTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ImmuniFence.app/ImmuniFence";
 			};
 			name = Release;
@@ -408,7 +410,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4F9E91041A7DA2EA0044962D /* Build configuration list for PBXProject "ImmuniFence" */ = {
+		4F9E91041A7DA2EA0044962D /* Build configuration list for PBXProject "ImmuniFense" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4F9E912A1A7DA2EA0044962D /* Debug */,
@@ -417,7 +419,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4F9E912C1A7DA2EA0044962D /* Build configuration list for PBXNativeTarget "ImmuniFence" */ = {
+		4F9E912C1A7DA2EA0044962D /* Build configuration list for PBXNativeTarget "ImmuniFense" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4F9E912D1A7DA2EA0044962D /* Debug */,
@@ -426,7 +428,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4F9E912F1A7DA2EA0044962D /* Build configuration list for PBXNativeTarget "ImmuniFenceTests" */ = {
+		4F9E912F1A7DA2EA0044962D /* Build configuration list for PBXNativeTarget "ImmuniFenseTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4F9E91301A7DA2EA0044962D /* Debug */,

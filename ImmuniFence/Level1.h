@@ -1,5 +1,5 @@
 //
-//  GameScene.h
+//  Level1.h
 //  ImmuniFence
 //
 //  Created by Victor Yves Crispim on 02/5/15.
@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <SpriteKit/SpriteKit.h>
 
-@interface GameScene : SKScene <SKPhysicsContactDelegate>
+@interface Level1 : SKScene <SKPhysicsContactDelegate>
 
 @end

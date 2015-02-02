@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:ImmuniFence.xcodeproj">
+      location = "self:ImmuniFense.xcodeproj">
    </FileRef>
 </Workspace>

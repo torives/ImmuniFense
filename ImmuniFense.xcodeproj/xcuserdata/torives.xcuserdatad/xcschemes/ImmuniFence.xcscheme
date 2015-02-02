@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4F9E91081A7DA2EA0044962D"
-               BuildableName = "ImmuniFence.app"
-               BlueprintName = "ImmuniFence"
-               ReferencedContainer = "container:ImmuniFence.xcodeproj">
+               BuildableName = "ImmuniFense.app"
+               BlueprintName = "ImmuniFense"
+               ReferencedContainer = "container:ImmuniFense.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4F9E91211A7DA2EA0044962D"
-               BuildableName = "ImmuniFenceTests.xctest"
-               BlueprintName = "ImmuniFenceTests"
-               ReferencedContainer = "container:ImmuniFence.xcodeproj">
+               BuildableName = "ImmuniFenseTests.xctest"
+               BlueprintName = "ImmuniFenseTests"
+               ReferencedContainer = "container:ImmuniFense.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4F9E91211A7DA2EA0044962D"
-               BuildableName = "ImmuniFenceTests.xctest"
-               BlueprintName = "ImmuniFenceTests"
-               ReferencedContainer = "container:ImmuniFence.xcodeproj">
+               BuildableName = "ImmuniFenseTests.xctest"
+               BlueprintName = "ImmuniFenseTests"
+               ReferencedContainer = "container:ImmuniFense.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4F9E91081A7DA2EA0044962D"
-            BuildableName = "ImmuniFence.app"
-            BlueprintName = "ImmuniFence"
-            ReferencedContainer = "container:ImmuniFence.xcodeproj">
+            BuildableName = "ImmuniFense.app"
+            BlueprintName = "ImmuniFense"
+            ReferencedContainer = "container:ImmuniFense.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -76,9 +76,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4F9E91081A7DA2EA0044962D"
-            BuildableName = "ImmuniFence.app"
-            BlueprintName = "ImmuniFence"
-            ReferencedContainer = "container:ImmuniFence.xcodeproj">
+            BuildableName = "ImmuniFense.app"
+            BlueprintName = "ImmuniFense"
+            ReferencedContainer = "container:ImmuniFense.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4F9E91081A7DA2EA0044962D"
-            BuildableName = "ImmuniFence.app"
-            BlueprintName = "ImmuniFence"
-            ReferencedContainer = "container:ImmuniFence.xcodeproj">
+            BuildableName = "ImmuniFense.app"
+            BlueprintName = "ImmuniFense"
+            ReferencedContainer = "container:ImmuniFense.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
