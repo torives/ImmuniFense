@@ -1,16 +1,14 @@
 //
-//  ViewController.h
+//  GameScene.h
 //  ImmuniFence
 //
-//  Created by Victor Yves Crispim on 01/5/15.
+//  Created by Victor Yves Crispim on 02/5/15.
 //  Copyright (c) 2015 Group 9. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <SpriteKit/SpriteKit.h>
 
-@interface ViewController : UIViewController
-
+@interface GameScene : SKScene <SKPhysicsContactDelegate>
 
 @end
-
