@@ -16,18 +16,23 @@
 //#import "Tower.h"
 
 
-//TODO implementar o ingame menu
-//TODO implementar a pausa do jogo.
+//TODO  implementar o ingame menu
+//TODO  implementar a pausa do jogo.
+//TODO  refazer o caminho lógico do jogo, a maioria dos métodos está incompleta.
+//TODO  ainda não está se adicionando as waves subsequentes, tem que acertar a questão do tempo
+
+
 @implementation Level1{
     
     int coins;
     int health;
-    int killCount;
+    int killCount;      //Acho que será desnecessário. O jogo acaba qnd n tem mais creeps ativos e nao tem mais waves, ou quando acaba a vida
     int actualWave;
+    LevelWaves *levelOneWaves;
     NSMutableArray *towerSpots;
-    NSMutableArray *liveCreeps;
+    NSMutableArray *activeCreeps;
     SKAction *followLine;
-    
+    NSTimeInterval *timeOfLastMove;
 }
 
 
@@ -67,6 +72,7 @@
             
             SKSpriteNode *towerSpawnPoint = [SKSpriteNode spriteNodeWithColor: [SKColor blackColor] size: CGSizeMake(125, 125)];
             towerSpawnPoint.hidden = YES;
+            towerSpawnPoint.name = @"towerSpawnPoint";
             
             //TODO Pode dar merda pq a posição tem que ser de acordo com o sistema de coordenadas do pai. Conferir isso.
             towerSpawnPoint.position = towerSpot;
@@ -77,15 +83,15 @@
         
         
         //cria a primeira wave do level
-        LevelWaves *levelOneWaves = [LevelWaves waveForLevel: LevelOne];
+        levelOneWaves = [LevelWaves waveForLevel: LevelOne];
         
         //instancia os creeps da primeira wave e os guarda no vetor de creeps
-        liveCreeps = [[NSMutableArray alloc] init];
-        [liveCreeps addObjectsFromArray:[levelOneWaves createCreepsForWave: actualWave]]; //TODO quando vc manda as creeps seguirem um path, elas não precisam de uma position. Começam na inicial do path
+        activeCreeps = [[NSMutableArray alloc] init];
+        [activeCreeps addObjectsFromArray:[levelOneWaves createCreepsForWave: actualWave]]; //TODO quando vc manda as creeps seguirem um path, elas não precisam de uma position. Começam na inicial do path
         
-        for (NSInteger i = liveCreeps.count; i>=0; i--) {
+        for (NSInteger i = activeCreeps.count; i>=0; i--) {
             
-            SKSpriteNode *creep = (SKSpriteNode*) [liveCreeps objectAtIndex:i];
+            SKSpriteNode *creep = (SKSpriteNode*) [activeCreeps objectAtIndex:i];
             [self addChild: creep];
             
             [creep runAction: followLine completion: ^{
@@ -99,8 +105,32 @@
 }
 
 
+//IMPLEMENTAÇÃO INCOMPLETA
+//A cada novo frame, confere se as torres possuem um alvo. Se sim, atira.
+//TODO esse método tem que contar o tempo necessário para adicionar a próxima wave de creeps
 -(void) update:(NSTimeInterval)currentTime{
 
+    //TODO 0.5 é o tempo de tiro da torre. Tem que mudar isso, cada torre com uma velocidade.
+    //Se estiver com problema, pode ser a sintaxe dessa merda. Aí é só copiar do DEMO.
+    if (currentTime - timeOfLastMove >= 0.5){
+    
+        [self enumerateChildNodesWithName:@"tower" usingBlock:^(SKNode *node, BOOL *stop) {
+          
+            Tower *tower = (Tower *) node;
+
+            CreepNode *target = [tower.targets objectAtIndex:0];
+            
+            if (target.health <= 0) {
+            
+                [tower.targets removeObjectAtIndex:0];
+            }
+            else {
+                [tower shootAtTarget:target];
+            }
+        }];
+        
+        timeOfLastMove = currentTime;
+    }
 }
 
 
@@ -116,10 +146,61 @@
 
 -(void) didBeginContact:(SKPhysicsContact *)contact{
     
+    SKPhysicsBody* firstBody;
+    SKPhysicsBody* secondBody;
+    
+    if (contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask)
+    {
+        firstBody = contact.bodyA;
+        secondBody = contact.bodyB;
+    }
+    else
+    {
+        firstBody = contact.bodyB;
+        secondBody = contact.bodyA;
+    }
+    if (firstBody.categoryBitMask == CreepMask && secondBody.categoryBitMask == TowerMask) {
+        
+        Creep *creep = (Creep *) firstBody.node;
+        Tower *tower = (Tower *) secondBody.node;
+        [tower.targets addObject:creep];
+        
+    }else if (firstBody.categoryBitMask == CreepMask && secondBody.categoryBitMask == BulletMask) {
+        
+        Creep *creep = (Creep *) firstBody.node;
+        Tower *tower = (Tower *) secondBody.node.parent;
+        
+        if (creep.health > 0) {
+            
+            [tower damageEnemy:creep onKill:^{
+                [self didKillEnemy: creep.reward];
+            }];
+        }
+
 }
 
--(void) didEndContact:(SKPhysicsContact *)contact{
+-(void) didEndContact:(SKPhysicsContact *) contact{
     
+    SKPhysicsBody *firstBody;
+    SKPhysicsBody *secondBody;
+    
+    if (contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask){
+
+        firstBody = contact.bodyA;
+        secondBody = contact.bodyB;
+    }
+    else{
+        
+        firstBody = contact.bodyB;
+        secondBody = contact.bodyA;
+    }
+    
+    if (firstBody.categoryBitMask == CreepMask && secondBody.categoryBitMask == TowerMask) {
+        
+        Creep *creep = (Creep *) firstBody.node;
+        Tower *tower = (Tower *) secondBody.node;
+        [tower.targets removeObject:creep];
+    }
 }
 
 
@@ -140,9 +221,22 @@
 
 }
 
+//IMPLEMENTAÇÃO INCOMPLETA
 -(void)selectNodeForTouch:(CGPoint)touchLocation{
     
-    SKSpriteNode *touchedNode = (SKSpriteNode*)[self nodeAtPoint:touchLocation];
+//    SKSpriteNode *touchedNode = (SKSpriteNode*)[self nodeAtPoint:touchLocation];
+//    
+//    if ([touchedNode.name isEqualToString: @"towerSpawnPoint"]) {
+//        
+//        Tower *newTower = [Tower createTowerOfType TowerOne];
+//        newTower.position = touchedNode.position;
+//        
+//        [towerSpots removeObject:touchedNode];
+//        
+//    }
+//    else if (touchedNode.name isEqualToString: @"tower"){
+//        
+//    }
 }
 
 
@@ -197,11 +291,13 @@
 
 //chamado quando um creep atravessa a linha de defesa.
 //TODO no futuro, esse método deve penalizar o jogador caso muitos creeps ultrapassem.
+//TODO conferir se é aqui mesmo que tem que liberar o CGMutablePath da memória
 -(void)discountHealth: (SKSpriteNode *) creep{
     
     //TODO tem que conferir se esse typecast aqui não vai dar merda
     health -= (Creep *)creep.damage;
     
+    //Se a vida zerar, é Game Over
     if (health <= 0){
         
         NSLog(@"Game Over");
@@ -210,7 +306,19 @@
         [self.view presentScene:gameOver transition:transition];
     }
     
+    //Atualiza o HUD
     [self updateHealthIndicator];
+    //retira o creep da cena
+    [creep removeFromParent];
+    //retira o creep da relação de creeps vivos
+    [activeCreeps removeObject: creep];
+    
+    //Se não há creeps ativos e acabaram as waves
+    if (activeCreeps.count == 0 && actualWave == [levelOneWaves numberOfWaves]){
+        
+        //TODO game win
+    }
+
 }
 
 -(void) updateHealthIndicator{
@@ -227,4 +335,37 @@
     NSLog(@"Coins Updated");
 }
 
+//AQUI TEM QUE CONFERIR SE TODOS OS CREEPS DA WAVE ANTERIOR MORRERAM
+-(void) didKillEnemy: (int) reward {
+
+    //incrementa as coins
+    coins += reward;
+    [self updateCoinsIndicator];
+    
+    //contabiliza o número de inimigos mortos
+    killCount++;
+
+}
+    
+//    
+//    [self enumerateChildNodesWithName:@"movable" usingBlock:^(SKNode *node, BOOL *stop) { //acha tds os nodes chamados movable (torres da barra inferior direta) e executa o bloco para cada uma delas
+//        NSInteger cost = [[node.userData objectForKey:@"cost"] intValue]; //descobre o custo da torre
+//        SKSpriteNode *towerIcon = (SKSpriteNode*) node;
+//        if (cost <= self.coins) {                           //se torre custar menos do que o placar, clareia o ícone dela
+//            [towerIcon setColorBlendFactor:0];
+//        }else {                                         //do contrário, escurece
+//            [towerIcon setColorBlendFactor:0.8];
+//        }
+//    }];
+//    
+//    //TODO ADD IMAGEM DE GAME WIN
+//    if (++self.killCount >= 20) {
+//        
+//        NSLog(@"You Win");
+//        GameWin *gameWin = [GameWin sceneWithSize:self.frame.size];
+//        SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
+//        [self.view presentScene:gameWin transition:transition];
+//        
+//    }
+//}
 @end
