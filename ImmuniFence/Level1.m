@@ -16,6 +16,8 @@
 //#import "Tower.h"
 
 
+//TODO implementar o ingame menu
+//TODO implementar a pausa do jogo.
 @implementation Level1{
     
     int coins;
@@ -35,9 +37,7 @@
  *
  ***/
 
--(id)initWithSize:(CGSize)size{
-
-    if (self = [super initWithSize:size]) {
+-(void) didMoveToView:(SKView *)view{
       
         //inicializa as variáveis da fase
         coins = 90;
@@ -80,7 +80,7 @@
         LevelWaves *levelOneWaves = [LevelWaves waveForLevel: LevelOne];
         
         //instancia os creeps da primeira wave e os guarda no vetor de creeps
-        liveCreeps = [NSMutableArray init];
+        liveCreeps = [[NSMutableArray alloc] init];
         [liveCreeps addObjectsFromArray:[levelOneWaves createCreepsForWave: actualWave]]; //TODO quando vc manda as creeps seguirem um path, elas não precisam de uma position. Começam na inicial do path
         
         for (NSInteger i = liveCreeps.count; i>=0; i--) {
@@ -89,16 +89,13 @@
             [self addChild: creep];
             
             [creep runAction: followLine completion: ^{
-                
-                [self discountHealth];
+                [self discountHealth: creep]; //se eu entendi Blocks direito, ele vai manter a referencia para o creep.
+                NSLog(@"Creep has trespassed the line");
             }];
         }
         
         //incrementa o contador de waves
         actualWave++;
-        
-        return self;
-    }
 }
 
 
@@ -137,10 +134,15 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     
+    UITouch *touch = [touches anyObject];
+    CGPoint positionInScene = [touch locationInNode:self];
+    [self selectNodeForTouch:positionInScene];
+
 }
 
 -(void)selectNodeForTouch:(CGPoint)touchLocation{
     
+    SKSpriteNode *touchedNode = (SKSpriteNode*)[self nodeAtPoint:touchLocation];
 }
 
 
@@ -151,6 +153,7 @@
  ***/
 
 //cria os indicadores de vida e moedas
+//TODO o HUD deve ser uma classe (ou várias) específicas, para encapsular a arte
 //TODO posicioná-los usando proporções, não hardcoded
 -(void) createHUD{
     
@@ -159,7 +162,17 @@
     healthIndicator.position = CGPointMake(10,CGRectGetMaxY(self.frame)-50);
     healthIndicator.anchorPoint = CGPointMake(0, 0);
     healthIndicator.name = @"health_hud";
+
+    //Cria label de vida
+    SKLabelNode *healthLabel = [SKLabelNode labelNodeWithFontNamed:@"Menlo-Regular"];
+    healthLabel.text = [NSString stringWithFormat:@"%d", health];
+    healthLabel.fontSize = 14;
+    healthLabel.fontColor = [SKColor blackColor];
+    healthLabel.position = CGPointMake(10+healthIndicator.frame.size.width/2, healthIndicator.frame.size.height/2);
+    healthLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
+    healthLabel.name = @"healthLabel";
     
+    [healthIndicator addChild:healthLabel];
     [self addChild: healthIndicator];
     
     //Cria o indicador de moedas
@@ -168,52 +181,50 @@
     coinIndicator.anchorPoint = CGPointMake(0, 0);
     coinIndicator.name = @"coin_hud";
     
-    [self addChild: coinIndicator];
-    
-    //Cria label de vida
-    SKLabelNode *healthLabel = [SKLabelNode labelNodeWithFontNamed:@"Menlo-Regular"];
-    healthLabel.text = [NSString stringWithFormat:@"%d", health];
-    healthLabel.fontSize = 14;
-    healthLabel.fontColor = [SKColor blackColor];
-    healthLabel.position = CGPointMake(70,CGRectGetMaxY(self.frame)-30);
-    healthLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
-    healthLabel.name = @"healthLabel";
-    
-    [self addChild:healthLabel];
-    
     //Cria label de coins
     SKLabelNode *coinLabel = [SKLabelNode labelNodeWithFontNamed:@"Menlo-Regular"];
     coinLabel.text = [NSString stringWithFormat:@"%d", coins];
     coinLabel.fontSize = 14;
     coinLabel.fontColor = [SKColor blackColor];
-    coinLabel.position = CGPointMake(190,CGRectGetMaxY(self.frame)-30);
+    coinLabel.position = CGPointMake(10+coinIndicator.frame.size.width/2, coinIndicator.frame.size.height/2);
     coinLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
     coinLabel.name = @"coinLabel";
     
-    [self addChild:coinLabel];
+    [coinIndicator addChild:coinLabel];
+    [self addChild: healthIndicator];
 
 }
 
-
-
 //chamado quando um creep atravessa a linha de defesa.
 //TODO no futuro, esse método deve penalizar o jogador caso muitos creeps ultrapassem.
-
--(void)discountHealth{
-    //TODO no futuro, creeps diferentes tem danos diferentes para a health (tem que receber referencia pro creep)
-    health--;
+-(void)discountHealth: (SKSpriteNode *) creep{
+    
+    //TODO tem que conferir se esse typecast aqui não vai dar merda
+    health -= (Creep *)creep.damage;
     
     if (health <= 0){
         
-        NSLog(@"game over");
+        NSLog(@"Game Over");
         GameOver *gameOver = [GameOver sceneWithSize:self.frame.size];
         SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
         [self.view presentScene:gameOver transition:transition];
     }
     
     [self updateHealthIndicator];
+}
+
+-(void) updateHealthIndicator{
     
+    SKLabelNode *healthLabel = (SKLabelNode*)[self childNodeWithName:@"healthLabel"];
+    healthLabel.text = [NSString stringWithFormat:@"%d", health];
+    NSLog(@"Health Updated");
+}
+
+-(void) updateCoinsIndicator{
     
+    SKLabelNode *coinsLabel = (SKLabelNode*)[self childNodeWithName:@"coinLabel"];
+    coinsLabel.text = [NSString stringWithFormat:@"%d", coins];
+    NSLog(@"Coins Updated");
 }
 
 @end
