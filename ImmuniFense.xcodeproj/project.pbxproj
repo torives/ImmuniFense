@@ -29,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4F017C391A81259D00E5F18A /* BitMasks.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BitMasks.h; path = ../BitMasks.h; sourceTree = "<group>"; };
 		4F4A8BE51A7FD837009F36FF /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		4F4A8BE71A7FD8A4009F36FF /* Level1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Level1.h; sourceTree = "<group>"; };
 		4F4A8BE81A7FD8A4009F36FF /* Level1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Level1.m; sourceTree = "<group>"; };
@@ -90,6 +91,7 @@
 			children = (
 				4F4A8BE71A7FD8A4009F36FF /* Level1.h */,
 				4F4A8BE81A7FD8A4009F36FF /* Level1.m */,
+				4F017C391A81259D00E5F18A /* BitMasks.h */,
 				4F9E910C1A7DA2EA0044962D /* Supporting Files */,
 			);
 			name = ImmuniFense;

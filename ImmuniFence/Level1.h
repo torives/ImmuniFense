@@ -9,6 +9,15 @@
 #import <UIKit/UIKit.h>
 #import <SpriteKit/SpriteKit.h>
 
+typedef NS_ENUM (NSUInteger, LevelName) {
+    
+    LevelOne = 1,
+    LevelTwo = 2,
+    LevelThree = 3,
+    
+};
+
+
 @interface Level1 : SKScene <SKPhysicsContactDelegate>
 
 @end
