@@ -16,6 +16,9 @@
 		4F9E911A1A7DA2EA0044962D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F9E91191A7DA2EA0044962D /* Images.xcassets */; };
 		4F9E911D1A7DA2EA0044962D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F9E911B1A7DA2EA0044962D /* LaunchScreen.xib */; };
 		4F9E91291A7DA2EA0044962D /* ImmuniFenceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9E91281A7DA2EA0044962D /* ImmuniFenceTests.m */; };
+		614100011A81C8700074EE9F /* LevelWave.m in Sources */ = {isa = PBXBuildFile; fileRef = 614100001A81C8700074EE9F /* LevelWave.m */; };
+		6141FFFE1A81AAAB0074EE9F /* Terrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 6141FFFD1A81AAAB0074EE9F /* Terrain.m */; };
+		618382971A8252330055AA3C /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 618382961A8252330055AA3C /* Player.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +49,12 @@
 		4F9E91221A7DA2EA0044962D /* ImmuniFenseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImmuniFenseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F9E91271A7DA2EA0044962D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4F9E91281A7DA2EA0044962D /* ImmuniFenceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImmuniFenceTests.m; sourceTree = "<group>"; };
+		614100001A81C8700074EE9F /* LevelWave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelWave.m; sourceTree = "<group>"; };
+		6141FFFC1A81AAAB0074EE9F /* Terrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Terrain.h; sourceTree = "<group>"; };
+		6141FFFD1A81AAAB0074EE9F /* Terrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Terrain.m; sourceTree = "<group>"; };
+		6141FFFF1A81C8700074EE9F /* LevelWave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelWave.h; sourceTree = "<group>"; };
+		618382951A8252330055AA3C /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		618382961A8252330055AA3C /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +101,12 @@
 				4F4A8BE71A7FD8A4009F36FF /* Level1.h */,
 				4F4A8BE81A7FD8A4009F36FF /* Level1.m */,
 				4F017C391A81259D00E5F18A /* BitMasks.h */,
+				618382951A8252330055AA3C /* Player.h */,
+				618382961A8252330055AA3C /* Player.m */,
+				6141FFFC1A81AAAB0074EE9F /* Terrain.h */,
+				6141FFFD1A81AAAB0074EE9F /* Terrain.m */,
+				6141FFFF1A81C8700074EE9F /* LevelWave.h */,
+				614100001A81C8700074EE9F /* LevelWave.m */,
 				4F9E910C1A7DA2EA0044962D /* Supporting Files */,
 			);
 			name = ImmuniFense;
@@ -232,9 +247,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6141FFFE1A81AAAB0074EE9F /* Terrain.m in Sources */,
 				4F9E91151A7DA2EA0044962D /* ViewController.m in Sources */,
 				4F9E91121A7DA2EA0044962D /* AppDelegate.m in Sources */,
+				614100011A81C8700074EE9F /* LevelWave.m in Sources */,
 				4F4A8BE91A7FD8A4009F36FF /* Level1.m in Sources */,
+				618382971A8252330055AA3C /* Player.m in Sources */,
 				4F9E910F1A7DA2EA0044962D /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
