@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4F4A8BE61A7FD837009F36FF /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F4A8BE51A7FD837009F36FF /* SpriteKit.framework */; };
-		4F4A8BE91A7FD8A4009F36FF /* Level1.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4A8BE81A7FD8A4009F36FF /* Level1.m */; };
+		4F4A8BE91A7FD8A4009F36FF /* Level.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4A8BE81A7FD8A4009F36FF /* Level.m */; };
 		4F9E910F1A7DA2EA0044962D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9E910E1A7DA2EA0044962D /* main.m */; };
 		4F9E91121A7DA2EA0044962D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9E91111A7DA2EA0044962D /* AppDelegate.m */; };
 		4F9E91151A7DA2EA0044962D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9E91141A7DA2EA0044962D /* ViewController.m */; };
@@ -31,8 +31,8 @@
 /* Begin PBXFileReference section */
 		4F017C391A81259D00E5F18A /* BitMasks.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BitMasks.h; path = ../BitMasks.h; sourceTree = "<group>"; };
 		4F4A8BE51A7FD837009F36FF /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
-		4F4A8BE71A7FD8A4009F36FF /* Level1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Level1.h; sourceTree = "<group>"; };
-		4F4A8BE81A7FD8A4009F36FF /* Level1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Level1.m; sourceTree = "<group>"; };
+		4F4A8BE71A7FD8A4009F36FF /* Level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Level.h; sourceTree = "<group>"; };
+		4F4A8BE81A7FD8A4009F36FF /* Level.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Level.m; sourceTree = "<group>"; };
 		4F9E91091A7DA2EA0044962D /* ImmuniFense.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImmuniFense.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F9E910D1A7DA2EA0044962D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4F9E910E1A7DA2EA0044962D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -89,8 +89,8 @@
 		4F9E910B1A7DA2EA0044962D /* ImmuniFense */ = {
 			isa = PBXGroup;
 			children = (
-				4F4A8BE71A7FD8A4009F36FF /* Level1.h */,
-				4F4A8BE81A7FD8A4009F36FF /* Level1.m */,
+				4F4A8BE71A7FD8A4009F36FF /* Level.h */,
+				4F4A8BE81A7FD8A4009F36FF /* Level.m */,
 				4F017C391A81259D00E5F18A /* BitMasks.h */,
 				4F9E910C1A7DA2EA0044962D /* Supporting Files */,
 			);
@@ -234,7 +234,7 @@
 			files = (
 				4F9E91151A7DA2EA0044962D /* ViewController.m in Sources */,
 				4F9E91121A7DA2EA0044962D /* AppDelegate.m in Sources */,
-				4F4A8BE91A7FD8A4009F36FF /* Level1.m in Sources */,
+				4F4A8BE91A7FD8A4009F36FF /* Level.m in Sources */,
 				4F9E910F1A7DA2EA0044962D /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

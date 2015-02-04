@@ -1,5 +1,5 @@
 //
-//  Level1.h
+//  Level.h
 //  ImmuniFense
 //
 //  Created by Victor Yves Crispim on 02/5/15.
@@ -18,6 +18,7 @@ typedef NS_ENUM (NSUInteger, LevelName) {
 };
 
 
-@interface Level1 : SKScene <SKPhysicsContactDelegate>
+@interface Level : SKScene <SKPhysicsContactDelegate>
+
 
 @end

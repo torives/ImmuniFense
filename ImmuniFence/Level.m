@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Group 9. All rights reserved.
 //
 
-#import "Level1.h"
+#import "Level.h"
 #import "BitMasks.h"
 
 //CLASSES AINDA NÃO IMPLEMENTADAS
@@ -15,93 +15,90 @@
 //#import "Creep.h"
 //#import "Tower.h"
 
-
 //TODO  implementar o ingame menu
 //TODO  implementar a pausa do jogo.
-//TODO  refazer o caminho lógico do jogo, a maioria dos métodos está incompleta.
 //TODO  ainda não está se adicionando as waves subsequentes, tem que acertar a questão do tempo
+//TODO  configurar o método de inicialização para deixar a classe Level genérica
+//TODO  inicializar coins com o terreno
 
+/*Declaração dos métodos privados da classe*/
+@interface Level ()
 
-@implementation Level1{
+    -(void) createHUD;
+    -(void) addCreeps;
+    -(void) updateHealthIndicator;
+    -(void) updateCoinsIndicator;
+    -(void) discountHealth: (SKSpriteNode *) creep;
+    -(void) gameOver;
+    -(void) gameWin;
+
+@end
+
+@implementation Level{
     
     int coins;
     int health;
-    int killCount;      //Acho que será desnecessário. O jogo acaba qnd n tem mais creeps ativos e nao tem mais waves, ou quando acaba a vida
     int actualWave;
     LevelWaves *levelOneWaves;
     NSMutableArray *towerSpots;
     NSMutableArray *activeCreeps;
     SKAction *followLine;
-    NSTimeInterval *timeOfLastMove;
+    NSTimeInterval timeOfLastMove;
 }
 
-
 /*****************************
- *
- *  Métodos de SKScene
- *
- ***/
+*
+*  Métodos de SKScene
+*
+***/
 
 -(void) didMoveToView:(SKView *)view{
       
-        //inicializa as variáveis da fase
-        coins = 90;
-        health = 20;
-        killCount = 0;
-        actualWave = 0;
+    //inicializa as variáveis da fase
+    coins = 90;
+    health = 20;
+    actualWave = 0;
+
+    //se registra como delegate de contato para tratar das colisões
+    self.physicsWorld.contactDelegate = self;
+
+    //define o mapa da fase
+    Terrain *levelOneTerrain = [Terrain terrainForLevel: LevelOne];
+    SKSpriteNode* map = levelOneTerrain.map;
+    map.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    [self addChild: map];
+
+    //cria o HUD do jogo
+    [self createHUD];
+
+    //cria os placeholders para criar as torres
+    //TODO conferir se esse enhanced for vai funfar
+    towerSpots = levelOneTerrain.towerSpots;
+    for ( NSValue *value in towerSpots) {
         
-        //se registra como delegate de contato para tratar das colisões
-        self.physicsWorld.contactDelegate = self;
+        //NSValue *getPoint = [towerSpots objectAtIndex:i];
+        CGPoint towerSpot = [value CGPointValue];
         
-        //define o mapa da fase
-        Terrain* levelOneTerrain = [Terrain terrainForLevel: LevelOne];
-        SKSpriteNode* map = [SKSpriteNode spriteNodeWithImageNamed: levelOneTerrain.map];
-        map.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-        [self addChild: map];
+        SKShapeNode *towerSpawnPoint = [SKShapeNode shapeNodeWithCircleOfRadius:75];
+        towerSpawnPoint.hidden = YES;
+        towerSpawnPoint.name = @"towerSpawnPoint";
         
-        
-        //cria o HUD do jogo
-        [self createHUD];
-        
-        //cria os placeholders para criar as torres
-        towerSpots = levelOneTerrain.towerSpots;
-        for (NSInteger i = towerSpots.count; i>=0; i--) {
-            
-            NSValue *getPoint = [towerSpots objectAtIndex:i];
-            CGPoint towerSpot = [getPoint CGPointValue];
-            
-            SKSpriteNode *towerSpawnPoint = [SKSpriteNode spriteNodeWithColor: [SKColor blackColor] size: CGSizeMake(125, 125)];
-            towerSpawnPoint.hidden = YES;
-            towerSpawnPoint.name = @"towerSpawnPoint";
-            
-            //TODO Pode dar merda pq a posição tem que ser de acordo com o sistema de coordenadas do pai. Conferir isso.
-            towerSpawnPoint.position = towerSpot;
-        }
-        
-        //cria a ação para percorrer o caminho
-        followLine = [SKAction followPath: levelOneTerrain.path asOffset:NO orientToPath:YES duration:50];//TODO no futuro, usar a chamada do método com velocity ou invés de duration
-        
-        
-        //cria a primeira wave do level
-        levelOneWaves = [LevelWaves waveForLevel: LevelOne];
-        
-        //instancia os creeps da primeira wave e os guarda no vetor de creeps
-        activeCreeps = [[NSMutableArray alloc] init];
-        [activeCreeps addObjectsFromArray:[levelOneWaves createCreepsForWave: actualWave]]; //TODO quando vc manda as creeps seguirem um path, elas não precisam de uma position. Começam na inicial do path
-        
-        for (NSInteger i = activeCreeps.count; i>=0; i--) {
-            
-            SKSpriteNode *creep = (SKSpriteNode*) [activeCreeps objectAtIndex:i];
-            [self addChild: creep];
-            
-            [creep runAction: followLine completion: ^{
-                [self discountHealth: creep]; //se eu entendi Blocks direito, ele vai manter a referencia para o creep.
-                NSLog(@"Creep has trespassed the line");
-            }];
-        }
-        
-        //incrementa o contador de waves
-        actualWave++;
+        //TODO Pode dar merda pq a posição tem que ser de acordo com o sistema de coordenadas do pai. Conferir isso.
+        towerSpawnPoint.position = towerSpot;
+        //adiciona o spawn point ao mapa
+        [map addChild:towerSpawnPoint];
+    }
+
+    //cria a ação para percorrer o caminho
+    //TODO no futuro, usar a chamada do método com velocity ou invés de duration
+    followLine = [SKAction followPath: levelOneTerrain.path asOffset:NO orientToPath:YES duration:50];
+
+    //pega a referencia para as waves da fase
+    levelOneWaves = [LevelWaves waveForLevel: LevelOne];
+    //inicializa o vetor de creeps ativas
+    activeCreeps = [[NSMutableArray alloc] init];
+    //adiciona as creeps da próxima wave no vetor de creeps ativas
+    [self addCreeps];
 }
 
 
@@ -125,6 +122,9 @@
                 [tower.targets removeObjectAtIndex:0];
             }
             else {
+                //esse método simplesmente cria o projétil e o manda na direção do alvo,
+                //removendo-o no contato. O dano e a morte do creep tem que ser tratados
+                //nos métodos de SKPhysicsContactDelegate
                 [tower shootAtTarget:target];
             }
         }];
@@ -135,66 +135,92 @@
 
 
 /*****************************************************
- *
- *  Métodos de SKPhysicsContactDelegate
- *
- *  Utilizados para tratar as colisões entre os nós.
- *  No caso, um creep entrando no alcance de uma torre
- *  ou um projétil de torre acertando um creep
- *
- ***/
+*
+*  Métodos de SKPhysicsContactDelegate
+*
+*  Utilizados para tratar as colisões entre os nós.
+*  No caso, um creep entrando no alcance de uma torre
+*  ou um projétil de torre acertando um creep
+*
+***/
 
+//Chamado quando dois corpos iniciam contato
 -(void) didBeginContact:(SKPhysicsContact *)contact{
     
     SKPhysicsBody* firstBody;
     SKPhysicsBody* secondBody;
     
-    if (contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask)
-    {
+    //diferencia os corpos pelo BitMask, colocando sempre em ordem crescente
+    //creep < tower < bullet
+    if (contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask){
         firstBody = contact.bodyA;
         secondBody = contact.bodyB;
     }
-    else
-    {
+    
+    else{
         firstBody = contact.bodyB;
         secondBody = contact.bodyA;
     }
+    
+    //se um creep entrou em contato com o corpo da torre (seu alcance), ele se torna um alvo
     if (firstBody.categoryBitMask == CreepMask && secondBody.categoryBitMask == TowerMask) {
         
         Creep *creep = (Creep *) firstBody.node;
         Tower *tower = (Tower *) secondBody.node;
         [tower.targets addObject:creep];
         
-    }else if (firstBody.categoryBitMask == CreepMask && secondBody.categoryBitMask == BulletMask) {
+    }
+    //se um projétil atingiu um creep, desconta o dano da torre
+    else if (firstBody.categoryBitMask == CreepMask && secondBody.categoryBitMask == BulletMask) {
         
         Creep *creep = (Creep *) firstBody.node;
         Tower *tower = (Tower *) secondBody.node.parent;
         
         if (creep.health > 0) {
-            
-            [tower damageEnemy:creep onKill:^{
-                [self didKillEnemy: creep.reward];
-            }];
+            //aplica o dano
+            creep.health -= tower.damage;
+            //se creep morreu
+            if (creep.health <= 0) {
+                
+                //incrementa as coins
+                coins += creep.reward;
+                //atualiza o HUD
+                [self updateCoinsIndicator];
+                //retira o creep da cena
+                [creep removeFromParent];
+                //retira o creep da relação de creeps vivos
+                [activeCreeps removeObject: creep];
+                 
+                //Se não há creeps ativos e acabaram as waves
+                if (activeCreeps.count == 0 && actualWave == [levelOneWaves numberOfWaves]){
+                     
+                    [self gameWin];
+                 }
+            }
         }
-
 }
 
+//Chamado quando dois corpos terminam o contato
 -(void) didEndContact:(SKPhysicsContact *) contact{
     
     SKPhysicsBody *firstBody;
     SKPhysicsBody *secondBody;
     
+    //diferencia os corpos pelo BitMask, colocando sempre em ordem crescente
+    //creep < tower < bullet
     if (contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask){
 
         firstBody = contact.bodyA;
         secondBody = contact.bodyB;
     }
+    
     else{
         
         firstBody = contact.bodyB;
         secondBody = contact.bodyA;
     }
     
+    //se o creep não está mais em contato (alcance) da torre, o retira do vetor de alvos da torre
     if (firstBody.categoryBitMask == CreepMask && secondBody.categoryBitMask == TowerMask) {
         
         Creep *creep = (Creep *) firstBody.node;
@@ -205,13 +231,13 @@
 
 
 /**************************************************
- *
- *  Métodos de UIResponder
- *  
- *  Utilizados para tratar da interação do usuário
- *  com a interface do jogo
- *
- ***/
+*
+*  Métodos de UIResponder
+*  
+*  Utilizados para tratar da interação do usuário
+*  com a interface do jogo
+*
+***/
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     
@@ -239,24 +265,24 @@
 //    }
 }
 
-
+    
 /***************************************
- *
- *  Métodos Auxiliares
- *
- ***/
+*
+*  Métodos Auxiliares
+*
+***/
 
 //cria os indicadores de vida e moedas
 //TODO o HUD deve ser uma classe (ou várias) específicas, para encapsular a arte
 //TODO posicioná-los usando proporções, não hardcoded
--(void) createHUD{
+-(void) createHud{
     
     //cria o indicador de vida
-    SKSpriteNode *healthIndicator = [SKSpriteNode spriteNodeWithImageNamed:@"health_hud"];
+    SKSpriteNode *healthIndicator = [SKSpriteNode spriteNodeWithImageNamed: @"health_hud"];
     healthIndicator.position = CGPointMake(10,CGRectGetMaxY(self.frame)-50);
     healthIndicator.anchorPoint = CGPointMake(0, 0);
     healthIndicator.name = @"health_hud";
-
+    
     //Cria label de vida
     SKLabelNode *healthLabel = [SKLabelNode labelNodeWithFontNamed:@"Menlo-Regular"];
     healthLabel.text = [NSString stringWithFormat:@"%d", health];
@@ -266,7 +292,9 @@
     healthLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
     healthLabel.name = @"healthLabel";
     
+    //adiciona a label ao indicator
     [healthIndicator addChild:healthLabel];
+    //adiciona o indicator a cena
     [self addChild: healthIndicator];
     
     //Cria o indicador de moedas
@@ -284,9 +312,10 @@
     coinLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
     coinLabel.name = @"coinLabel";
     
+    //adiciona a label ao indicador
     [coinIndicator addChild:coinLabel];
-    [self addChild: healthIndicator];
-
+    //adiciona o indicador a cena
+    [self addChild: coinIndicator];
 }
 
 //chamado quando um creep atravessa a linha de defesa.
@@ -298,12 +327,10 @@
     health -= (Creep *)creep.damage;
     
     //Se a vida zerar, é Game Over
+    //TODO o Game Over pode ser uma chamada de função
     if (health <= 0){
         
-        NSLog(@"Game Over");
-        GameOver *gameOver = [GameOver sceneWithSize:self.frame.size];
-        SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
-        [self.view presentScene:gameOver transition:transition];
+        [self gameOver];
     }
     
     //Atualiza o HUD
@@ -314,11 +341,12 @@
     [activeCreeps removeObject: creep];
     
     //Se não há creeps ativos e acabaram as waves
+    //TODO acho que tem que fazer essa conferencia no didKillEnemy também
     if (activeCreeps.count == 0 && actualWave == [levelOneWaves numberOfWaves]){
         
         //TODO game win
+        [self gameWin];
     }
-
 }
 
 -(void) updateHealthIndicator{
@@ -335,37 +363,49 @@
     NSLog(@"Coins Updated");
 }
 
-//AQUI TEM QUE CONFERIR SE TODOS OS CREEPS DA WAVE ANTERIOR MORRERAM
--(void) didKillEnemy: (int) reward {
-
-    //incrementa as coins
-    coins += reward;
-    [self updateCoinsIndicator];
+//adiciona as creeps da próxima wave no vetor de creeps ativas. Deve ser chamada dentro de um intervalo de tempo definido
+-(void) addCreeps{
     
-    //contabiliza o número de inimigos mortos
-    killCount++;
-
+    if (actualWave < [levelOneWaves numberOfWaves]) {
+        
+        NSUInteger lastCreepIndex = [activeCreeps indexOfObject:[activeCreeps lastObject]];
+        
+        //instancia os creeps da primeira wave e os guarda no vetor de creeps
+        [activeCreeps addObjectsFromArray:[levelOneWaves createCreepsForWave: actualWave]];
+        
+        //para cada creep no array de creeps ativas, coloca pra seguir o caminho
+        //OBS: quando vc manda as creeps seguirem um path, elas não precisam de uma position. Começam na inicial do path
+        for (lastCreepIndex++;lastCreepIndex < activeCreeps.count; lastCreepIndex++) {
+            
+            SKSpriteNode *creep = (SKSpriteNode *) [activeCreeps objectAtIndex: lastCreepIndex];
+            
+            [self addChild: creep];
+            
+            [creep runAction: followLine completion: ^{
+                
+                NSLog(@"Creep has trespassed the line");
+                [self discountHealth: creep]; //se eu entendi Blocks direito, ele vai manter a referencia para o creep.
+            }];
+        }
+        //incrementa o contador de waves
+        actualWave++;
+    }
 }
     
-//    
-//    [self enumerateChildNodesWithName:@"movable" usingBlock:^(SKNode *node, BOOL *stop) { //acha tds os nodes chamados movable (torres da barra inferior direta) e executa o bloco para cada uma delas
-//        NSInteger cost = [[node.userData objectForKey:@"cost"] intValue]; //descobre o custo da torre
-//        SKSpriteNode *towerIcon = (SKSpriteNode*) node;
-//        if (cost <= self.coins) {                           //se torre custar menos do que o placar, clareia o ícone dela
-//            [towerIcon setColorBlendFactor:0];
-//        }else {                                         //do contrário, escurece
-//            [towerIcon setColorBlendFactor:0.8];
-//        }
-//    }];
-//    
-//    //TODO ADD IMAGEM DE GAME WIN
-//    if (++self.killCount >= 20) {
-//        
-//        NSLog(@"You Win");
-//        GameWin *gameWin = [GameWin sceneWithSize:self.frame.size];
-//        SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
-//        [self.view presentScene:gameWin transition:transition];
-//        
-//    }
-//}
+-(void) gameOver{
+
+    NSLog(@"Game Over");
+    GameOver *gameOver = [GameOver sceneWithSize:self.frame.size];
+    SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
+    [self.view presentScene:gameOver transition:transition];
+}
+    
+-(void) gameWin{
+    
+    NSLog(@"You Win");
+    GameWin *gameWin = [GameWin sceneWithSize:self.frame.size];
+    SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
+    [self.view presentScene:gameWin transition:transition];
+}
+    
 @end
