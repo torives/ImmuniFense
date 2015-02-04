@@ -11,13 +11,15 @@
 #import <SpriteKit/SpriteKit.h>
 
 @interface Terrain : NSObject
-@property (nonatomic, strong) NSString *name
+
+@property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSMutableArray *towerSpot;
 @property (nonatomic) CGMutablePathRef *path;
 @property (nonatomic, strong) UIImage *map;
+@property int coins;
 
 -(id) initWithName:(NSString *)theName;
 
--(id) initWithName:(NSString *)theName andTowerSpot:(NSMutableArray *)theTowerS andPath:(CGMutablePathRef *)thePath andMap:(UIImage *)theMap;
+-(id) initWithName:(NSString *)theName andTowerSpot:(NSMutableArray *)theTowerS andPath:(CGMutablePathRef *)thePath andMap:(UIImage *)theMap andCoins: (int)theCoins;
 
 @end

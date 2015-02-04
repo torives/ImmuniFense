@@ -10,4 +10,9 @@
 
 @interface LevelWave : NSObject
 
+-(id) init;
+-(id) initWithLevel: (int) lv;
+-(NSMutableArray*) initWithWave:(int)wave;
+-(NSMutableArray*) initWithWave:(int)wave andCreeps(int)theCreeps;
+
 @end

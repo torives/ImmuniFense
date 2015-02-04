@@ -11,7 +11,7 @@
 @implementation Terrain
 
 
--(id) initWithName:(NSString *)theName andTowerSpot:(NSMutableArray *)theTowerS andPath:(CGMutablePathRef *)thePath andMap:(UIImage *)theMap
+-(id) initWithName:(NSString *)theName andTowerSpot:(NSMutableArray *)theTowerS andPath:(CGMutablePathRef *)thePath andMap:(UIImage *)theMap andCoins: (int)theCoins
 {
     
     self = [super init];
@@ -27,13 +27,14 @@
 
 -(id) init
 {
-    return ([self initWithName:@"" andTowerSpot:nil andPath:nil andMap:nil]);
+    return ([self initWithName:@"" andTowerSpot:nil andPath:nil andMap:nil andCoins:0]);
 }
 
 -(id) initWithName:(NSString *)theName
 {
-    return ([self initWithName:theName andTowerSpot:nil andPath:nil andMap:nil]);
+    return ([self initWithName:theName andTowerSpot:nil andPath:nil andMap:nil andCoins:0]);
 }
+
 
 
 @end
