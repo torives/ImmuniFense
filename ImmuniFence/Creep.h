@@ -21,14 +21,13 @@ typedef NS_ENUM (NSUInteger, CreepType) {
 @property (nonatomic) int damage;
 @property (nonatomic) int hitPoints;
 @property (nonatomic) int reward;
-@property (nonatomic) int velocity; //Não implementado
+@property (nonatomic) NSTimeInterval velocity; //Não implementado
 @property (nonatomic) CreepType type;
+@property (nonatomic) CGPoint lastPosition;
+@property (nonatomic) char direction;
 
 +(instancetype) creepOfType:(CreepType)type;
 
--(void) animateLeft;
--(void) animateRight;
--(void) animateUp;
--(void) animateDown;
+-(void) updateAnimation;
 
 @end

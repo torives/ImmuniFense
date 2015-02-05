@@ -20,5 +20,6 @@ typedef NS_ENUM (NSUInteger, LevelName) {
 
 @interface Level : SKScene <SKPhysicsContactDelegate>
 
++(instancetype) createLevel: (LevelName) levelName withSize:(CGSize)size;
 
 @end

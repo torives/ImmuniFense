@@ -12,6 +12,10 @@
 @interface Creep ()
 
 +(void)initAnimationTextures: (Creep *) creep;
+-(void) animateLeft;
+-(void) animateRight;
+-(void) animateUp;
+-(void) animateDown;
 
 @end
 
@@ -23,6 +27,12 @@
     NSMutableArray *creepLeftTextures;
 }
 
+/***************************************
+*
+*  Métodos Próprios
+*
+***/
+
 +(instancetype) creepOfType:(CreepType)type {
     
     Creep *creep = [self spriteNodeWithImageNamed: [NSString stringWithFormat:
@@ -32,6 +42,9 @@
     creep.damage = 1;
     creep.hitPoints = 80;
     creep.reward = 10;
+    creep.velocity = 10;
+    creep.direction = ' ';
+    creep.lastPosition = CGPointMake(9999, 9999);
     
     if (type == CreepOne) {
         
@@ -57,6 +70,39 @@
     
     return creep;
 }
+
+-(void) updateAnimation{
+    
+    if (self.position.x < self.lastPosition.x && self.direction != 'l') {
+        [self animateLeft];
+        self.direction = 'l';
+        self.lastPosition = self.position;
+    }
+    
+    else if (self.position.x > self.lastPosition.x && self.direction != 'r'){
+        [self animateRight];
+        self.direction = 'r';
+        self.lastPosition = self.position;
+    }
+    
+    if (self.position.y < self.lastPosition.y && self.direction != 'd') {
+        [self animateDown];
+        self.direction = 'd';
+        self.lastPosition = self.position;
+    }
+    
+    else if (self.position.y > self.lastPosition.y && self.direction != 'u'){
+        [self animateUp];
+        self.direction = 'u';
+        self.lastPosition = self.position;
+    }
+}
+
+/***************************************
+*
+*  Métodos Privados
+*
+***/
 
 -(void) animateLeft{
     
