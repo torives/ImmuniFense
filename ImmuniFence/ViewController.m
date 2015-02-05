@@ -18,7 +18,7 @@
 {
     [super viewWillLayoutSubviews];
     
-    SKView * skView = (SKView *)self.view;
+//    SKView * skView = (SKView *)self.view;
     
 //    // Create and configure the scene.
 //    SKScene * scene = [TitleScene sceneWithSize:skView.bounds.size];
