@@ -12,14 +12,15 @@
 
 @interface Terrain : NSObject
 
-@property (nonatomic, strong) NSString *name;
+@property int level;
 @property (nonatomic, strong) NSMutableArray *towerSpot;
-@property (nonatomic) CGMutablePathRef *path;
-@property (nonatomic, strong) UIImage *map;
+@property (nonatomic) CGMutablePathRef creeppath;
+@property (nonatomic, strong) SKSpriteNode *map;
 @property int coins;
 
--(id) initWithName:(NSString *)theName;
 
--(id) initWithName:(NSString *)theName andTowerSpot:(NSMutableArray *)theTowerS andPath:(CGMutablePathRef *)thePath andMap:(UIImage *)theMap andCoins: (int)theCoins;
+-(id) initWithLevel:(int)theLevel andTowerSpot:(NSMutableArray *)theTowerS andPath:(CGMutablePathRef *)thePath andMap:(SKSpriteNode *)theMap andCoins: (int)theCoins;
+
++(Terrain*) initWithLevel:(int) theLevel;
 
 @end
