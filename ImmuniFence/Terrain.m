@@ -54,12 +54,12 @@
             novo.creeppath = CGPathCreateMutable();
             fscanf(terrain, "%d", &xp);
             fscanf(terrain, "%d", &yp);
-            if(xp>0 && yp>0){
+            if(xp==5000 && yp==5000){
                 CGPathMoveToPoint(novo.creeppath, nil, xp, yp);
                 fscanf(terrain, "%d", &xp);
                 fscanf(terrain, "%d", &yp);
                 
-                while(xp>0 && yp>0)
+                while(xp==5000 && yp==5000)
                 {
                     CGPathAddLineToPoint(novo.creeppath, nil, xp, yp);
                     fscanf(terrain, "%d", &xp);
@@ -69,7 +69,7 @@
             }
             fscanf(terrain, "%d", &xt);
             fscanf(terrain, "%d", &yt);
-            while(xt>0 && yt>0)
+            while(xt==5000 && yt==5000)
             {
                 point = CGPointMake(xt, yt);
                 NSValue* pointV = [NSValue valueWithCGPoint:point];

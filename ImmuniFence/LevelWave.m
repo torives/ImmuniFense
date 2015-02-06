@@ -49,6 +49,7 @@
     int lv = 0;
     
     int type = 0;
+    int i = 0;
     int number = 0;
     char temp[200];
     //Ler do arquivo com base no level e na wave e criar os creeps correspondentes
@@ -67,8 +68,9 @@
             {
                 
                 fscanf(waves, "%d", &type);
-                while(type != 0)
+                while(type != 5000)
                 {
+                    i=type;
                     fscanf(waves, "%d", &number);
                     todo[type] = number;
                 }
@@ -84,9 +86,10 @@
     //Começa a criação dos creeps
     
 
-    int i = 0;
     
-    while (i < 30)
+    
+    
+    while (i>0)
     {
         for(int j = 0; j < todo[i]; j++)
         {
@@ -94,7 +97,7 @@
                 Creep* novo = [Creep creepOfType: i];
                 [creeps addObject:novo];
             }
-            
+            i--;
         }
     }
     

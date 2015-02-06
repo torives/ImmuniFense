@@ -20,6 +20,6 @@
 //Cada linha corresponde a uma wave
 //O primeiro número corresponde ao level da wave
 //O segundo número corresponde ao número da wave
-//os numeros seguintes são lidos em pares, os pares são o primeiro número o tipo do creep e o segundo a quantidade de creeps daquele tipo, ate que o par 0 0 seja lido
+//os numeros seguintes são lidos em pares, os pares são o primeiro número o tipo do creep e o segundo a quantidade de creeps daquele tipo, ate que o tipo 5000 seja lido
 
 @end
