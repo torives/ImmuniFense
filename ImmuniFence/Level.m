@@ -127,7 +127,7 @@
         
         Tower *tower = (Tower *) node;
         
-        CreepNode *target = [tower.targets objectAtIndex:0];
+        Creep *target = [tower.targets objectAtIndex:0];
         
         if (target.health <= 0) {
             

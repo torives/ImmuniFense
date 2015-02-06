@@ -24,7 +24,7 @@
 		6141FFFE1A81AAAB0074EE9F /* Terrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 6141FFFD1A81AAAB0074EE9F /* Terrain.m */; };
 		618382971A8252330055AA3C /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 618382961A8252330055AA3C /* Player.m */; };
 		61C533181A84E42700303BBD /* terrain.txt in Resources */ = {isa = PBXBuildFile; fileRef = 61C533171A84E42700303BBD /* terrain.txt */; };
-		61C5331A1A84E45A00303BBD /* waves.txt in Resources */ = {isa = PBXBuildFile; fileRef = 61C533191A84E45A00303BBD /* waves.txt */; };
+		F31EFA2F1A853F2800CFD238 /* TowerNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F31EFA2E1A853F2800CFD238 /* TowerNode.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +68,8 @@
 		618382961A8252330055AA3C /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
 		61C533171A84E42700303BBD /* terrain.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = terrain.txt; sourceTree = "<group>"; };
 		61C533191A84E45A00303BBD /* waves.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = waves.txt; sourceTree = "<group>"; };
+		F31EFA2D1A853F2800CFD238 /* TowerNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TowerNode.h; sourceTree = "<group>"; };
+		F31EFA2E1A853F2800CFD238 /* TowerNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TowerNode.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,8 @@
 		4F9E910B1A7DA2EA0044962D /* ImmuniFense */ = {
 			isa = PBXGroup;
 			children = (
+				F31EFA2D1A853F2800CFD238 /* TowerNode.h */,
+				F31EFA2E1A853F2800CFD238 /* TowerNode.m */,
 				4F4A8BE71A7FD8A4009F36FF /* Level.h */,
 				4F4A8BE81A7FD8A4009F36FF /* Level.m */,
 				4FE58F711A82B061005D4837 /* Creep.h */,
@@ -284,10 +288,11 @@
 				4FE58F731A82B061005D4837 /* Creep.m in Sources */,
 				4F9E91121A7DA2EA0044962D /* AppDelegate.m in Sources */,
 				614100011A81C8700074EE9F /* LevelWave.m in Sources */,
-				4F4A8BE91A7FD8A4009F36FF /* Level1.m in Sources */,
+				4F4A8BE91A7FD8A4009F36FF /* Level.m in Sources */,
 				618382971A8252330055AA3C /* Player.m in Sources */,
 				4F4A8BE91A7FD8A4009F36FF /* Level.m in Sources */,
 				4F9E910F1A7DA2EA0044962D /* main.m in Sources */,
+				F31EFA2F1A853F2800CFD238 /* TowerNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
