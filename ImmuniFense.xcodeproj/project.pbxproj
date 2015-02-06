@@ -103,6 +103,14 @@
 				4FE58F711A82B061005D4837 /* Creep.h */,
 				4FE58F721A82B061005D4837 /* Creep.m */,
 				4F017C391A81259D00E5F18A /* BitMasks.h */,
+				618382951A8252330055AA3C /* Player.h */,
+				618382961A8252330055AA3C /* Player.m */,
+				6141FFFC1A81AAAB0074EE9F /* Terrain.h */,
+				6141FFFD1A81AAAB0074EE9F /* Terrain.m */,
+				6141FFFF1A81C8700074EE9F /* LevelWave.h */,
+				614100001A81C8700074EE9F /* LevelWave.m */,
+				61C533171A84E42700303BBD /* terrain.txt */,
+				61C533191A84E45A00303BBD /* waves.txt */,
 				4F9E910C1A7DA2EA0044962D /* Supporting Files */,
 			);
 			name = ImmuniFense;
@@ -237,6 +245,7 @@
 				4FD7989A1A83A0FF003BA098 /* creep1_up.atlas in Resources */,
 				4F9E91181A7DA2EA0044962D /* Main.storyboard in Resources */,
 				4F9E911D1A7DA2EA0044962D /* LaunchScreen.xib in Resources */,
+				61C533181A84E42700303BBD /* terrain.txt in Resources */,
 				4F9E911A1A7DA2EA0044962D /* Images.xcassets in Resources */,
 				4FD798981A83A0FF003BA098 /* creep1_down.atlas in Resources */,
 				4FD798991A83A0FF003BA098 /* creep1_left.atlas in Resources */,
@@ -257,6 +266,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6141FFFE1A81AAAB0074EE9F /* Terrain.m in Sources */,
 				4F9E91151A7DA2EA0044962D /* ViewController.m in Sources */,
 				4FE58F731A82B061005D4837 /* Creep.m in Sources */,
 				4F9E91121A7DA2EA0044962D /* AppDelegate.m in Sources */,
