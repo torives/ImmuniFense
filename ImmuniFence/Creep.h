@@ -7,14 +7,7 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-
-typedef NS_ENUM (NSUInteger, CreepType) {
-    
-    CreepOne = 1,
-    CreepTwo = 2,
-    CreepThree = 3,
-    
-};
+#import "CreepTypes.h"
 
 @interface Creep : SKSpriteNode
 

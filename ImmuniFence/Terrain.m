@@ -11,24 +11,24 @@
 @implementation Terrain
 
 
--(id) initWithLevel:(int)theLevel andTowerSpot:(NSMutableArray *)theTowerS andPath:(CGMutablePathRef)thePath andMap:(SKSpriteNode *)theMap andCoins: (int)theCoins
-{
-    
-    self = [super init];
-    if(self)
-    {
-        self.level = theLevel;
-        self.towerSpot = theTowerS;
-        self.creeppath = thePath;
-        self.map  = theMap;
-    }
-    return self;
-}
-
--(id) init
-{
-    return ([self initWithLevel:0 andTowerSpot:nil andPath:nil andMap:nil andCoins:0]);
-}
+//-(id) initWithLevel:(int)theLevel andTowerSpot:(NSMutableArray *)theTowerS andPath:(CGMutablePathRef)thePath andMap:(SKSpriteNode *)theMap andCoins: (int)theCoins
+//{
+//    
+//    self = [super init];
+//    if(self)
+//    {
+//        self.level = theLevel;
+//        self.towerSpot = theTowerS;
+//        self.creeppath = thePath;
+//        self.map  = theMap;
+//    }
+//    return self;
+//}
+//
+//-(id) init
+//{
+//    return ([self initWithLevel:0 andTowerSpot:nil andPath:nil andMap:nil andCoins:0]);
+//}
 
 +(Terrain*) initWithLevel:(int) theLevel
 {

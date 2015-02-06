@@ -23,8 +23,7 @@
 		614100011A81C8700074EE9F /* LevelWave.m in Sources */ = {isa = PBXBuildFile; fileRef = 614100001A81C8700074EE9F /* LevelWave.m */; };
 		6141FFFE1A81AAAB0074EE9F /* Terrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 6141FFFD1A81AAAB0074EE9F /* Terrain.m */; };
 		618382971A8252330055AA3C /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 618382961A8252330055AA3C /* Player.m */; };
-		61C533181A84E42700303BBD /* terrain.txt in Resources */ = {isa = PBXBuildFile; fileRef = 61C533171A84E42700303BBD /* terrain.txt */; };
-		61C5331A1A84E45A00303BBD /* waves.txt in Resources */ = {isa = PBXBuildFile; fileRef = 61C533191A84E45A00303BBD /* waves.txt */; };
+		61C533181A84E42700303BBD /* TerrainInformation.txt in Resources */ = {isa = PBXBuildFile; fileRef = 61C533171A84E42700303BBD /* TerrainInformation.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,14 +59,16 @@
 		4FD798971A83A0FF003BA098 /* creep1_up.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = creep1_up.atlas; sourceTree = "<group>"; };
 		4FE58F711A82B061005D4837 /* Creep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Creep.h; sourceTree = "<group>"; };
 		4FE58F721A82B061005D4837 /* Creep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Creep.m; sourceTree = "<group>"; };
+		4FEF66AC1A853B6500DC8A73 /* LevelNames.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LevelNames.h; sourceTree = "<group>"; };
+		4FEF66AD1A853BA300DC8A73 /* CreepTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreepTypes.h; sourceTree = "<group>"; };
 		614100001A81C8700074EE9F /* LevelWave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelWave.m; sourceTree = "<group>"; };
 		6141FFFC1A81AAAB0074EE9F /* Terrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Terrain.h; sourceTree = "<group>"; };
 		6141FFFD1A81AAAB0074EE9F /* Terrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Terrain.m; sourceTree = "<group>"; };
 		6141FFFF1A81C8700074EE9F /* LevelWave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelWave.h; sourceTree = "<group>"; };
 		618382951A8252330055AA3C /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		618382961A8252330055AA3C /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
-		61C533171A84E42700303BBD /* terrain.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = terrain.txt; sourceTree = "<group>"; };
-		61C533191A84E45A00303BBD /* waves.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = waves.txt; sourceTree = "<group>"; };
+		61C533171A84E42700303BBD /* TerrainInformation.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TerrainInformation.txt; sourceTree = "<group>"; };
+		61C533191A84E45A00303BBD /* WavesInformation.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = WavesInformation.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,15 +116,15 @@
 				4F4A8BE81A7FD8A4009F36FF /* Level.m */,
 				4FE58F711A82B061005D4837 /* Creep.h */,
 				4FE58F721A82B061005D4837 /* Creep.m */,
-				4F017C391A81259D00E5F18A /* BitMasks.h */,
 				618382951A8252330055AA3C /* Player.h */,
 				618382961A8252330055AA3C /* Player.m */,
 				6141FFFC1A81AAAB0074EE9F /* Terrain.h */,
 				6141FFFD1A81AAAB0074EE9F /* Terrain.m */,
 				6141FFFF1A81C8700074EE9F /* LevelWave.h */,
 				614100001A81C8700074EE9F /* LevelWave.m */,
-				61C533171A84E42700303BBD /* terrain.txt */,
-				61C533191A84E45A00303BBD /* waves.txt */,
+				61C533171A84E42700303BBD /* TerrainInformation.txt */,
+				61C533191A84E45A00303BBD /* WavesInformation.txt */,
+				4FEF66AE1A853BD200DC8A73 /* Definitions */,
 				4F9E910C1A7DA2EA0044962D /* Supporting Files */,
 			);
 			name = ImmuniFense;
@@ -173,6 +174,16 @@
 				4FD798971A83A0FF003BA098 /* creep1_up.atlas */,
 			);
 			name = Atlas;
+			sourceTree = "<group>";
+		};
+		4FEF66AE1A853BD200DC8A73 /* Definitions */ = {
+			isa = PBXGroup;
+			children = (
+				4F017C391A81259D00E5F18A /* BitMasks.h */,
+				4FEF66AD1A853BA300DC8A73 /* CreepTypes.h */,
+				4FEF66AC1A853B6500DC8A73 /* LevelNames.h */,
+			);
+			name = Definitions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,7 +269,7 @@
 				4FD7989A1A83A0FF003BA098 /* creep1_up.atlas in Resources */,
 				4F9E91181A7DA2EA0044962D /* Main.storyboard in Resources */,
 				4F9E911D1A7DA2EA0044962D /* LaunchScreen.xib in Resources */,
-				61C533181A84E42700303BBD /* terrain.txt in Resources */,
+				61C533181A84E42700303BBD /* TerrainInformation.txt in Resources */,
 				4F9E911A1A7DA2EA0044962D /* Images.xcassets in Resources */,
 				4FD798981A83A0FF003BA098 /* creep1_down.atlas in Resources */,
 				4FD798991A83A0FF003BA098 /* creep1_left.atlas in Resources */,
@@ -284,7 +295,7 @@
 				4FE58F731A82B061005D4837 /* Creep.m in Sources */,
 				4F9E91121A7DA2EA0044962D /* AppDelegate.m in Sources */,
 				614100011A81C8700074EE9F /* LevelWave.m in Sources */,
-				4F4A8BE91A7FD8A4009F36FF /* Level1.m in Sources */,
+				4F4A8BE91A7FD8A4009F36FF /* Level.m in Sources */,
 				618382971A8252330055AA3C /* Player.m in Sources */,
 				4F4A8BE91A7FD8A4009F36FF /* Level.m in Sources */,
 				4F9E910F1A7DA2EA0044962D /* main.m in Sources */,

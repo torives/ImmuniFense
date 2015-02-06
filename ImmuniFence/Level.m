@@ -8,11 +8,9 @@
 
 #import "Level.h"
 #import "BitMasks.h"
-
-//CLASSES AINDA NÃO IMPLEMENTADAS
-//#import "Wave.h"
-//#import "Terrain.h"
-//#import "Creep.h"
+#import "LevelWave.h"
+#import "Terrain.h"
+#import "Creep.h"
 //#import "Tower.h"
 
 //TODO  implementar o ingame menu
@@ -37,7 +35,7 @@
     
     int health;
     int currentWave;
-    LevelWaves *levelOneWaves;
+    LevelWave *levelOneWaves;
     NSMutableArray *towerSpots;
     NSMutableArray *activeCreeps;
     CGMutablePathRef *path;
@@ -105,7 +103,7 @@
     path = levelOneTerrain.path; //guarda o path pra usar com a velocidade diferente de cada creep
     
     //pega a referencia para as waves da fase
-    levelOneWaves = [LevelWaves waveForLevel: LevelOne];
+    levelOneWaves = [LevelWave wavesForLevel: LevelOne];
     //descobre o tempo de espera para chamar a próxima wave
     currentWaveCooldown = [levelOneWaves cooldownForWave: currentWave];
     //inicializa o vetor de creeps ativas
