@@ -24,27 +24,79 @@
     level = lv;
 }
 
--(NSMutableArray*) initWithWave:(int) wave
-{
-    NSMutableArray* creeps = [[NSMutableArray alloc]init];
-    //Ler do arquivo com base no level e na wave e criar os creeps correspondentes
-    Creep alpha = [[Creep alloc]initWithType:1];
-    [creeps addObject:alpha];
-    
-    
-    return creeps;
-}
+//+(int**) Creeponary
+//{
+////    NSArray *keys = [NSArray arrayWithObjects:@"1", @"2",@"3", nil];
+////    NSArray *values = [NSArray arrayWithObjects:@"0", @"0",@"0", nil];
+////    NSDictionary *novo = [NSDictionary dictionaryWithObjects:values
+////                                                     forKeys:keys];
+////    for (id key in novo) {
+////        NSLog(@"key: %@, value: %@", key, [novo objectForKey:key]);
+////    }
+////    
+//    return novo;
+//}
 
--(NSMutableArray*) initWithWave:(int)wave andCreeps(int)theCreeps
+-(NSMutableArray*) CreateWave:(int) wave
 {
-    NSMutableArray* creeps = [[NSMutableArray alloc]init];
+    int *todo = (int*)malloc(sizeof(int));
+    
+    NSMutableArray *creeps = [[NSMutableArray alloc]init];
+    
+    int wv = 0;
+    int lv = 0;
+    
+    int type = 0;
+    int number = 0;
+    char temp[200];
     //Ler do arquivo com base no level e na wave e criar os creeps correspondentes
-    for(;theCreeps<0;theCreeps--)
+    
+    NSString * string = [[NSBundle mainBundle] pathForResource:@"waves" ofType:@".txt"];
+    
+    FILE* waves = fopen([string UTF8String], "r");
+    
+    while(fscanf(waves, "%d", &lv))
     {
-        Creep alpha = [[Creep alloc]initWithType:1];
-        [creeps addObject:alpha];
+        
+        if(lv == level)
+        {
+            fscanf(waves, "%d", &wv);
+            if(wv == wave)
+            {
+                
+                fscanf(waves, "%d", &type);
+                while(type != 0)
+                {
+                    fscanf(waves, "%d", &number);
+                    todo[type] = number;
+                }
+            }
+        }
+        else{
+            fscanf(waves, " %[^\n]", temp);
+        }
+    }
+    
+    //Carrega os Creeps em um vetor de quantidades
+    
+    //Começa a criação dos creeps
+    
+
+    int i = 0;
+    
+    while (i < 30)
+    {
+        for(int j = 0; j < todo[i]; j++)
+        {
+            if (i!=0) {
+                Creep* novo = [Creep creepOfType: i];
+                [creeps addObject:novo];
+            }
+            
+        }
     }
     
     return creeps;
 }
+
 @end

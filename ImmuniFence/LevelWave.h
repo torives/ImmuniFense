@@ -12,7 +12,7 @@
 
 -(id) init;
 -(id) initWithLevel: (int) lv;
--(NSMutableArray*) initWithWave:(int)wave;
--(NSMutableArray*) initWithWave:(int)wave andCreeps(int)theCreeps;
+-(NSMutableArray*) CreateWave:(int)wave;
++(NSDictionary*) Creeponary;
 
 @end
