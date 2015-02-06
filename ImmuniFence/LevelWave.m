@@ -17,11 +17,13 @@
 -(id) init
 {
     level = 0;
+    return self;
 }
 
 -(id) initWithLevel: (int) lv
 {
     level = lv;
+    return self;
 }
 
 //+(int**) Creeponary

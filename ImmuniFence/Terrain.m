@@ -11,15 +11,15 @@
 @implementation Terrain
 
 
--(id) initWithLevel:(int)theLevel andTowerSpot:(NSMutableArray *)theTowerS andPath:(CGMutablePathRef *)thePath andMap:(SKSpriteNode *)theMap andCoins: (int)theCoins
+-(id) initWithLevel:(int)theLevel andTowerSpot:(NSMutableArray *)theTowerS andPath:(CGMutablePathRef)thePath andMap:(SKSpriteNode *)theMap andCoins: (int)theCoins
 {
     
     self = [super init];
     if(self)
     {
-        self.name = theName;
+        self.level = theLevel;
         self.towerSpot = theTowerS;
-        self.path = thePath;
+        self.creeppath = thePath;
         self.map  = theMap;
     }
     return self;
@@ -32,7 +32,6 @@
 
 +(Terrain*) initWithLevel:(int) theLevel
 {
-    NSString* name = @"";
     int xt = 0;
     int yt = 0;
     int xp = 0;
@@ -83,6 +82,7 @@
             fscanf(terrain, " %[^\n]", temp);
         }
     }
+    novo.map = mapBackground;
     
     fclose(terrain);
     

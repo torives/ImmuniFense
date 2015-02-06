@@ -19,8 +19,15 @@
 @property int coins;
 
 
--(id) initWithLevel:(int)theLevel andTowerSpot:(NSMutableArray *)theTowerS andPath:(CGMutablePathRef *)thePath andMap:(SKSpriteNode *)theMap andCoins: (int)theCoins;
+-(id) initWithLevel:(int)theLevel andTowerSpot:(NSMutableArray *)theTowerS andPath:(CGMutablePathRef)thePath andMap:(SKSpriteNode *)theMap andCoins: (int)theCoins;
 
 +(Terrain*) initWithLevel:(int) theLevel;
+
+
+//O documento terrain.txt é o documento do qual os terrenos serão carregados
+//Cada linha corresponde a um terreno
+//O primeiro número corresponde ao level do terreno
+//os numeros seguintes são lidos em pares, inicialmente os pares são as coordenadas dos pontos seguidos pelos creeps ate que o par 0 0 seja lido
+//em seguida de modo similar são lidos os pontos de construção das torres, ate que o par 0 0 seja lido
 
 @end
