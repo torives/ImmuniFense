@@ -71,7 +71,7 @@
     //    [tower runAction:[SKAction repeatActionForever:rotationTower]];
     
     return tower;
-    
+    // 
 }
 
 // método para transformar vetores em radianos.
