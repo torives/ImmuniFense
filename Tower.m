@@ -1,21 +1,21 @@
 //
-//  TowerNode.m
+//  Tower.m
 //  ImmuniFense
 //
-//  Created by Victor Yves Crispim on 01/5/15.
-//  Copyright (c) 2015 Victor Yves Crispim. All rights reserved.
+//  Created by Mayara Coelho on 2/6/15.
+//  Copyright (c) 2015 Group 9. All rights reserved.
 //
 
-#import "TowerNode.h"
+#import "Tower.h"
 #import "Creep.h"
 #import "BitMasks.h"
 #import "Level.h"
 
 // falta ver os sprites das torres.
-@implementation BulletNode
+@implementation Bullet
 
 +(instancetype)bulletOfType:(int)type withColor:(UIColor *)color {
-    BulletNode *bullet;
+    Bullet *bullet;
     bullet = [self spriteNodeWithImageNamed:[NSString stringWithFormat:@"bullet_%d", type]];
     bullet.color = color;
     //  bullet.colorBlendFactor = 0.8;
@@ -30,12 +30,12 @@
     return bullet;
 }
 
+
 @end
+@implementation Tower
 
-@implementation TowerNode
-
-+(instancetype) createTowerOfType:(TowerType)type withLevel:(NSInteger)level{
-    TowerNode *tower;
++(instancetype) createTowerOfType:(Tower*)type withLevel:(NSInteger)level{
+    Tower *tower;
     // O level é o imutável, logo deve ser o primero e o typo é o sprite da tower.
     tower = [self spriteNodeWithImageNamed:[NSString stringWithFormat:@"turret-%d-%d",level, type]];
     NSLog(@"level %d",level);
@@ -71,7 +71,7 @@
     //    [tower runAction:[SKAction repeatActionForever:rotationTower]];
     
     return tower;
-    // 
+    //
 }
 
 // método para transformar vetores em radianos.
@@ -104,7 +104,7 @@ static inline float Rotation(CGPoint p)
 -(void) shootAtTarget:(SKSpriteNode*)target {
     float angle = [self getRotationWithPoint:self.position endPoint:target.position];
     
-    SKSpriteNode *bullet = [BulletNode bulletOfType:_bulletType withColor: self.bullet.color];
+    SKSpriteNode *bullet = [Bullet bulletOfType:_bulletType withColor: self.bullet.color];
     bullet.zRotation = angle;
     [self addChild:bullet];
     CGPoint creepPoint = [self convertPoint:target.position fromNode:self.parent];
@@ -145,6 +145,8 @@ static inline float Rotation(CGPoint p)
 }
 
 
-
-
 @end
+
+
+
+

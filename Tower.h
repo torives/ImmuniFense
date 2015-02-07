@@ -1,10 +1,12 @@
 //
-//  TowerNode.h
+//  Tower.h
 //  ImmuniFense
 //
-//  Created by Victor Yves Crispim on 01/5/15.
-//  Copyright (c) 2015 Victor Yves Crispim. All rights reserved.
+//  Created by Mayara Coelho on 2/6/15.
+//  Copyright (c) 2015 Group 9. All rights reserved.
 //
+
+#import <Foundation/Foundation.h>
 
 #import <SpriteKit/SpriteKit.h>
 
@@ -17,9 +19,9 @@ typedef NS_ENUM(NSUInteger, TowerType) {
     TowerFive
 };
 
-@interface TowerNode : SKSpriteNode
+@interface Tower : SKSpriteNode
 
-+(instancetype) createTowerOfType:(TowerType)type withLevel:(NSInteger)level;
++(instancetype) createTowerOfType:(Tower*)type withLevel:(NSInteger)level;
 
 @property (nonatomic, strong) NSMutableArray *targets;
 @property (nonatomic) int damage;
@@ -33,7 +35,7 @@ typedef NS_ENUM(NSUInteger, TowerType) {
 //
 @end
 
-@interface TowerNode ()
+@interface Tower ()
 
 // método para atirar nos creeps que ultrapassam o raio da tower.
 -(void) shootAtTarget:(SKSpriteNode*)target;
@@ -43,11 +45,9 @@ typedef NS_ENUM(NSUInteger, TowerType) {
 -(void) damageEnemy:(SKSpriteNode*) enemy onKill:(void (^)()) killHandler;
 @end
 
-@interface BulletNode : SKSpriteNode
+@interface Bullet : SKSpriteNode
 
 
 //método que cria a bala.
 +(instancetype) bulletOfType:(int) type withColor:(UIColor*) color;
-
-
 @end
