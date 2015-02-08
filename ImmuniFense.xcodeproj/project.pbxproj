@@ -20,6 +20,7 @@
 		4FD798991A83A0FF003BA098 /* creep1_left.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4FD798961A83A0FF003BA098 /* creep1_left.atlas */; };
 		4FD7989A1A83A0FF003BA098 /* creep1_up.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4FD798971A83A0FF003BA098 /* creep1_up.atlas */; };
 		4FE58F731A82B061005D4837 /* Creep.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE58F721A82B061005D4837 /* Creep.m */; };
+		6101CD0B1A86E7D5002C0D63 /* Tower.m in Sources */ = {isa = PBXBuildFile; fileRef = 6101CD0A1A86E7D5002C0D63 /* Tower.m */; };
 		614100011A81C8700074EE9F /* LevelWave.m in Sources */ = {isa = PBXBuildFile; fileRef = 614100001A81C8700074EE9F /* LevelWave.m */; };
 		6141FFFE1A81AAAB0074EE9F /* Terrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 6141FFFD1A81AAAB0074EE9F /* Terrain.m */; };
 		618382971A8252330055AA3C /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 618382961A8252330055AA3C /* Player.m */; };
@@ -61,10 +62,13 @@
 		4FE58F721A82B061005D4837 /* Creep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Creep.m; sourceTree = "<group>"; };
 		4FEF66AC1A853B6500DC8A73 /* LevelNames.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LevelNames.h; sourceTree = "<group>"; };
 		4FEF66AD1A853BA300DC8A73 /* CreepTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreepTypes.h; sourceTree = "<group>"; };
+		6101CD091A86E7D5002C0D63 /* Tower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tower.h; sourceTree = "<group>"; };
+		6101CD0A1A86E7D5002C0D63 /* Tower.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tower.m; sourceTree = "<group>"; };
 		614100001A81C8700074EE9F /* LevelWave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelWave.m; sourceTree = "<group>"; };
 		6141FFFC1A81AAAB0074EE9F /* Terrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Terrain.h; sourceTree = "<group>"; };
 		6141FFFD1A81AAAB0074EE9F /* Terrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Terrain.m; sourceTree = "<group>"; };
 		6141FFFF1A81C8700074EE9F /* LevelWave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelWave.h; sourceTree = "<group>"; };
+		61776EE81A86E8E60077B895 /* BitMasks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitMasks.h; sourceTree = "<group>"; };
 		618382951A8252330055AA3C /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		618382961A8252330055AA3C /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
 		61C533171A84E42700303BBD /* TerrainInformation.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TerrainInformation.txt; sourceTree = "<group>"; };
@@ -122,6 +126,9 @@
 				6141FFFD1A81AAAB0074EE9F /* Terrain.m */,
 				6141FFFF1A81C8700074EE9F /* LevelWave.h */,
 				614100001A81C8700074EE9F /* LevelWave.m */,
+				6101CD091A86E7D5002C0D63 /* Tower.h */,
+				6101CD0A1A86E7D5002C0D63 /* Tower.m */,
+				61776EE81A86E8E60077B895 /* BitMasks.h */,
 				61C533171A84E42700303BBD /* TerrainInformation.txt */,
 				61C533191A84E45A00303BBD /* WavesInformation.txt */,
 				4FEF66AE1A853BD200DC8A73 /* Definitions */,
@@ -293,6 +300,7 @@
 				6141FFFE1A81AAAB0074EE9F /* Terrain.m in Sources */,
 				4F9E91151A7DA2EA0044962D /* ViewController.m in Sources */,
 				4FE58F731A82B061005D4837 /* Creep.m in Sources */,
+				6101CD0B1A86E7D5002C0D63 /* Tower.m in Sources */,
 				4F9E91121A7DA2EA0044962D /* AppDelegate.m in Sources */,
 				614100011A81C8700074EE9F /* LevelWave.m in Sources */,
 				4F4A8BE91A7FD8A4009F36FF /* Level.m in Sources */,
