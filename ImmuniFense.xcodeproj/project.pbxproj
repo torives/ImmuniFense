@@ -84,8 +84,8 @@
 		61776EE81A86E8E60077B895 /* BitMasks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitMasks.h; sourceTree = "<group>"; };
 		618382951A8252330055AA3C /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		618382961A8252330055AA3C /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
-		61C533171A84E42700303BBD /* TerrainInformation.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TerrainInformation.txt; sourceTree = "<group>"; };
-		61C533191A84E45A00303BBD /* WavesInformation.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = WavesInformation.txt; sourceTree = "<group>"; };
+		61C533171A84E42700303BBD /* TerrainInformation.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TerrainInformation.txt; path = ImmuniFence/TerrainInformation.txt; sourceTree = "<group>"; };
+		61C533191A84E45A00303BBD /* WavesInformation.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = WavesInformation.txt; path = ImmuniFence/WavesInformation.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +110,8 @@
 		4F9E91001A7DA2EA0044962D = {
 			isa = PBXGroup;
 			children = (
+				61C533171A84E42700303BBD /* TerrainInformation.txt */,
+				61C533191A84E45A00303BBD /* WavesInformation.txt */,
 				4F4A8BE51A7FD837009F36FF /* SpriteKit.framework */,
 				4F9E910B1A7DA2EA0044962D /* ImmuniFense */,
 				4F9E91251A7DA2EA0044962D /* ImmuniFenseTests */,
@@ -141,8 +143,6 @@
 				614100001A81C8700074EE9F /* LevelWave.m */,
 				6101CD091A86E7D5002C0D63 /* Tower.h */,
 				6101CD0A1A86E7D5002C0D63 /* Tower.m */,
-				61C533171A84E42700303BBD /* TerrainInformation.txt */,
-				61C533191A84E45A00303BBD /* WavesInformation.txt */,
 				4FEF66AE1A853BD200DC8A73 /* Definitions */,
 				4F9E910C1A7DA2EA0044962D /* Supporting Files */,
 			);

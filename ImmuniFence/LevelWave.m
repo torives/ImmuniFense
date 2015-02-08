@@ -60,7 +60,7 @@
     char temp[200];
     //Ler do arquivo com base no level e preencher o LevelWave
     
-    NSString * string = [[NSBundle mainBundle] pathForResource:@"Wavesinformation" ofType:@".txt"];
+    NSString * string = [[NSBundle mainBundle] pathForResource:@"WavesInformation" ofType:@".txt"];
     
     FILE* waves = fopen([string UTF8String], "r");
     
