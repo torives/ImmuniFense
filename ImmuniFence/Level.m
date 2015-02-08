@@ -11,7 +11,7 @@
 #import "LevelWave.h"
 #import "Terrain.h"
 #import "Creep.h"
-//#import "Tower.h"
+#import "Tower.h"
 
 //TODO  implementar o ingame menu
 //TODO  implementar a pausa do jogo.
@@ -21,11 +21,11 @@
 /*Declaração dos métodos privados da classe*/
 @interface Level ()
 
--(void) createHUD;
+-(void) createHud;
 -(void) addCreeps;
 -(void) updateHealthIndicator;
 -(void) updateCoinsIndicator;
--(void) discountHealth: (SKSpriteNode *) creep;
+-(void) discountHealth: (Creep *) creep;
 -(void) gameOver;
 -(void) gameWin;
 
@@ -39,7 +39,7 @@
     LevelWave *levelOneWaves;
     NSMutableArray *towerSpots;
     NSMutableArray *activeCreeps;
-    CGMutablePathRef *path;
+    CGMutablePathRef path;
     NSTimeInterval timeOfLastMove;
     //cada wave define o tempo de espera para a próxima wave
     NSTimeInterval currentWaveCooldown;
@@ -61,16 +61,15 @@
     //inicializa as variáveis da fase
     lvl->health = 20;
     lvl->currentWave = 0;
-    lvl->coins = 0;
+    
+    //se registra como delegate de contato para tratar das colisões
+    lvl.physicsWorld.contactDelegate = lvl;
     
     return lvl;
 }
 
 
 -(void) didMoveToView:(SKView *)view{
-    
-    //se registra como delegate de contato para tratar das colisões
-    self.physicsWorld.contactDelegate = self;
     
     //define o mapa da fase
     Terrain *levelOneTerrain = [Terrain initWithLevel:LevelOne];
@@ -81,7 +80,7 @@
     coins = levelOneTerrain.coins;
     
     //cria o HUD do jogo
-    [self createHUD];
+    [self createHud];
     
     //cria os placeholders para criar as torres
     //TODO conferir se esse enhanced for vai funfar
@@ -103,7 +102,7 @@
     
     //cria a ação para percorrer o caminho
     //followLine = [SKAction followPath: levelOneTerrain.path asOffset:NO orientToPath:YES duration:50];
-
+    
     path = levelOneTerrain.creepPath; //guarda o path pra usar com a velocidade diferente de cada creep
     
     //pega a referencia para as waves da fase
@@ -129,9 +128,9 @@
         
         Tower *tower = (Tower *) node;
         
-        CreepNode *target = [tower.targets objectAtIndex:0];
+        Creep *target = [tower.targets objectAtIndex:0];
         
-        if (target.health <= 0) {
+        if (target.hitPoints <= 0) {
             
             [tower.targets removeObjectAtIndex:0];
         }
@@ -153,10 +152,11 @@
     
     //confere se já passou tempo o suficiente pra próxima wave
     if (currentTime - timeOfLastMove >= currentWaveCooldown){
-
+        
+        currentWave++;
         currentWaveCooldown = [levelOneWaves cooldownForWave: currentWave];
         [self addCreeps];
-
+        
     }
     
     
@@ -165,14 +165,14 @@
 
 
 /*****************************************************
-*
-*  Métodos de SKPhysicsContactDelegate
-*
-*  Utilizados para tratar as colisões entre os nós.
-*  No caso, um creep entrando no alcance de uma torre
-*  ou um projétil de torre acertando um creep
-*
-***/
+ *
+ *  Métodos de SKPhysicsContactDelegate
+ *
+ *  Utilizados para tratar as colisões entre os nós.
+ *  No caso, um creep entrando no alcance de uma torre
+ *  ou um projétil de torre acertando um creep
+ *
+ ***/
 
 //Chamado quando dois corpos iniciam contato
 -(void) didBeginContact:(SKPhysicsContact *)contact{
@@ -206,11 +206,11 @@
         Creep *creep = (Creep *) firstBody.node;
         Tower *tower = (Tower *) secondBody.node.parent;
         
-        if (creep.health > 0) {
+        if (creep.hitPoints > 0) {
             //aplica o dano
-            creep.health -= tower.damage;
+            creep.hitPoints -= tower.damage;
             //se creep morreu
-            if (creep.health <= 0) {
+            if (creep.hitPoints <= 0) {
                 
                 //incrementa as coins
                 coins += creep.reward;
@@ -262,13 +262,13 @@
 
 
 /**************************************************
-*
-*  Métodos de UIResponder
-*
-*  Utilizados para tratar da interação do usuário
-*  com a interface do jogo
-*
-***/
+ *
+ *  Métodos de UIResponder
+ *
+ *  Utilizados para tratar da interação do usuário
+ *  com a interface do jogo
+ *
+ ***/
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     
@@ -298,10 +298,10 @@
 
 
 /***************************************
-*
-*  Métodos Auxiliares
-*
-***/
+ *
+ *  Métodos Auxiliares
+ *
+ ***/
 
 //cria os indicadores de vida e moedas
 //TODO o HUD deve ser uma classe (ou várias) específicas, para encapsular a arte
@@ -352,10 +352,10 @@
 //chamado quando um creep atravessa a linha de defesa.
 //TODO no futuro, esse método deve penalizar o jogador caso muitos creeps ultrapassem.
 //TODO conferir se é aqui mesmo que tem que liberar o CGMutablePath da memória
--(void)discountHealth: (SKSpriteNode *) creep{
+-(void)discountHealth: (Creep *) creep{
     
     //TODO tem que conferir se esse typecast aqui não vai dar merda
-    health -= (Creep *)creep.damage;
+    health -= creep.damage;
     
     //Se a vida zerar, é Game Over
     //TODO o Game Over pode ser uma chamada de função
@@ -408,7 +408,7 @@
         //OBS: quando vc manda as creeps seguirem um path, elas não precisam de uma position. Começam na inicial do path
         for (lastCreepIndex++;lastCreepIndex < activeCreeps.count; lastCreepIndex++) {
             
-            SKSpriteNode *creep = (SKSpriteNode *) [activeCreeps objectAtIndex: lastCreepIndex];
+            Creep *creep = [activeCreeps objectAtIndex: lastCreepIndex];
             
             [self addChild: creep];
             
@@ -427,18 +427,18 @@
 
 -(void) gameOver{
     
-    NSLog(@"Game Over");
-    GameOver *gameOver = [GameOver sceneWithSize:self.frame.size];
-    SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
-    [self.view presentScene:gameOver transition:transition];
+    //    NSLog(@"Game Over");
+    //    GameOver *gameOver = [GameOver sceneWithSize:self.frame.size];
+    //    SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
+    //    [self.view presentScene:gameOver transition:transition];
 }
 
 -(void) gameWin{
     
-    NSLog(@"You Win");
-    GameWin *gameWin = [GameWin sceneWithSize:self.frame.size];
-    SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
-    [self.view presentScene:gameWin transition:transition];
+    //    NSLog(@"You Win");
+    //    GameWin *gameWin = [GameWin sceneWithSize:self.frame.size];
+    //    SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
+    //    [self.view presentScene:gameWin transition:transition];
 }
 
 @end

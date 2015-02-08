@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "MainMenu.h"
 
 @interface ViewController ()
 
@@ -18,14 +19,14 @@
 {
     [super viewWillLayoutSubviews];
     
-//    SKView * skView = (SKView *)self.view;
+    SKView * view = (SKView *)self.view;
     
-//    // Create and configure the scene.
-//    SKScene * scene = [TitleScene sceneWithSize:skView.bounds.size];
-//    scene.scaleMode = SKSceneScaleModeResizeFill;
-//    
-//    // Present the scene.
-//    [SKView presentScene:scene];
+    // Create and configure the scene.
+    SKScene * mainMenu = [MainMenu sceneWithSize:view.frame.size];
+    mainMenu.scaleMode = SKSceneScaleModeResizeFill;
+    
+    // Present the scene.
+    [view presentScene:mainMenu];
 }
 
 - (BOOL)shouldAutorotate{

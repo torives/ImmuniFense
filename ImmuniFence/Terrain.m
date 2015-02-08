@@ -38,7 +38,7 @@
     char temp[200];
     SKSpriteNode *mapBackground = [[SKSpriteNode alloc]initWithImageNamed:[NSString stringWithFormat:@"Map%d",theLevel]];
     
-    NSString * terrains = [[NSBundle mainBundle] pathForResource:@"Terrainiformation" ofType:@".txt"];
+    NSString * terrains = [[NSBundle mainBundle] pathForResource:@"TerrainIformation" ofType:@".txt"];
     
     FILE* terrain = fopen([terrains UTF8String], "r");
     

@@ -51,7 +51,7 @@
         j = 30;
     }
     self.level = level;
-    self.numOfWaves = 0;
+    self.numberOfWaves = 0;
     
     int wv = 0;
     int lv = 0;
@@ -70,7 +70,7 @@
         if(lv == self.level)
         {
             fscanf(waves, "%d", &wv);//recebe a wave corrente
-            self.numOfWaves++;  //incrementa o numero de waves no level
+            self.numberOfWaves++;  //incrementa o numero de waves no level
             fscanf(waves, "%lf", &self.cooldown[wv]);//guarda o cooldown para começar essa wave
             fscanf(waves, "%d", &type);
             while(type != 5000)

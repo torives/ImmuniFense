@@ -14,7 +14,7 @@
 @property (nonatomic) int damage;
 @property (nonatomic) int hitPoints;
 @property (nonatomic) int reward;
-@property (nonatomic) NSTimeInterval velocity; //Não implementado
+@property (nonatomic) NSTimeInterval velocity;
 @property (nonatomic) CreepType type;
 @property (nonatomic) CGPoint lastPosition;
 @property (nonatomic) char direction;

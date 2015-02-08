@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4F4A8BE61A7FD837009F36FF /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F4A8BE51A7FD837009F36FF /* SpriteKit.framework */; };
-		4F4A8BE91A7FD8A4009F36FF /* Level.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4A8BE81A7FD8A4009F36FF /* Level.m */; };
 		4F9E910F1A7DA2EA0044962D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9E910E1A7DA2EA0044962D /* main.m */; };
 		4F9E91121A7DA2EA0044962D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9E91111A7DA2EA0044962D /* AppDelegate.m */; };
 		4F9E91151A7DA2EA0044962D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9E91141A7DA2EA0044962D /* ViewController.m */; };
@@ -20,6 +19,8 @@
 		4FD798991A83A0FF003BA098 /* creep1_left.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4FD798961A83A0FF003BA098 /* creep1_left.atlas */; };
 		4FD7989A1A83A0FF003BA098 /* creep1_up.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4FD798971A83A0FF003BA098 /* creep1_up.atlas */; };
 		4FE58F731A82B061005D4837 /* Creep.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE58F721A82B061005D4837 /* Creep.m */; };
+		4FED28291A87E6D000175FB0 /* MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FED28281A87E6D000175FB0 /* MainMenu.m */; };
+		4FED282A1A87E6FB00175FB0 /* Level.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4A8BE81A7FD8A4009F36FF /* Level.m */; };
 		6101CD0B1A86E7D5002C0D63 /* Tower.m in Sources */ = {isa = PBXBuildFile; fileRef = 6101CD0A1A86E7D5002C0D63 /* Tower.m */; };
 		614100011A81C8700074EE9F /* LevelWave.m in Sources */ = {isa = PBXBuildFile; fileRef = 614100001A81C8700074EE9F /* LevelWave.m */; };
 		6141FFFE1A81AAAB0074EE9F /* Terrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 6141FFFD1A81AAAB0074EE9F /* Terrain.m */; };
@@ -38,7 +39,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4F017C391A81259D00E5F18A /* BitMasks.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BitMasks.h; path = ../BitMasks.h; sourceTree = "<group>"; };
 		4F4A8BE51A7FD837009F36FF /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		4F4A8BE71A7FD8A4009F36FF /* Level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Level.h; sourceTree = "<group>"; };
 		4F4A8BE81A7FD8A4009F36FF /* Level.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Level.m; sourceTree = "<group>"; };
@@ -60,6 +60,9 @@
 		4FD798971A83A0FF003BA098 /* creep1_up.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = creep1_up.atlas; sourceTree = "<group>"; };
 		4FE58F711A82B061005D4837 /* Creep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Creep.h; sourceTree = "<group>"; };
 		4FE58F721A82B061005D4837 /* Creep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Creep.m; sourceTree = "<group>"; };
+		4FED28261A87E5FC00175FB0 /* TowerTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TowerTypes.h; sourceTree = "<group>"; };
+		4FED28271A87E6D000175FB0 /* MainMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenu.h; sourceTree = "<group>"; };
+		4FED28281A87E6D000175FB0 /* MainMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenu.m; sourceTree = "<group>"; };
 		4FEF66AC1A853B6500DC8A73 /* LevelNames.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LevelNames.h; sourceTree = "<group>"; };
 		4FEF66AD1A853BA300DC8A73 /* CreepTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreepTypes.h; sourceTree = "<group>"; };
 		6101CD091A86E7D5002C0D63 /* Tower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tower.h; sourceTree = "<group>"; };
@@ -128,7 +131,6 @@
 				614100001A81C8700074EE9F /* LevelWave.m */,
 				6101CD091A86E7D5002C0D63 /* Tower.h */,
 				6101CD0A1A86E7D5002C0D63 /* Tower.m */,
-				61776EE81A86E8E60077B895 /* BitMasks.h */,
 				61C533171A84E42700303BBD /* TerrainInformation.txt */,
 				61C533191A84E45A00303BBD /* WavesInformation.txt */,
 				4FEF66AE1A853BD200DC8A73 /* Definitions */,
@@ -145,6 +147,8 @@
 				4F9E91111A7DA2EA0044962D /* AppDelegate.m */,
 				4F9E91131A7DA2EA0044962D /* ViewController.h */,
 				4F9E91141A7DA2EA0044962D /* ViewController.m */,
+				4FED28271A87E6D000175FB0 /* MainMenu.h */,
+				4FED28281A87E6D000175FB0 /* MainMenu.m */,
 				4F9E91161A7DA2EA0044962D /* Main.storyboard */,
 				4F9E91191A7DA2EA0044962D /* Images.xcassets */,
 				4F9E911B1A7DA2EA0044962D /* LaunchScreen.xib */,
@@ -186,8 +190,9 @@
 		4FEF66AE1A853BD200DC8A73 /* Definitions */ = {
 			isa = PBXGroup;
 			children = (
-				4F017C391A81259D00E5F18A /* BitMasks.h */,
+				61776EE81A86E8E60077B895 /* BitMasks.h */,
 				4FEF66AD1A853BA300DC8A73 /* CreepTypes.h */,
+				4FED28261A87E5FC00175FB0 /* TowerTypes.h */,
 				4FEF66AC1A853B6500DC8A73 /* LevelNames.h */,
 			);
 			name = Definitions;
@@ -297,16 +302,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FED282A1A87E6FB00175FB0 /* Level.m in Sources */,
 				6141FFFE1A81AAAB0074EE9F /* Terrain.m in Sources */,
 				4F9E91151A7DA2EA0044962D /* ViewController.m in Sources */,
 				4FE58F731A82B061005D4837 /* Creep.m in Sources */,
 				6101CD0B1A86E7D5002C0D63 /* Tower.m in Sources */,
 				4F9E91121A7DA2EA0044962D /* AppDelegate.m in Sources */,
 				614100011A81C8700074EE9F /* LevelWave.m in Sources */,
-				4F4A8BE91A7FD8A4009F36FF /* Level.m in Sources */,
 				618382971A8252330055AA3C /* Player.m in Sources */,
-				4F4A8BE91A7FD8A4009F36FF /* Level.m in Sources */,
 				4F9E910F1A7DA2EA0044962D /* main.m in Sources */,
+				4FED28291A87E6D000175FB0 /* MainMenu.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,7 +466,7 @@
 				INFOPLIST_FILE = ImmuniFenceTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = ImmuniFenseTests;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ImmuniFence.app/ImmuniFence";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ImmuniFense.app/ImmuniFense";
 			};
 			name = Debug;
 		};
@@ -476,7 +481,7 @@
 				INFOPLIST_FILE = ImmuniFenceTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = ImmuniFenseTests;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ImmuniFence.app/ImmuniFence";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ImmuniFense.app/ImmuniFense";
 			};
 			name = Release;
 		};

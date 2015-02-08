@@ -7,17 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
 #import <SpriteKit/SpriteKit.h>
-
-// enum dos tipos das torres.
-typedef NS_ENUM(NSUInteger, TowerType) {
-    TowerOne,
-    TowerTwo,
-    TowerThree,
-    TowerFour,
-    TowerFive
-};
+#import "TowerTypes.h"
 
 @interface Tower : SKSpriteNode
 
@@ -27,10 +18,15 @@ typedef NS_ENUM(NSUInteger, TowerType) {
 @property (nonatomic) int damage;
 @property (nonatomic) int level;
 @property (nonatomic) int bulletType;
+@property (nonatomic) NSTimeInterval fireRate;
+@property (nonatomic) NSTimeInterval lastShot;
+
+
+//Acho que são variáveis privadas
 @property (nonatomic, strong) SKSpriteNode *bullet;
 @property (nonatomic, strong) SKSpriteNode *tower;
 
-@property (nonatomic) NSTimeInterval lastShot;
+
 
 //
 @end

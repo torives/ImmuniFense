@@ -11,7 +11,7 @@
 @interface LevelWave : NSObject
 
 @property int** waves;
-@property int numOfWaves;
+@property int numberOfWaves;
 @property int level;
 @property double* cooldown;
 
