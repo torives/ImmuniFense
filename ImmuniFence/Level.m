@@ -79,6 +79,7 @@
     
     coins = levelOneTerrain.coins;
     
+    NSLog(@"terminou terreno");
     //cria o HUD do jogo
     [self createHud];
     

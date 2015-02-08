@@ -36,9 +36,9 @@
     CGPoint point = CGPointMake(xt, yt);
     Terrain* novo = [[Terrain alloc]init];
     char temp[200];
-    SKSpriteNode *mapBackground = [[SKSpriteNode alloc]initWithImageNamed:[NSString stringWithFormat:@"Map%d",theLevel]];
+    SKSpriteNode *mapBackground = [[SKSpriteNode alloc]initWithImageNamed:[NSString stringWithFormat:@"map%d.jpg",theLevel]];
     
-    NSString * terrains = [[NSBundle mainBundle] pathForResource:@"TerrainIformation" ofType:@".txt"];
+    NSString * terrains = [[NSBundle mainBundle] pathForResource:@"TerrainInformation" ofType:@".txt"];
     
     FILE* terrain = fopen([terrains UTF8String], "r");
     
