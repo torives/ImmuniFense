@@ -8,166 +8,108 @@
 
 #import "LevelWave.h"
 #import "Creep.h"
+#define MaxCreepTypes 30
+#define MaxWaves 20
 
-@interface Wave : NSObject
+@implementation LevelWave
 
-@property (nonatomic) NSMutableArray *tiposCreep;
-@property (nonatomic) NSTimeInterval cooldown;
-
-@end
-
-//@implementation Wave
-//
-//-(id) init{
-//    
-//    Wave* newWave = [[Wave alloc] init];
-//
+//+(int**) Creeponary
+//{
+////    NSArray *keys = [NSArray arrayWithObjects:@"1", @"2",@"3", nil];
+////    NSArray *values = [NSArray arrayWithObjects:@"0", @"0",@"0", nil];
+////    NSDictionary *novo = [NSDictionary dictionaryWithObjects:values
+////                                                     forKeys:keys];
+////    for (id key in novo) {
+////        NSLog(@"key: %@, value: %@", key, [novo objectForKey:key]);
+////    }
+////
+//    return novo;
 //}
-//
-//@end
 
 
-@implementation LevelWave{
-    
-    NSMutableArray *wavesArray;
-}
-
-
-+(LevelWave *) wavesForLevel:(LevelName)level{
-    
-    char auxChar;
-    int auxInt;
-    
-    LevelWave *waveInfo = [[LevelWave alloc] init];
-    
-    waveInfo->wavesArray = [[NSMutableArray alloc] init];
-    
-    NSString * string = [[NSBundle mainBundle]
-                         pathForResource:@"WavesInformation" ofType:@".txt"];
-    
-    FILE* wavesFile = fopen([string UTF8String], "r");
-    
-    while(fscanf(wavesFile, " %c", &auxChar)){
-        
-        if (auxChar == 'L'){
-        
-            auxInt = getchar();
-            if (auxInt == level){
-                
-                int num_waves = getchar();
-                
-                for (int i = 0; i < num_waves; i++) {
-                    
-                    Wave * newWave = [[Wave alloc]init];
-                    
-                    fscanf(wavesFile, "%c", &auxChar);
-                    
-                    while (auxChar != 'C') {
-                    
-                        fscanf(wavesFile, "%d", &auxInt);
-                        [newWave.tiposCreep addObject: [NSNumber numberWithInt:auxInt]];
-
-                    }
-                }
-            }
-        }
-    }
-    
-    return waveInfo;
-}
-
-
--(int) numberOfWaves{
-    
-    return wavesArray.count;
-    
-}
-
--(NSTimeInterval) cooldownForWave: (int) wave{
-
-    Wave* waveInfo = (Wave*)[wavesArray objectAtIndex:wave];
-    return waveInfo.cooldown;
-    
-}
-
--(NSMutableArray *) createCreepsForWave: (int) wave{
-    
-}
-
-
-
--(NSMutableArray*) CreateWave:(int) wave
+-(id) initWithLevel:(int) level
 {
-    int *todo = (int*)malloc(sizeof(int));
     
-    NSMutableArray *creeps = [[NSMutableArray alloc]init];
+    //Criação do espaço necessario para guardar todos os valores
+    self.waves = (int**)malloc(20*sizeof(int*));
+    self.cooldown = (double*)malloc(20*sizeof(double));
+    for(int n = 20;n>0;n--)
+    {
+        self.waves[n-1] = (int*)malloc(30*sizeof(int));
+    }
+    int i = 20;
+    int j = 30;
+    while(i>0)
+    {
+        while(j>0)
+        {
+            self.waves[i-1][j-1] = 0;
+            j--;
+        }
+        self.cooldown[i-1] = 0.0;
+        i--;
+        j = 30;
+    }
+    self.level = level;
+    self.numOfWaves = 0;
     
     int wv = 0;
     int lv = 0;
-    
     int type = 0;
     int number = 0;
     char temp[200];
-    //Ler do arquivo com base no level e na wave e criar os creeps correspondentes
+    //Ler do arquivo com base no level e preencher o LevelWave
     
-    NSString * string = [[NSBundle mainBundle] pathForResource:@"waves" ofType:@".txt"];
+    NSString * string = [[NSBundle mainBundle] pathForResource:@"Wavesinformation" ofType:@".txt"];
     
     FILE* waves = fopen([string UTF8String], "r");
     
     while(fscanf(waves, "%d", &lv))
     {
         
-        if(lv == level)
+        if(lv == self.level)
         {
-            fscanf(waves, "%d", &wv);
-            if(wv == wave)
+            fscanf(waves, "%d", &wv);//recebe a wave corrente
+            self.numOfWaves++;  //incrementa o numero de waves no level
+            fscanf(waves, "%lf", &self.cooldown[wv]);//guarda o cooldown para começar essa wave
+            fscanf(waves, "%d", &type);
+            while(type != 5000)
             {
-                
+                fscanf(waves, "%d", &number);
+                self.waves[wv][type] = number;//guarda o numero de creeps de cada tipo em cada wave
                 fscanf(waves, "%d", &type);
-                while(type != 0)
-                {
-                    fscanf(waves, "%d", &number);
-                    todo[type] = number;
-                }
             }
         }
+        
         else{
             fscanf(waves, " %[^\n]", temp);
         }
     }
+    fclose(waves);
     
-    //Carrega os Creeps em um vetor de quantidades
-    
-    //Começa a criação dos creeps
-    
+    return self;
+}
 
-    int i = 0;
-    
-    while (i < 30)
+-(NSMutableArray*) createCreepsForWave:(int)wave
+{
+    NSMutableArray *creeps = [[NSMutableArray alloc]init];
+    for(int j = 0; j < 30; j++)
     {
-        for(int j = 0; j < todo[i]; j++)
+        while(self.waves[wave][j]!=0)
         {
-            if (i!=0) {
-                Creep* novo = [Creep creepOfType: i];
-                [creeps addObject:novo];
-            }
-            
+            Creep* novo = [Creep creepOfType: j];
+            [creeps addObject:novo];
+            self.waves[wave][j]--;
         }
     }
     
     return creeps;
 }
 
-//+(int**) Creeponary
-//{
-//    NSArray *keys = [NSArray arrayWithObjects:@"1", @"2",@"3", nil];
-//    NSArray *values = [NSArray arrayWithObjects:@"0", @"0",@"0", nil];
-//    NSDictionary *novo = [NSDictionary dictionaryWithObjects:values
-//                                                     forKeys:keys];
-//    for (id key in novo) {
-//        NSLog(@"key: %@, value: %@", key, [novo objectForKey:key]);
-//    }
-//
-//    return novo;
-//}
+-(NSTimeInterval) cooldownForWave:(int)wave
+{
+    return self.cooldown[wave];
+}
+
 @end
+
