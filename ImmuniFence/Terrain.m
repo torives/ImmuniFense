@@ -35,6 +35,7 @@
     int coins = 0;
     CGPoint point = CGPointMake(xt, yt);
     Terrain* novo = [[Terrain alloc]init];
+    novo.towerSpot = [NSMutableArray alloc];
     char temp[200];
     SKSpriteNode *mapBackground = [[SKSpriteNode alloc]initWithImageNamed:[NSString stringWithFormat:@"map%d.jpg",theLevel]];
     
