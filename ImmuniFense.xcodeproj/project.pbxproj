@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4F4A8BE61A7FD837009F36FF /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F4A8BE51A7FD837009F36FF /* SpriteKit.framework */; };
+		4F7FD97A1A881DC200989CD0 /* WavesInformation.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4F7FD9791A881DC200989CD0 /* WavesInformation.txt */; };
 		4F9E910F1A7DA2EA0044962D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9E910E1A7DA2EA0044962D /* main.m */; };
 		4F9E91121A7DA2EA0044962D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9E91111A7DA2EA0044962D /* AppDelegate.m */; };
 		4F9E91151A7DA2EA0044962D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9E91141A7DA2EA0044962D /* ViewController.m */; };
@@ -47,6 +48,7 @@
 		4F4A8BE51A7FD837009F36FF /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		4F4A8BE71A7FD8A4009F36FF /* Level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Level.h; sourceTree = "<group>"; };
 		4F4A8BE81A7FD8A4009F36FF /* Level.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Level.m; sourceTree = "<group>"; };
+		4F7FD9791A881DC200989CD0 /* WavesInformation.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = WavesInformation.txt; path = ImmuniFence/WavesInformation.txt; sourceTree = "<group>"; };
 		4F9E91091A7DA2EA0044962D /* ImmuniFense.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImmuniFense.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F9E910D1A7DA2EA0044962D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4F9E910E1A7DA2EA0044962D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -85,7 +87,6 @@
 		618382951A8252330055AA3C /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		618382961A8252330055AA3C /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
 		61C533171A84E42700303BBD /* TerrainInformation.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TerrainInformation.txt; path = ImmuniFence/TerrainInformation.txt; sourceTree = "<group>"; };
-		61C533191A84E45A00303BBD /* WavesInformation.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = WavesInformation.txt; path = ImmuniFence/WavesInformation.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,8 +111,8 @@
 		4F9E91001A7DA2EA0044962D = {
 			isa = PBXGroup;
 			children = (
+				4F7FD9791A881DC200989CD0 /* WavesInformation.txt */,
 				61C533171A84E42700303BBD /* TerrainInformation.txt */,
-				61C533191A84E45A00303BBD /* WavesInformation.txt */,
 				4F4A8BE51A7FD837009F36FF /* SpriteKit.framework */,
 				4F9E910B1A7DA2EA0044962D /* ImmuniFense */,
 				4F9E91251A7DA2EA0044962D /* ImmuniFenseTests */,
@@ -307,6 +308,7 @@
 				4F9E91181A7DA2EA0044962D /* Main.storyboard in Resources */,
 				4F9E911D1A7DA2EA0044962D /* LaunchScreen.xib in Resources */,
 				4FED28371A87F6E300175FB0 /* health_hud.png in Resources */,
+				4F7FD97A1A881DC200989CD0 /* WavesInformation.txt in Resources */,
 				4FED28321A87F33B00175FB0 /* launch_screen.jpg in Resources */,
 				61C533181A84E42700303BBD /* TerrainInformation.txt in Resources */,
 				4F9E911A1A7DA2EA0044962D /* Images.xcassets in Resources */,

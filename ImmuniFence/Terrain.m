@@ -35,7 +35,7 @@
     int coins = 0;
     CGPoint point = CGPointMake(xt, yt);
     Terrain* novo = [[Terrain alloc]init];
-    novo.towerSpot = [NSMutableArray alloc];
+    novo.towerSpot = [[NSMutableArray alloc] init];
     char temp[200];
     SKSpriteNode *mapBackground = [[SKSpriteNode alloc]initWithImageNamed:[NSString stringWithFormat:@"map%d.jpg",theLevel]];
     
@@ -43,8 +43,9 @@
     
     FILE* terrain = fopen([terrains UTF8String], "r");
     
-    while(fscanf(terrain, "%d", &lv))
+    while(!feof(terrain))
     {
+        fscanf(terrain, "%d", &lv);
         novo.level = lv;
         if(novo.level == theLevel)
         {
@@ -78,7 +79,6 @@
                 fscanf(terrain, "%d", &yt);
                 //printf("%d%d",xt,yt);
             }
-            break;
         }
         else{
             fscanf(terrain, " %[^\n]", temp);

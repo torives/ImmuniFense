@@ -64,9 +64,9 @@
     
     FILE* waves = fopen([string UTF8String], "r");
     
-    while(fscanf(waves, "%d", &lv))
+    while(!feof(waves))
     {
-        
+        fscanf(waves, "%d", &lv);
         if(lv == self.level)
         {
             fscanf(waves, "%d", &wv);//recebe a wave corrente
