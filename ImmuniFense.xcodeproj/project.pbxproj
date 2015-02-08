@@ -21,6 +21,8 @@
 		4FE58F731A82B061005D4837 /* Creep.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE58F721A82B061005D4837 /* Creep.m */; };
 		4FED28291A87E6D000175FB0 /* MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FED28281A87E6D000175FB0 /* MainMenu.m */; };
 		4FED282A1A87E6FB00175FB0 /* Level.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F4A8BE81A7FD8A4009F36FF /* Level.m */; };
+		4FED28301A87F2FE00175FB0 /* main_menu.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4FED282F1A87F2FE00175FB0 /* main_menu.jpg */; };
+		4FED28321A87F33B00175FB0 /* launch_screen.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4FED28311A87F33B00175FB0 /* launch_screen.jpg */; };
 		6101CD0B1A86E7D5002C0D63 /* Tower.m in Sources */ = {isa = PBXBuildFile; fileRef = 6101CD0A1A86E7D5002C0D63 /* Tower.m */; };
 		614100011A81C8700074EE9F /* LevelWave.m in Sources */ = {isa = PBXBuildFile; fileRef = 614100001A81C8700074EE9F /* LevelWave.m */; };
 		6141FFFE1A81AAAB0074EE9F /* Terrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 6141FFFD1A81AAAB0074EE9F /* Terrain.m */; };
@@ -63,6 +65,8 @@
 		4FED28261A87E5FC00175FB0 /* TowerTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TowerTypes.h; sourceTree = "<group>"; };
 		4FED28271A87E6D000175FB0 /* MainMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenu.h; sourceTree = "<group>"; };
 		4FED28281A87E6D000175FB0 /* MainMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenu.m; sourceTree = "<group>"; };
+		4FED282F1A87F2FE00175FB0 /* main_menu.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = main_menu.jpg; sourceTree = "<group>"; };
+		4FED28311A87F33B00175FB0 /* launch_screen.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = launch_screen.jpg; sourceTree = "<group>"; };
 		4FEF66AC1A853B6500DC8A73 /* LevelNames.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LevelNames.h; sourceTree = "<group>"; };
 		4FEF66AD1A853BA300DC8A73 /* CreepTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreepTypes.h; sourceTree = "<group>"; };
 		6101CD091A86E7D5002C0D63 /* Tower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tower.h; sourceTree = "<group>"; };
@@ -150,6 +154,8 @@
 				4FED28271A87E6D000175FB0 /* MainMenu.h */,
 				4FED28281A87E6D000175FB0 /* MainMenu.m */,
 				4F9E91161A7DA2EA0044962D /* Main.storyboard */,
+				4FED282F1A87F2FE00175FB0 /* main_menu.jpg */,
+				4FED28311A87F33B00175FB0 /* launch_screen.jpg */,
 				4F9E91191A7DA2EA0044962D /* Images.xcassets */,
 				4F9E911B1A7DA2EA0044962D /* LaunchScreen.xib */,
 				4F9E910D1A7DA2EA0044962D /* Info.plist */,
@@ -279,8 +285,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FD7989A1A83A0FF003BA098 /* creep1_up.atlas in Resources */,
+				4FED28301A87F2FE00175FB0 /* main_menu.jpg in Resources */,
 				4F9E91181A7DA2EA0044962D /* Main.storyboard in Resources */,
 				4F9E911D1A7DA2EA0044962D /* LaunchScreen.xib in Resources */,
+				4FED28321A87F33B00175FB0 /* launch_screen.jpg in Resources */,
 				61C533181A84E42700303BBD /* TerrainInformation.txt in Resources */,
 				4F9E911A1A7DA2EA0044962D /* Images.xcassets in Resources */,
 				4FD798981A83A0FF003BA098 /* creep1_down.atlas in Resources */,
