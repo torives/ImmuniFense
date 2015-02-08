@@ -32,6 +32,7 @@
     int xp = 0;
     int yp = 0;
     int lv = 0;
+    int coins = 0;
     CGPoint point = CGPointMake(xt, yt);
     Terrain* novo = [[Terrain alloc]init];
     char temp[200];
@@ -46,6 +47,8 @@
         novo.level = lv;
         if(novo.level == theLevel)
         {
+            fscanf(terrain, "%d", &coins);
+            novo.coins = coins;
             novo.creepPath = CGPathCreateMutable();
             fscanf(terrain, "%d", &xp);
             fscanf(terrain, "%d", &yp);

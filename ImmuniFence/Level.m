@@ -35,6 +35,7 @@
     
     int health;
     int currentWave;
+    int coins;
     LevelWave *levelOneWaves;
     NSMutableArray *towerSpots;
     NSMutableArray *activeCreeps;
@@ -60,6 +61,9 @@
     //inicializa as variáveis da fase
     lvl->health = 20;
     lvl->currentWave = 0;
+    lvl->coins = 0;
+    
+    return lvl;
 }
 
 
@@ -69,7 +73,7 @@
     self.physicsWorld.contactDelegate = self;
     
     //define o mapa da fase
-    Terrain *levelOneTerrain = [Terrain terrainForLevel: LevelOne];
+    Terrain *levelOneTerrain = [Terrain initWithLevel:LevelOne];
     SKSpriteNode* map = levelOneTerrain.map;
     map.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     [self addChild: map];
@@ -81,7 +85,7 @@
     
     //cria os placeholders para criar as torres
     //TODO conferir se esse enhanced for vai funfar
-    towerSpots = levelOneTerrain.towerSpots;
+    towerSpots = levelOneTerrain.towerSpot;
     for ( NSValue *value in towerSpots) {
         
         //NSValue *getPoint = [towerSpots objectAtIndex:i];
@@ -100,10 +104,10 @@
     //cria a ação para percorrer o caminho
     //followLine = [SKAction followPath: levelOneTerrain.path asOffset:NO orientToPath:YES duration:50];
 
-    path = levelOneTerrain.path; //guarda o path pra usar com a velocidade diferente de cada creep
+    path = levelOneTerrain.creepPath; //guarda o path pra usar com a velocidade diferente de cada creep
     
     //pega a referencia para as waves da fase
-    levelOneWaves = [LevelWave wavesForLevel: LevelOne];
+    levelOneWaves = [[LevelWave alloc]initWithLevel: LevelOne];
     //descobre o tempo de espera para chamar a próxima wave
     currentWaveCooldown = [levelOneWaves cooldownForWave: currentWave];
     //inicializa o vetor de creeps ativas
