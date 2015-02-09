@@ -13,19 +13,6 @@
 
 @implementation LevelWave
 
-//+(int**) Creeponary
-//{
-////    NSArray *keys = [NSArray arrayWithObjects:@"1", @"2",@"3", nil];
-////    NSArray *values = [NSArray arrayWithObjects:@"0", @"0",@"0", nil];
-////    NSDictionary *novo = [NSDictionary dictionaryWithObjects:values
-////                                                     forKeys:keys];
-////    for (id key in novo) {
-////        NSLog(@"key: %@, value: %@", key, [novo objectForKey:key]);
-////    }
-////
-//    return novo;
-//}
-
 
 -(id) initWithLevel:(int) level
 {
@@ -72,11 +59,17 @@
             fscanf(waves, "%d", &wv);//recebe a wave corrente
             self.numberOfWaves++;  //incrementa o numero de waves no level
             fscanf(waves, "%lf", &self.cooldown[wv]);//guarda o cooldown para começar essa wave
+            
+            printf("%lf\n",self.cooldown[wv]);
+            
             fscanf(waves, "%d", &type);
             while(type != 5000)
             {
                 fscanf(waves, "%d", &number);
                 self.waves[wv][type] = number;//guarda o numero de creeps de cada tipo em cada wave
+                
+                printf("%d\n",self.waves[wv][type]);
+                
                 fscanf(waves, "%d", &type);
             }
         }

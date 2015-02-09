@@ -60,7 +60,7 @@
     
     //inicializa as variáveis da fase
     lvl->health = 20;
-    lvl->currentWave = 0;
+    lvl->currentWave = 1;
     
     //se registra como delegate de contato para tratar das colisões
     lvl.physicsWorld.contactDelegate = lvl;
@@ -398,16 +398,26 @@
 //adiciona as creeps da próxima wave no vetor de creeps ativas. Deve ser chamada dentro de um intervalo de tempo definido
 -(void) addCreeps{
     
-    if (currentWave < [levelOneWaves numberOfWaves]) {
+    if (currentWave <= [levelOneWaves numberOfWaves]) {
         
-        NSUInteger lastCreepIndex = [activeCreeps indexOfObject:[activeCreeps lastObject]];
+        NSUInteger lastCreepIndex;
         
+        //Se vetor de creeps ativos nao estiver vazio
+        if (activeCreeps.count != 0){
+            
+            //pega o indice do último creep
+            lastCreepIndex = [activeCreeps indexOfObject: [activeCreeps lastObject]];
+            //aponta para a proxima posição vazia
+            lastCreepIndex++;
+        }
+        else
+            lastCreepIndex = 0;
         //instancia os creeps da primeira wave e os guarda no vetor de creeps
         [activeCreeps addObjectsFromArray:[levelOneWaves createCreepsForWave: currentWave]];
         
         //para cada creep no array de creeps ativas, coloca pra seguir o caminho
         //OBS: quando vc manda as creeps seguirem um path, elas não precisam de uma position. Começam na inicial do path
-        for (lastCreepIndex++;lastCreepIndex < activeCreeps.count; lastCreepIndex++) {
+        for (;lastCreepIndex < activeCreeps.count; lastCreepIndex++) {
             
             Creep *creep = [activeCreeps objectAtIndex: lastCreepIndex];
             
