@@ -434,8 +434,6 @@
 //                [self discountHealth: creep];
 //            }];
         }
-        //incrementa o contador de waves
-        //currentWave++;
     }
 }
 
