@@ -60,7 +60,7 @@
     
     //inicializa as variáveis da fase
     lvl->health = 20;
-    lvl->currentWave = 1;
+    lvl->currentWave = 0;
     
     //se registra como delegate de contato para tratar das colisões
     lvl.physicsWorld.contactDelegate = lvl;
@@ -75,6 +75,8 @@
     Terrain *levelOneTerrain = [Terrain initWithLevel:LevelOne];
     SKSpriteNode* map = levelOneTerrain.map;
     map.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    map.yScale = 0.3;
+    map.xScale = 0.3;
     [self addChild: map];
     
     coins = levelOneTerrain.coins;
@@ -113,7 +115,7 @@
     //inicializa o vetor de creeps ativas
     activeCreeps = [[NSMutableArray alloc] init];
     //adiciona as creeps da primeira wave no vetor de creeps ativas
-    [self addCreeps];
+    //[self addCreeps];
 }
 
 
@@ -160,11 +162,12 @@
         
     }
     
-    
     timeOfLastMove = currentTime;
 }
 
-
+-(void) didEvaluateActions{
+    NSLog(@"didevaluateactions");
+}
 /*****************************************************
  *
  *  Métodos de SKPhysicsContactDelegate
@@ -406,9 +409,9 @@
         if (activeCreeps.count != 0){
             
             //pega o indice do último creep
-            lastCreepIndex = [activeCreeps indexOfObject: [activeCreeps lastObject]];
+            //lastCreepIndex = [activeCreeps indexOfObject: [activeCreeps lastObject]];
             //aponta para a proxima posição vazia
-            lastCreepIndex++;
+            lastCreepIndex = activeCreeps.count;
         }
         else
             lastCreepIndex = 0;
@@ -425,14 +428,14 @@
             
             SKAction *followLine = [SKAction followPath:path asOffset:NO orientToPath:NO duration:creep.velocity];
             
-            [creep runAction: followLine completion: ^{
-                
-                NSLog(@"Creep has trespassed the line");
-                [self discountHealth: creep];
-            }];
+//            [creep runAction: followLine completion: ^{
+//                
+//                NSLog(@"Creep has trespassed the line");
+//                [self discountHealth: creep];
+//            }];
         }
         //incrementa o contador de waves
-        currentWave++;
+        //currentWave++;
     }
 }
 
