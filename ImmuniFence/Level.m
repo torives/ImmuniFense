@@ -165,9 +165,10 @@
     timeOfLastMove = currentTime;
 }
 
--(void) didEvaluateActions{
-    NSLog(@"didevaluateactions");
-}
+//-(void) didEvaluateActions{
+//    NSLog(@"didevaluateactions");
+//}
+
 /*****************************************************
  *
  *  Métodos de SKPhysicsContactDelegate
@@ -426,13 +427,26 @@
             
             [self addChild: creep];
             
+            //ajusta o tamanho do sprite
+            creep.xScale = 0.25;
+            creep.yScale = 0.25;
+            
+            CGMutablePathRef newPath = CGPathCreateMutable();
+            CGPathMoveToPoint(newPath, NULL, 567, 195);
+            CGPathAddLineToPoint(newPath, NULL, 470, 195);
+            CGPathAddLineToPoint(newPath, NULL, 470, 65);
+            CGPathAddLineToPoint(newPath, NULL, 208, 65);
+            CGPathAddLineToPoint(newPath, NULL, 208, 185);
+            CGPathAddLineToPoint(newPath, NULL, -15, 185);
+        
+            
             SKAction *followLine = [SKAction followPath:path asOffset:NO orientToPath:NO duration:creep.velocity];
             
-//            [creep runAction: followLine completion: ^{
-//                
-//                NSLog(@"Creep has trespassed the line");
-//                [self discountHealth: creep];
-//            }];
+            [creep runAction: followLine completion: ^{
+                
+                NSLog(@"Creep has trespassed the line");
+                [self discountHealth: creep];
+            }];
         }
     }
 }
