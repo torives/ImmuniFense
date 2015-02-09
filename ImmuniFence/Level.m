@@ -154,7 +154,10 @@
         
         currentWave++;
         currentWaveCooldown = [levelOneWaves cooldownForWave: currentWave];
-        [self addCreeps];
+        SKAction *wait = [SKAction waitForDuration:1];
+        SKAction *performSelector = [SKAction performSelector:@selector(addCreeps) onTarget:self];
+        SKAction *sequence = [SKAction sequence:@[performSelector, wait]];
+        [self runAction: sequence];
         
     }
     
@@ -426,7 +429,7 @@
             //ajusta o tamanho do sprite
             creep.xScale = 0.25;
             creep.yScale = 0.25;
-                    
+            
             SKAction *followLine = [SKAction followPath:path asOffset:NO orientToPath:NO duration:creep.velocity];
             
             [creep runAction: followLine completion: ^{
