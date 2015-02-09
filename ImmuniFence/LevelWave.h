@@ -14,12 +14,12 @@
 @property int numberOfWaves;
 @property int level;
 @property double* cooldown;
-
-
+@property int* numberCreepsOnWave;
 
 -(id) initWithLevel:(int) level;
 -(NSMutableArray*) createCreepsForWave:(int)wave;
 -(NSTimeInterval) cooldownForWave:(int)wave;
+-(int) numberOfCreepsForWave: (int)wave;
 
 
 //O documento wave.txt é o documento do qual os as waves de cada level serão carregadas

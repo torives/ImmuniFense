@@ -24,7 +24,7 @@
 -(void) createHud;
 -(void) addCreeps;
 -(void) updateHealthIndicator;
--(void) updateCoinsIndicator;
+-(void) updateCoinIndicator;
 -(void) discountHealth: (Creep *) creep;
 -(void) gameOver;
 -(void) gameWin;
@@ -43,7 +43,18 @@
     NSTimeInterval timeOfLastMove;
     //cada wave define o tempo de espera para a próxima wave
     NSTimeInterval currentWaveCooldown;
+    int lastCreepIndex;
 }
+
+
+
+//SKAction *wait = [SKAction waitForDuration:1];
+//SKAction *performSelector = [SKAction performSelector:@selector(addCreeps) onTarget:self];
+//SKAction *sequence = [SKAction sequence:@[performSelector, wait]];
+//SKAction *repeat   = [SKAction repeatAction:sequence count:[levelOneWaves numberOfCreepsForWave: currentWave]];
+//[self runAction: repeat];
+
+
 
 
 /*****************************
@@ -60,7 +71,8 @@
     
     //inicializa as variáveis da fase
     lvl->health = 20;
-    lvl->currentWave = 0;
+    lvl->currentWave = 1;
+    lvl->lastCreepIndex = 0;
     
     //se registra como delegate de contato para tratar das colisões
     lvl.physicsWorld.contactDelegate = lvl;
@@ -102,16 +114,23 @@
         [map addChild:towerSpawnPoint];
     }
     
-    path = levelOneTerrain.creepPath; //guarda o path pra usar com a velocidade diferente de cada creep
+    //guarda o path pra usar com a velocidade diferente de cada creep
+    path = levelOneTerrain.creepPath;
     
     //pega a referencia para as waves da fase
     levelOneWaves = [[LevelWave alloc]initWithLevel: LevelOne];
   
     //descobre o tempo de espera para chamar a próxima wave
-    currentWaveCooldown = [levelOneWaves cooldownForWave: currentWave];
+    //currentWaveCooldown = [levelOneWaves cooldownForWave: currentWave];
     
     //inicializa o vetor de creeps ativas
     activeCreeps = [[NSMutableArray alloc] init];
+    
+    SKAction *wait = [SKAction waitForDuration: [levelOneWaves cooldownForWave: currentWave]];
+    SKAction *performSelector = [SKAction performSelector:@selector(addCreepWave) onTarget:self];
+    SKAction *sequence = [SKAction sequence:@[performSelector, wait]];
+    SKAction *repeat   = [SKAction repeatAction:sequence count: levelOneWaves.numberOfWaves];
+    [self runAction:repeat];
 }
 
 
@@ -148,21 +167,7 @@
         [creep updateAnimation];
     }];
     
-    
-    //confere se já passou tempo o suficiente pra próxima wave
-    if (currentTime - timeOfLastMove >= currentWaveCooldown){
-        
-        currentWave++;
-        currentWaveCooldown = [levelOneWaves cooldownForWave: currentWave];
-        SKAction *wait = [SKAction waitForDuration:1];
-        SKAction *performSelector = [SKAction performSelector:@selector(addCreeps) onTarget:self];
-        SKAction *sequence = [SKAction sequence:@[performSelector, wait]];
-        
-        [self runAction: sequence];
-        
-    }
-    
-    timeOfLastMove = currentTime;
+    //timeOfLastMove = currentTime;
 }
 
 //-(void) didEvaluateActions{
@@ -220,7 +225,7 @@
                 //incrementa as coins
                 coins += creep.reward;
                 //atualiza o HUD
-                [self updateCoinsIndicator];
+                [self updateCoinIndicator];
                 //retira o creep da cena
                 [creep removeFromParent];
                 //retira o creep da relação de creeps vivos
@@ -317,7 +322,7 @@
     SKSpriteNode *healthIndicator = [SKSpriteNode spriteNodeWithImageNamed: @"health_hud"];
     healthIndicator.position = CGPointMake(10,CGRectGetMaxY(self.frame)-50);
     healthIndicator.anchorPoint = CGPointMake(0, 0);
-    healthIndicator.name = @"health_hud";
+    healthIndicator.name = @"healthIndicator";
     
     //Cria label de vida
     SKLabelNode *healthLabel = [SKLabelNode labelNodeWithFontNamed:@"Menlo-Regular"];
@@ -337,7 +342,7 @@
     SKSpriteNode *coinIndicator = [SKSpriteNode spriteNodeWithImageNamed:@"coin_hud"];
     coinIndicator.position = CGPointMake(130,CGRectGetMaxY(self.frame)-50);
     coinIndicator.anchorPoint = CGPointMake(0, 0);
-    coinIndicator.name = @"coin_hud";
+    coinIndicator.name = @"coinIndicator";
     
     //Cria label de coins
     SKLabelNode *coinLabel = [SKLabelNode labelNodeWithFontNamed:@"Menlo-Regular"];
@@ -387,59 +392,56 @@
 
 -(void) updateHealthIndicator{
     
-    SKLabelNode *healthLabel = (SKLabelNode*)[self childNodeWithName:@"healthLabel"];
+    SKNode *healthIndicator = [self childNodeWithName:@"healthIndicator"];
+    SKLabelNode *healthLabel = (SKLabelNode*)[healthIndicator childNodeWithName:@"healthLabel"];
     healthLabel.text = [NSString stringWithFormat:@"%d", health];
     NSLog(@"Health Updated");
 }
 
--(void) updateCoinsIndicator{
+-(void) updateCoinIndicator{
     
-    SKLabelNode *coinsLabel = (SKLabelNode*)[self childNodeWithName:@"coinLabel"];
-    coinsLabel.text = [NSString stringWithFormat:@"%d", coins];
+    SKNode *coinIndicator = [self childNodeWithName:@"coinIndicator"];
+    SKLabelNode *coinLabel = (SKLabelNode*)[coinIndicator childNodeWithName:@"coinLabel"];
+    coinLabel.text = [NSString stringWithFormat:@"%d", coins];
     NSLog(@"Coins Updated");
 }
 
-//adiciona as creeps da próxima wave no vetor de creeps ativas. Deve ser chamada dentro de um intervalo de tempo definido
--(void) addCreeps{
+-(void)addCreepWave{
+   
+    //instancia os creeps da primeira wave e os guarda no vetor de creeps
+    [activeCreeps addObjectsFromArray:[levelOneWaves createCreepsForWave: currentWave]];
     
-    if (currentWave <= [levelOneWaves numberOfWaves]) {
+    int creepsOnWave = [levelOneWaves numberOfCreepsForWave: currentWave];
+    
+    SKAction *wait = [SKAction waitForDuration:1];
+    SKAction *performSelector = [SKAction performSelector:@selector(addCreep) onTarget:self];
+    SKAction *sequence = [SKAction sequence:@[performSelector, wait]];
+    SKAction *repeat   = [SKAction repeatAction:sequence count:creepsOnWave ];
+    [self runAction:repeat];
+    
+    currentWave++;
+    NSLog(@"creep wave added");
+}
+
+-(void) addCreep{
+    
+    Creep *creep = [activeCreeps objectAtIndex: lastCreepIndex];
+    
+    lastCreepIndex++;
+    
+    [self addChild: creep];
+    
+    //ajusta o tamanho do sprite
+    creep.xScale = 0.25;
+    creep.yScale = 0.25;
+    
+    SKAction *followLine = [SKAction followPath:path asOffset:NO orientToPath:NO duration:creep.velocity];
+    
+    [creep runAction: followLine completion: ^{
         
-        NSUInteger lastCreepIndex;
-        
-        //Se vetor de creeps ativos nao estiver vazio
-        if (activeCreeps.count != 0){
-            
-            //pega o indice do último creep
-            //lastCreepIndex = [activeCreeps indexOfObject: [activeCreeps lastObject]];
-            //aponta para a proxima posição vazia
-            lastCreepIndex = activeCreeps.count;
-        }
-        else
-            lastCreepIndex = 0;
-        //instancia os creeps da primeira wave e os guarda no vetor de creeps
-        [activeCreeps addObjectsFromArray:[levelOneWaves createCreepsForWave: currentWave]];
-        
-        //para cada creep no array de creeps ativas, coloca pra seguir o caminho
-        //OBS: quando vc manda as creeps seguirem um path, elas não precisam de uma position. Começam na inicial do path
-        for (;lastCreepIndex < activeCreeps.count; lastCreepIndex++) {
-            
-            Creep *creep = [activeCreeps objectAtIndex: lastCreepIndex];
-            
-            [self addChild: creep];
-            
-            //ajusta o tamanho do sprite
-            creep.xScale = 0.25;
-            creep.yScale = 0.25;
-            
-            SKAction *followLine = [SKAction followPath:path asOffset:NO orientToPath:NO duration:creep.velocity];
-            
-            [creep runAction: followLine completion: ^{
-                
-                NSLog(@"Creep has trespassed the line");
-                [self discountHealth: creep];
-            }];
-        }
-    }
+        NSLog(@"creep has trespassed the line");
+        [self discountHealth: creep];
+    }];
 }
 
 -(void) gameOver{

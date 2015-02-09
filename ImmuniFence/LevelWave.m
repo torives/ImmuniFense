@@ -20,9 +20,12 @@
     //Criação do espaço necessario para guardar todos os valores
     self.waves = (int**)malloc(20*sizeof(int*));
     self.cooldown = (double*)malloc(20*sizeof(double));
+    self.numberCreepsOnWave = (int*)malloc(20*sizeof(int));
+    
     for(int n = 20;n>0;n--)
     {
         self.waves[n-1] = (int*)malloc(30*sizeof(int));
+        self.numberCreepsOnWave[n-1] = 0;
     }
     int i = 20;
     int j = 30;
@@ -67,7 +70,7 @@
             {
                 fscanf(waves, "%d", &number);
                 self.waves[wv][type] = number;//guarda o numero de creeps de cada tipo em cada wave
-                
+                self.numberCreepsOnWave[wv] += number;
                 printf("%d\n",self.waves[wv][type]);
                 
                 fscanf(waves, "%d", &type);
@@ -92,6 +95,7 @@
         {
             Creep* novo = [Creep creepOfType: j];
             [creeps addObject:novo];
+            
             self.waves[wave][j]--;
         }
     }
@@ -102,6 +106,10 @@
 -(NSTimeInterval) cooldownForWave:(int)wave
 {
     return self.cooldown[wave];
+}
+
+-(int) numberOfCreepsForWave: (int)wave{
+     return self.numberCreepsOnWave[wave];
 }
 
 @end
