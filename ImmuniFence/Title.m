@@ -35,12 +35,12 @@
         buttoncodex.hidden = YES;
         buttoncodex.name = @"codexButton";
         [self addChild:buttoncodex];
-        
+      
         //criação do botão de drogstore
-        SKShapeNode *button = [SKShapeNode shapeNodeWithRect: CGRectMake(320, 200, 144, 45)];
-        button.hidden = YES;
-        button.name = @"playButton";
-        [self addChild:button];
+        SKShapeNode *buttondrogstore = [SKShapeNode shapeNodeWithRect: CGRectMake(236, 60, 116, 40)];
+        buttondrogstore.hidden = YES;
+        buttondrogstore.name = @"drogstoreButton";
+        [self addChild:buttondrogstore];
         
     }
     
@@ -61,6 +61,17 @@
         Level *playerScene = [Level sceneWithSize: self.frame.size];
         SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
         [self.view presentScene:playerScene transition:transition];
+    }
+    else if ([node.name isEqualToString:@"codexButton"]){
+//        Codex *codexScene = [Codex sceneWithSize: self.frame.size];
+//        SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
+//        [self.view presentScene:codexScene transition:transition];
+
+    }
+    else if ([node.name isEqualToString:@"drogstoreButton"]){
+//        Drogstore *drogstoreScene = [Drogstore sceneWithSize: self.frame.size];
+        //        SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
+        //        [self.view presentScene:drogstoreScene transition:transition];]
     }
 }
 @end
