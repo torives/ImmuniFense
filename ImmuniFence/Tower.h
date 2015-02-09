@@ -12,27 +12,20 @@
 
 @interface Tower : SKSpriteNode
 
-+(instancetype) createTowerOfType:(Tower*)type withLevel:(NSInteger)level;
-
 @property (nonatomic, strong) NSMutableArray *targets;
 @property (nonatomic) int damage;
 @property (nonatomic) int level;
 @property (nonatomic) int bulletType;
+@property (nonatomic) int cost;
 @property (nonatomic) NSTimeInterval fireRate;
 @property (nonatomic) NSTimeInterval lastShot;
-
 
 //Acho que são variáveis privadas
 @property (nonatomic, strong) SKSpriteNode *bullet;
 @property (nonatomic, strong) SKSpriteNode *tower;
 
 
-
-//
-@end
-
-@interface Tower ()
-
++(instancetype) createTowerOfType: (TowerType)type withLevel:(NSInteger)level;
 // método para atirar nos creeps que ultrapassam o raio da tower.
 -(void) shootAtTarget:(SKSpriteNode*)target;
 // método para pegar aonde a tower foi criada.
@@ -41,9 +34,8 @@
 -(void) damageEnemy:(SKSpriteNode*) enemy onKill:(void (^)()) killHandler;
 @end
 
+
 @interface Bullet : SKSpriteNode
-
-
 //método que cria a bala.
 +(instancetype) bulletOfType:(int) type withColor:(UIColor*) color;
 @end
