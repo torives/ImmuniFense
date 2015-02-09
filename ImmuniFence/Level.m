@@ -157,6 +157,7 @@
         SKAction *wait = [SKAction waitForDuration:1];
         SKAction *performSelector = [SKAction performSelector:@selector(addCreeps) onTarget:self];
         SKAction *sequence = [SKAction sequence:@[performSelector, wait]];
+        
         [self runAction: sequence];
         
     }
