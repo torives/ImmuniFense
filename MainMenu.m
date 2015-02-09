@@ -8,6 +8,7 @@
 
 #import "MainMenu.h"
 #import "Level.h"
+#import "Codex.h"
 
 @implementation MainMenu
 
@@ -34,14 +35,15 @@
         
         
         //criação do botão de codex
-        SKShapeNode *buttoncodex = [SKShapeNode shapeNodeWithRect: CGRectMake(275, 129, 120, 43)];
-        //        buttoncodex.hidden = YES;
+        SKShapeNode *buttoncodex = [SKShapeNode shapeNodeWithRect: CGRectMake(-150, -350, 500, 180)];
+
+        buttoncodex.hidden = YES;
         buttoncodex.name = @"codexButton";
         [background addChild:buttoncodex];
         
         //criação do botão de drugstore
-        SKShapeNode *buttondrogstore = [SKShapeNode shapeNodeWithRect: CGRectMake(236, 60, 116, 40)];
-        //        buttondrogstore.hidden = YES;
+        SKShapeNode *buttondrogstore = [SKShapeNode shapeNodeWithRect: CGRectMake(-50, -100, 500, 180)];
+        buttondrogstore.hidden = YES;
         buttondrogstore.name = @"drugstoreButton";
         [background addChild:buttondrogstore];
     }
@@ -69,13 +71,13 @@
         [self.view presentScene:newLevel transition:transition];
     }
     else if ([node.name isEqualToString:@"codexButton"]){
-        //        Codex *codexScene = [Codex sceneWithSize: self.frame.size];
-        //        SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
-        //        [self.view presentScene:codexScene transition:transition];
+                Codex *codexScene = [Codex sceneWithSize: self.frame.size];
+                SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
+                [self.view presentScene:codexScene transition:transition];
         
     }
     else if ([node.name isEqualToString:@"drogstoreButton"]){
-        //        Drogstore *drogstoreScene = [Drogstore sceneWithSize: self.frame.size];
+        //        Drugstore *drugstoreScene = [Drugstore sceneWithSize: self.frame.size];
         //        SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
         //        [self.view presentScene:drogstoreScene transition:transition];]
     }

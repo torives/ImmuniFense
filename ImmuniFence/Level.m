@@ -443,18 +443,18 @@
 
 -(void) gameOver{
     
-    //    NSLog(@"Game Over");
-    //    GameOver *gameOver = [GameOver sceneWithSize:self.frame.size];
-    //    SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
-    //    [self.view presentScene:gameOver transition:transition];
+//        NSLog(@"Game Over");
+//        GameOver *gameOver = [GameOver sceneWithSize:self.frame.size];
+//        SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
+//        [self.view presentScene:gameOver transition:transition];
 }
 
 -(void) gameWin{
     
-    //    NSLog(@"You Win");
-    //    GameWin *gameWin = [GameWin sceneWithSize:self.frame.size];
-    //    SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
-    //    [self.view presentScene:gameWin transition:transition];
+//        NSLog(@"You Win");
+//        GameWin *gameWin = [GameWin sceneWithSize:self.frame.size];
+//        SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
+//        [self.view presentScene:gameWin transition:transition];
 }
 
 @end
