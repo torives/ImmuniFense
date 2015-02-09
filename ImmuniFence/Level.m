@@ -22,7 +22,7 @@
 @interface Level ()
 
 -(void) createHud;
--(void) addCreeps;
+-(void) addCreep;
 -(void) updateHealthIndicator;
 -(void) updateCoinIndicator;
 -(void) discountHealth: (Creep *) creep;
@@ -41,9 +41,9 @@
     NSMutableArray *activeCreeps;
     CGMutablePathRef path;
     NSTimeInterval timeOfLastMove;
-    //cada wave define o tempo de espera para a próxima wave
     NSTimeInterval currentWaveCooldown;
     int lastCreepIndex;
+    int livingCreeps;
 }
 
 
@@ -73,6 +73,7 @@
     lvl->health = 20;
     lvl->currentWave = 1;
     lvl->lastCreepIndex = 0;
+    lvl->livingCreeps = 0;
     
     //se registra como delegate de contato para tratar das colisões
     lvl.physicsWorld.contactDelegate = lvl;
@@ -167,12 +168,9 @@
         [creep updateAnimation];
     }];
     
-    //timeOfLastMove = currentTime;
+    timeOfLastMove = currentTime;
 }
 
-//-(void) didEvaluateActions{
-//    NSLog(@"didevaluateactions");
-//}
 
 /*****************************************************
  *
@@ -229,10 +227,11 @@
                 //retira o creep da cena
                 [creep removeFromParent];
                 //retira o creep da relação de creeps vivos
-                [activeCreeps removeObject: creep];
+                //[activeCreeps removeObject: creep];
+                livingCreeps--;
                 
                 //Se não há creeps ativos e acabaram as waves
-                if (activeCreeps.count == 0 && currentWave == [levelOneWaves numberOfWaves]){
+                if (livingCreeps == 0 && currentWave == [levelOneWaves numberOfWaves]){
                     
                     [self gameWin];
                 }
@@ -379,11 +378,12 @@
     //retira o creep da cena
     [creep removeFromParent];
     //retira o creep da relação de creeps vivos
-    [activeCreeps removeObject: creep];
+    //[activeCreeps removeObject: creep];
+    livingCreeps--;
     
     //Se não há creeps ativos e acabaram as waves
     //TODO acho que tem que fazer essa conferencia no didKillEnemy também
-    if (activeCreeps.count == 0 && currentWave == [levelOneWaves numberOfWaves]){
+    if (livingCreeps == 0 && currentWave == [levelOneWaves numberOfWaves]){
         
         //TODO game win
         [self gameWin];
@@ -431,6 +431,8 @@
     
     [self addChild: creep];
     
+    livingCreeps++;
+    
     //ajusta o tamanho do sprite
     creep.xScale = 0.25;
     creep.yScale = 0.25;
@@ -446,7 +448,7 @@
 
 -(void) gameOver{
     
-    //    NSLog(@"Game Over");
+    NSLog(@"Game Over");
     //    GameOver *gameOver = [GameOver sceneWithSize:self.frame.size];
     //    SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
     //    [self.view presentScene:gameOver transition:transition];
@@ -454,7 +456,7 @@
 
 -(void) gameWin{
     
-    //    NSLog(@"You Win");
+    NSLog(@"You Win");
     //    GameWin *gameWin = [GameWin sceneWithSize:self.frame.size];
     //    SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
     //    [self.view presentScene:gameWin transition:transition];
