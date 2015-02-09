@@ -25,6 +25,9 @@
 		618382971A8252330055AA3C /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 618382961A8252330055AA3C /* Player.m */; };
 		61C533181A84E42700303BBD /* terrain.txt in Resources */ = {isa = PBXBuildFile; fileRef = 61C533171A84E42700303BBD /* terrain.txt */; };
 		F31312D81A85A23D00C1843A /* Tower.m in Sources */ = {isa = PBXBuildFile; fileRef = F31312D71A85A23D00C1843A /* Tower.m */; };
+		F3BBAF1F1A88C7A40089FB2E /* Title.m in Sources */ = {isa = PBXBuildFile; fileRef = F3BBAF1E1A88C7A40089FB2E /* Title.m */; };
+		F3BBAF221A88CF5A0089FB2E /* WinScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F3BBAF211A88CF5A0089FB2E /* WinScene.m */; };
+		F3BBAF251A88D1820089FB2E /* LoseScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F3BBAF241A88D1820089FB2E /* LoseScene.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +73,12 @@
 		61C533191A84E45A00303BBD /* waves.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = waves.txt; sourceTree = "<group>"; };
 		F31312D61A85A23D00C1843A /* Tower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tower.h; path = ../Tower.h; sourceTree = "<group>"; };
 		F31312D71A85A23D00C1843A /* Tower.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tower.m; path = ../Tower.m; sourceTree = "<group>"; };
+		F3BBAF1D1A88C7A40089FB2E /* Title.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Title.h; sourceTree = "<group>"; };
+		F3BBAF1E1A88C7A40089FB2E /* Title.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Title.m; sourceTree = "<group>"; };
+		F3BBAF201A88CF5A0089FB2E /* WinScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WinScene.h; sourceTree = "<group>"; };
+		F3BBAF211A88CF5A0089FB2E /* WinScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WinScene.m; sourceTree = "<group>"; };
+		F3BBAF231A88D1820089FB2E /* LoseScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoseScene.h; path = ../LoseScene.h; sourceTree = "<group>"; };
+		F3BBAF241A88D1820089FB2E /* LoseScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoseScene.m; path = ../LoseScene.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +122,8 @@
 		4F9E910B1A7DA2EA0044962D /* ImmuniFense */ = {
 			isa = PBXGroup;
 			children = (
+				F3BBAF1D1A88C7A40089FB2E /* Title.h */,
+				F3BBAF1E1A88C7A40089FB2E /* Title.m */,
 				F31312D61A85A23D00C1843A /* Tower.h */,
 				F31312D71A85A23D00C1843A /* Tower.m */,
 				4F4A8BE71A7FD8A4009F36FF /* Level.h */,
@@ -126,6 +137,10 @@
 				6141FFFD1A81AAAB0074EE9F /* Terrain.m */,
 				6141FFFF1A81C8700074EE9F /* LevelWave.h */,
 				614100001A81C8700074EE9F /* LevelWave.m */,
+				F3BBAF231A88D1820089FB2E /* LoseScene.h */,
+				F3BBAF241A88D1820089FB2E /* LoseScene.m */,
+				F3BBAF201A88CF5A0089FB2E /* WinScene.h */,
+				F3BBAF211A88CF5A0089FB2E /* WinScene.m */,
 				61C533171A84E42700303BBD /* terrain.txt */,
 				61C533191A84E45A00303BBD /* waves.txt */,
 				4F9E910C1A7DA2EA0044962D /* Supporting Files */,
@@ -286,11 +301,14 @@
 				6141FFFE1A81AAAB0074EE9F /* Terrain.m in Sources */,
 				4F9E91151A7DA2EA0044962D /* ViewController.m in Sources */,
 				4FE58F731A82B061005D4837 /* Creep.m in Sources */,
+				F3BBAF1F1A88C7A40089FB2E /* Title.m in Sources */,
 				4F9E91121A7DA2EA0044962D /* AppDelegate.m in Sources */,
 				614100011A81C8700074EE9F /* LevelWave.m in Sources */,
 				4F4A8BE91A7FD8A4009F36FF /* Level.m in Sources */,
 				618382971A8252330055AA3C /* Player.m in Sources */,
 				F31312D81A85A23D00C1843A /* Tower.m in Sources */,
+				F3BBAF251A88D1820089FB2E /* LoseScene.m in Sources */,
+				F3BBAF221A88CF5A0089FB2E /* WinScene.m in Sources */,
 				4F4A8BE91A7FD8A4009F36FF /* Level.m in Sources */,
 				4F9E910F1A7DA2EA0044962D /* main.m in Sources */,
 			);
