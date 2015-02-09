@@ -61,10 +61,6 @@
             
                 CGPathMoveToPoint(novo.creepPath, NULL, xp, yp);
                 
-                if (CGPathIsEmpty(novo.creepPath)){
-                    NSLog(@"ta vazio1");
-                }
-                
                 fscanf(terrain, "%d", &xp);
                 fscanf(terrain, "%d", &yp);
                 
@@ -72,11 +68,7 @@
                 while(xp!=5000 && yp!=5000)
                 {
                     CGPathAddLineToPoint(novo.creepPath, NULL, xp, yp);
-                    
-                    if (CGPathIsEmpty(novo.creepPath)){
-                        NSLog(@"ta vazio2");
-                    }
-                    
+
                     fscanf(terrain, "%d", &xp);
                     fscanf(terrain, "%d", &yp);
                     //printf("%d%d",xp,yp);
@@ -85,10 +77,6 @@
                 if (CGPathIsEmpty(novo.creepPath)){
                     NSLog(@"ta vazio3");
                 }
-            }
-            
-            if (CGPathIsEmpty(novo.creepPath)){
-                NSLog(@"ta vazio4");
             }
             
             fscanf(terrain, "%d", &xt);
@@ -102,19 +90,12 @@
                 fscanf(terrain, "%d", &yt);
                 //printf("%d%d",xt,yt);
             }
-            if (CGPathIsEmpty(novo.creepPath)){
-                NSLog(@"ta vazio5");
-            }
         }
         else{
             fscanf(terrain, " %[^\n]", temp);
         }
     }
     novo.map = mapBackground;
-    
-    if (CGPathIsEmpty(novo.creepPath)){
-        NSLog(@"ta vazio6");
-    }
     
     fclose(terrain);
     

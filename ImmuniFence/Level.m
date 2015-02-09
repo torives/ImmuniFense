@@ -86,7 +86,6 @@
     [self createHud];
     
     //cria os placeholders para criar as torres
-    //TODO conferir se esse enhanced for vai funfar
     towerSpots = levelOneTerrain.towerSpot;
     for ( NSValue *value in towerSpots) {
         
@@ -103,19 +102,16 @@
         [map addChild:towerSpawnPoint];
     }
     
-    //cria a ação para percorrer o caminho
-    //followLine = [SKAction followPath: levelOneTerrain.path asOffset:NO orientToPath:YES duration:50];
-    
     path = levelOneTerrain.creepPath; //guarda o path pra usar com a velocidade diferente de cada creep
     
     //pega a referencia para as waves da fase
     levelOneWaves = [[LevelWave alloc]initWithLevel: LevelOne];
+  
     //descobre o tempo de espera para chamar a próxima wave
     currentWaveCooldown = [levelOneWaves cooldownForWave: currentWave];
+    
     //inicializa o vetor de creeps ativas
     activeCreeps = [[NSMutableArray alloc] init];
-    //adiciona as creeps da primeira wave no vetor de creeps ativas
-    //[self addCreeps];
 }
 
 
@@ -430,16 +426,7 @@
             //ajusta o tamanho do sprite
             creep.xScale = 0.25;
             creep.yScale = 0.25;
-            
-            CGMutablePathRef newPath = CGPathCreateMutable();
-            CGPathMoveToPoint(newPath, NULL, 567, 195);
-            CGPathAddLineToPoint(newPath, NULL, 470, 195);
-            CGPathAddLineToPoint(newPath, NULL, 470, 65);
-            CGPathAddLineToPoint(newPath, NULL, 208, 65);
-            CGPathAddLineToPoint(newPath, NULL, 208, 185);
-            CGPathAddLineToPoint(newPath, NULL, -15, 185);
-        
-            
+                    
             SKAction *followLine = [SKAction followPath:path asOffset:NO orientToPath:NO duration:creep.velocity];
             
             [creep runAction: followLine completion: ^{
