@@ -295,6 +295,7 @@
     
 }
 
+//
 -(void)selectNodeForTouch:(CGPoint)touchLocation{
     
     BOOL spotTaken = false;
