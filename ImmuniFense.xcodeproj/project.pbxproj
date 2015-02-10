@@ -54,6 +54,7 @@
 		61FFD74E1A894989001DE418 /* codex.png in Resources */ = {isa = PBXBuildFile; fileRef = 61FFD74B1A894989001DE418 /* codex.png */; };
 		61FFD74F1A894989001DE418 /* codex4.png in Resources */ = {isa = PBXBuildFile; fileRef = 61FFD74C1A894989001DE418 /* codex4.png */; };
 		61FFD7501A894989001DE418 /* codex5.png in Resources */ = {isa = PBXBuildFile; fileRef = 61FFD74D1A894989001DE418 /* codex5.png */; };
+		61FFD7521A899647001DE418 /* map2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 61FFD7511A899647001DE418 /* map2.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +136,7 @@
 		61FFD74B1A894989001DE418 /* codex.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = codex.png; sourceTree = "<group>"; };
 		61FFD74C1A894989001DE418 /* codex4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = codex4.png; sourceTree = "<group>"; };
 		61FFD74D1A894989001DE418 /* codex5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = codex5.png; sourceTree = "<group>"; };
+		61FFD7511A899647001DE418 /* map2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = map2.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */

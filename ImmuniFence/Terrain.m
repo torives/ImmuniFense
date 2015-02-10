@@ -11,7 +11,7 @@
 @implementation Terrain
 
 
--(id) initWithLevel:(int)theLevel andTowerSpot:(NSMutableArray *)theTowerS andPath:(CGMutablePathRef)thePath andMap:(SKSpriteNode *)theMap andCoins: (int)theCoins
+-(id) initWithLevel:(int)theLevel andTowerSpot:(NSMutableArray *)theTowerS andPath:(CGMutablePathRef)thePath andPath2:(CGMutablePathRef)thePath2 andMap:(SKSpriteNode *)theMap andCoins: (int)theCoins
 {
     
     self = [super init];
@@ -21,6 +21,7 @@
         self.towerSpot = theTowerS;
         self.creepPath = thePath;
         self.map  = theMap;
+        self.creepPath2 = thePath2;
     }
     return self;
 }
@@ -37,6 +38,7 @@
     Terrain* novo = [[Terrain alloc]init];
     novo.towerSpot = [[NSMutableArray alloc] init];
     novo.creepPath = CGPathCreateMutable();
+    novo.creepPath2 = CGPathCreateMutable();
     char temp[200];
     
     SKSpriteNode *mapBackground = [[SKSpriteNode alloc]initWithImageNamed:[NSString stringWithFormat:@"map%d.jpg",theLevel]];
@@ -57,8 +59,8 @@
             fscanf(terrain, "%d", &xp);
             fscanf(terrain, "%d", &yp);
         
-            if(xp!=5000 && yp!=5000){
-            
+            if(xp!=5000 && yp!=5000)
+            {
                 CGPathMoveToPoint(novo.creepPath, NULL, xp, yp);
                 
                 fscanf(terrain, "%d", &xp);
@@ -74,9 +76,27 @@
                     //printf("%d%d",xp,yp);
                 }
                 
-                if (CGPathIsEmpty(novo.creepPath)){
-                    NSLog(@"ta vazio3");
+            }
+            fscanf(terrain, "%d", &xp);
+            fscanf(terrain, "%d", &yp);
+            novo.creepPath2 = NULL;
+            if(xp!=5000 && yp!=5000)
+            {
+                CGPathMoveToPoint(novo.creepPath2, NULL, xp, yp);
+                
+                fscanf(terrain, "%d", &xp);
+                fscanf(terrain, "%d", &yp);
+                
+                //printf("%d%d",xp,yp);
+                while(xp!=5000 && yp!=5000)
+                {
+                    CGPathAddLineToPoint(novo.creepPath2, NULL, xp, yp);
+                    
+                    fscanf(terrain, "%d", &xp);
+                    fscanf(terrain, "%d", &yp);
+                    //printf("%d%d",xp,yp);
                 }
+                
             }
             
             fscanf(terrain, "%d", &xt);
@@ -98,6 +118,10 @@
     novo.map = mapBackground;
     
     fclose(terrain);
+    if (novo.creepPath2 == NULL)
+    {
+        novo.creepPath2 = novo.creepPath;
+    }
     
     return novo;
 }
