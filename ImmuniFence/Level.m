@@ -444,6 +444,7 @@
     if (health <= 0){
         
         [self gameOver];
+        return;
     }
     
     //Atualiza o HUD
