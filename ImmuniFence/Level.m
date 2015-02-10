@@ -53,10 +53,10 @@
 
 
 /*****************************
- *
- *  Métodos de SKScene
- *
- ***/
+*
+*  Métodos de SKScene
+*
+***/
 
 + (instancetype)createLevel: (LevelName) levelName withSize:(CGSize)size{
     
@@ -173,14 +173,14 @@
 
 
 /*****************************************************
- *
- *  Métodos de SKPhysicsContactDelegate
- *
- *  Utilizados para tratar as colisões entre os nós.
- *  No caso, um creep entrando no alcance de uma torre
- *  ou um projétil de torre acertando um creep
- *
- ***/
+*
+*  Métodos de SKPhysicsContactDelegate
+*
+*  Utilizados para tratar as colisões entre os nós.
+*  No caso, um creep entrando no alcance de uma torre
+*  ou um projétil de torre acertando um creep
+*
+***/
 
 //Chamado quando dois corpos iniciam contato
 -(void) didBeginContact:(SKPhysicsContact *)contact{
@@ -271,13 +271,13 @@
 
 
 /**************************************************
- *
- *  Métodos de UIResponder
- *
- *  Utilizados para tratar da interação do usuário
- *  com a interface do jogo
- *
- ***/
+*
+*  Métodos de UIResponder
+*
+*  Utilizados para tratar da interação do usuário
+*  com a interface do jogo
+*
+***/
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     
@@ -370,10 +370,10 @@
 
 
 /***************************************
- *
- *  Métodos Auxiliares
- *
- ***/
+*
+*  Métodos Auxiliares
+*
+***/
 
 //cria os indicadores de vida e moedas
 //TODO o HUD deve ser uma classe (ou várias) específicas, para encapsular a arte
@@ -514,7 +514,7 @@
 
 -(void)addTowerIcons{
     
-    NSArray *turretIconNames = @[@"tower1_down0",@"tower2_down0",@"tower3_down0", @"tower4_down0"];
+    NSArray *turretIconNames = @[@"tower2_icon",@"tower3_icon",@"tower4_icon"];
 
     for (NSString *turretIconName in turretIconNames) {
         
@@ -522,11 +522,11 @@
         
         [turretIconSprite setName:@"towerIcon"];
         [turretIconSprite setColor:[SKColor blackColor]];
-        [turretIconSprite setColorBlendFactor:0.8];                                //adiciona o número da torre
-        [turretIconSprite setPosition:CGPointMake(20+[turretIconNames indexOfObject:turretIconName]*40, 30)];
+        [turretIconSprite setColorBlendFactor:0.8];                    
+        [turretIconSprite setPosition:CGPointMake(40+[turretIconNames indexOfObject:turretIconName]*65, 30)];
         
-        turretIconSprite.xScale = 0.3;
-        turretIconSprite.yScale = 0.3;
+        turretIconSprite.xScale = 0.08;
+        turretIconSprite.yScale = 0.08;
         [self addChild:turretIconSprite];
     }
 }
