@@ -17,10 +17,7 @@
 
 //TODO  implementar o ingame menu
 //TODO  implementar a pausa do jogo.
-//TODO  ainda não está se adicionando as waves subsequentes, tem que acertar a questão do tempo
-//TODO  considerar o tempo de adição de cada creep da wave
 
-/*Declaração dos métodos privados da classe*/
 @interface Level ()
 
 -(void) createHud;
