@@ -159,28 +159,29 @@
 -(void) update:(NSTimeInterval)currentTime{
     
     
-    //Controla o tiro das torres
-    [self enumerateChildNodesWithName:@"tower" usingBlock:^(SKNode *node, BOOL *stop) {
-        
-        Tower *tower = (Tower *) node;
-        
-        if (tower.targets.count != 0) {
-            
-            Creep *target = [tower.targets objectAtIndex:0];
-            
-            if (target.hitPoints <= 0) {
-                
-                [tower.targets removeObjectAtIndex:0];
-            }
-            else if (currentTime - timeOfLastMove >= tower.fireRate){
-                //esse método simplesmente cria o projétil e o manda na direção do alvo,
-                //removendo-o no contato. O dano e a morte do creep tem que ser tratados
-                //nos métodos de SKPhysicsContactDelegate
-                NSLog(@"target");
-                [tower shootAtTarget:target];
-            }
-        }
-    }];
+//    //Controla o tiro das torres
+//    [self enumerateChildNodesWithName:@"tower" usingBlock:^(SKNode *node, BOOL *stop) {
+//        
+//        Tower *tower = (Tower *) node;
+//        
+//        if (tower.targets.count != 0) {
+//            
+//            Creep *target = [tower.targets objectAtIndex:0];
+//            
+//            if (target.hitPoints <= 0) {
+//                
+//                [tower.targets removeObjectAtIndex:0];
+//            }
+//            
+////            if (currentTime - timeOfLastMove < 0.5){ return;}
+//                //esse método simplesmente cria o projétil e o manda na direção do alvo,
+//                //removendo-o no contato. O dano e a morte do creep tem que ser tratados
+//                //nos métodos de SKPhysicsContactDelegate
+//                NSLog(@"target");
+//                [tower shootAtTarget:target];
+//            //}
+//        }
+//    }];
     
     //atualiza o sprite dos creeps de acordo com a direção que eles seguem
     [self enumerateChildNodesWithName:@"creep" usingBlock:^(SKNode *node, BOOL *stop){
@@ -190,6 +191,7 @@
     }];
     
     timeOfLastMove = currentTime;
+    //NSLog(@"UPDATE");
 }
 
 
@@ -228,6 +230,12 @@
         Tower *tower = (Tower *) secondBody.node;
         [tower.targets addObject:creep];
         
+        
+        SKAction *wait = [SKAction waitForDuration:tower.fireRate];
+        SKAction *shoot = [SKAction performSelector:@selector(shootAtTarget) onTarget:tower];
+        SKAction *sequence = [SKAction sequence:@[shoot, wait]];
+        SKAction *repeat   = [SKAction repeatActionForever:sequence];
+        [self runAction: repeat];
     }
     //se um projétil atingiu um creep, desconta o dano da torre
     else if (firstBody.categoryBitMask == CreepMask && secondBody.categoryBitMask == BulletMask) {
@@ -238,8 +246,11 @@
         if (creep.hitPoints > 0) {
             //aplica o dano
             creep.hitPoints -= tower.damage;
+            NSLog(@"bala atingiu alvo");
             //se creep morreu
             if (creep.hitPoints <= 0) {
+                
+                [tower.targets removeObject:creep];
                 
                 //incrementa as coins
                 coins += creep.reward;

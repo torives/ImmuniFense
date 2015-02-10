@@ -22,7 +22,7 @@
     bullet.colorBlendFactor = 0.8;
     bullet.name = @"bullet";
     bullet.anchorPoint = CGPointMake(0.5, 0.5);
-    bullet.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(1, 1)];
+    bullet.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(5, 5)];
     bullet.physicsBody.dynamic = NO;
     bullet.physicsBody.categoryBitMask = BulletMask;
     bullet.physicsBody.contactTestBitMask = CreepMask;
@@ -58,28 +58,28 @@
     if (type == TowerOne) {
         tower.damage = 10;
         tower.bulletType = 1;
-        tower.fireRate = 2;
+        tower.fireRate = 3;
         tower.cost = 90;
         tower.type = TowerOne;
         tower.bulletColor = [UIColor blueColor];
     }else if (type == TowerTwo) {
         tower.damage = 20;
         tower.bulletType = 1;
-        tower.fireRate = 2;
+        tower.fireRate = 3;
         tower.cost = 100;
         tower.type = TowerTwo;
         tower.bulletColor = [UIColor blueColor];
     }else if (type == TowerThree) {
         tower.damage = 15;
         tower.bulletType = 1;
-        tower.fireRate = 2;
+        tower.fireRate = 3;
         tower.cost = 110;
         tower.type = TowerThree;
         tower.bulletColor = [UIColor blueColor];
     }else if (type == TowerFour) {
         tower.damage = 20;
         tower.bulletType = 1;
-        tower.fireRate = 2;
+        tower.fireRate = 3;
         tower.cost = 120;
         tower.type = TowerFour;
         tower.bulletColor = [UIColor blueColor];
@@ -121,24 +121,31 @@
 //    return arctg;
 //}
 
--(void) shootAtTarget:(SKSpriteNode*)target {
-    NSLog(@"bala atingiu alvo");
+-(void) shootAtTarget {
+    
+    SKSpriteNode *target;
+    
+    if (self.targets.count != 0){
 
-    float angle = [self getRotationWithPoint:self.position endPoint:target.position];
-    
-    SKSpriteNode *bullet = [Bullet bulletOfType:_bulletType withColor: _bulletColor];
-    bullet.zRotation = angle;
-    
-    [self addChild:bullet];
+        NSLog(@"atira no alvo");
 
-    
-    CGPoint creepPoint = [self convertPoint:target.position fromNode:self.parent];
-    
-    SKAction *move = [SKAction moveTo:creepPoint duration:10];
-    
-    [bullet runAction:move completion:^{
-        [bullet removeFromParent];
-    }];
+        target = self.targets[0];
+        
+        float angle = [self getRotationWithPoint:self.position endPoint:target.position];
+        
+        SKSpriteNode *bullet = [Bullet bulletOfType:_bulletType withColor: _bulletColor];
+        bullet.zRotation = angle;
+        
+        [self addChild:bullet];
+        
+        
+        CGPoint creepPoint = [self convertPoint:target.position fromNode:self.parent];
+        
+        SKAction *move = [SKAction moveTo:creepPoint duration:0.5];
+        
+        [bullet runAction:move completion:^{
+            [bullet removeFromParent];
+        }];
     //
     //    CGPoint direction = target.position;
     //    direction.x -= self.position.x;
@@ -150,6 +157,7 @@
     //    SKRange * range = [SKRange rangeWithConstantValue:0.0f];
     //    SKConstraint * constraint = [SKConstraint orientToNode: offset:];
     //
+    }
 }
 
 

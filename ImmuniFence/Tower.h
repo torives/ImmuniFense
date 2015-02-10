@@ -28,7 +28,7 @@
 
 +(instancetype) createTowerOfType: (TowerType)type withLevel:(NSInteger)level;
 // método para atirar nos creeps que ultrapassam o raio da tower.
--(void) shootAtTarget:(SKSpriteNode*)target;
+-(void) shootAtTarget;
 // método para pegar aonde a tower foi criada.
 -(float) getRotationWithPoint:(CGPoint)spoint endPoint:(CGPoint)epoint;
 
