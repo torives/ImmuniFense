@@ -25,9 +25,9 @@
 		4FB18BD31A898D5B00213E10 /* coin_hud.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FB18BD21A898D5B00213E10 /* coin_hud.png */; };
 		4FB18BD61A8992D100213E10 /* youlosealert.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FB18BD41A8992D100213E10 /* youlosealert.png */; };
 		4FB18BD71A8992D100213E10 /* youwinalert.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FB18BD51A8992D100213E10 /* youwinalert.png */; };
-		4FB18BDB1A899B0600213E10 /* tower2_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FB18BD81A899B0600213E10 /* tower2_icon.png */; };
-		4FB18BDC1A899B0600213E10 /* tower3_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FB18BD91A899B0600213E10 /* tower3_icon.png */; };
-		4FB18BDD1A899B0600213E10 /* tower4_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FB18BDA1A899B0600213E10 /* tower4_icon.png */; };
+		4FB18BE11A89A14500213E10 /* tower2_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FB18BDE1A89A14500213E10 /* tower2_icon.png */; };
+		4FB18BE21A89A14500213E10 /* tower3_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FB18BDF1A89A14500213E10 /* tower3_icon.png */; };
+		4FB18BE31A89A14500213E10 /* tower4_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FB18BE01A89A14500213E10 /* tower4_icon.png */; };
 		4FD6711F1A892F1E00D6922F /* tower1_down.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4FD6711E1A892F1E00D6922F /* tower1_down.atlas */; };
 		4FD671211A892F8900D6922F /* tower2_down.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4FD671201A892F8900D6922F /* tower2_down.atlas */; };
 		4FD671231A892FD200D6922F /* tower3_down.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4FD671221A892FD200D6922F /* tower3_down.atlas */; };
@@ -92,9 +92,9 @@
 		4FB18BD21A898D5B00213E10 /* coin_hud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coin_hud.png; sourceTree = "<group>"; };
 		4FB18BD41A8992D100213E10 /* youlosealert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = youlosealert.png; sourceTree = "<group>"; };
 		4FB18BD51A8992D100213E10 /* youwinalert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = youwinalert.png; sourceTree = "<group>"; };
-		4FB18BD81A899B0600213E10 /* tower2_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tower2_icon.png; sourceTree = "<group>"; };
-		4FB18BD91A899B0600213E10 /* tower3_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tower3_icon.png; sourceTree = "<group>"; };
-		4FB18BDA1A899B0600213E10 /* tower4_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tower4_icon.png; sourceTree = "<group>"; };
+		4FB18BDE1A89A14500213E10 /* tower2_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tower2_icon.png; sourceTree = "<group>"; };
+		4FB18BDF1A89A14500213E10 /* tower3_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tower3_icon.png; sourceTree = "<group>"; };
+		4FB18BE01A89A14500213E10 /* tower4_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tower4_icon.png; sourceTree = "<group>"; };
 		4FD6711E1A892F1E00D6922F /* tower1_down.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = tower1_down.atlas; sourceTree = "<group>"; };
 		4FD671201A892F8900D6922F /* tower2_down.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = tower2_down.atlas; sourceTree = "<group>"; };
 		4FD671221A892FD200D6922F /* tower3_down.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = tower3_down.atlas; sourceTree = "<group>"; };
@@ -265,9 +265,9 @@
 		4FED28331A87F68500175FB0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				4FB18BD81A899B0600213E10 /* tower2_icon.png */,
-				4FB18BD91A899B0600213E10 /* tower3_icon.png */,
-				4FB18BDA1A899B0600213E10 /* tower4_icon.png */,
+				4FB18BDE1A89A14500213E10 /* tower2_icon.png */,
+				4FB18BDF1A89A14500213E10 /* tower3_icon.png */,
+				4FB18BE01A89A14500213E10 /* tower4_icon.png */,
 				4FB18BD41A8992D100213E10 /* youlosealert.png */,
 				4FB18BD51A8992D100213E10 /* youwinalert.png */,
 				61FFD74B1A894989001DE418 /* codex.png */,
@@ -395,14 +395,14 @@
 				4FD671211A892F8900D6922F /* tower2_down.atlas in Resources */,
 				61C533181A84E42700303BBD /* TerrainInformation.txt in Resources */,
 				61FFD7501A894989001DE418 /* codex5.png in Resources */,
-				4FB18BDB1A899B0600213E10 /* tower2_icon.png in Resources */,
+				4FB18BE11A89A14500213E10 /* tower2_icon.png in Resources */,
 				4F9E911A1A7DA2EA0044962D /* Images.xcassets in Resources */,
 				4F7FD97E1A88416E00989CD0 /* creep2_down.atlas in Resources */,
-				4FB18BDD1A899B0600213E10 /* tower4_icon.png in Resources */,
+				4FB18BE31A89A14500213E10 /* tower4_icon.png in Resources */,
 				4FD798981A83A0FF003BA098 /* creep1_down.atlas in Resources */,
 				4FED28391A87F75300175FB0 /* map1.jpg in Resources */,
 				4F7FD97F1A88416E00989CD0 /* creep2_left.atlas in Resources */,
-				4FB18BDC1A899B0600213E10 /* tower3_icon.png in Resources */,
+				4FB18BE21A89A14500213E10 /* tower3_icon.png in Resources */,
 				4FB18BD11A898D5000213E10 /* health_hud.png in Resources */,
 				4FD671231A892FD200D6922F /* tower3_down.atlas in Resources */,
 				4FB18BCE1A898B0900213E10 /* bullet_1.png in Resources */,
