@@ -380,8 +380,9 @@
     
     //cria o indicador de vida
     SKSpriteNode *healthIndicator = [SKSpriteNode spriteNodeWithImageNamed: @"health_hud"];
-    healthIndicator.position = CGPointMake(10,CGRectGetMaxY(self.frame)-50);
-    healthIndicator.anchorPoint = CGPointMake(0, 0);
+    healthIndicator.position = CGPointMake(60,CGRectGetMaxY(self.frame)-30);
+    healthIndicator.xScale = 0.3;
+    healthIndicator.yScale = 0.3;
     healthIndicator.name = @"healthIndicator";
     
     //Cria label de vida
@@ -389,19 +390,20 @@
     healthLabel.text = [NSString stringWithFormat:@"%d", health];
     healthLabel.fontSize = 14;
     healthLabel.fontColor = [SKColor blackColor];
-    healthLabel.position = CGPointMake(10+healthIndicator.frame.size.width/2, healthIndicator.frame.size.height/2);
+    healthLabel.position = CGPointMake(70,CGRectGetMaxY(self.frame)-38);
     healthLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
     healthLabel.name = @"healthLabel";
     
-    //adiciona a label ao indicator
-    [healthIndicator addChild:healthLabel];
     //adiciona o indicator a cena
     [self addChild: healthIndicator];
-    
+    //adiciona a label ao indicator
+    [self addChild:healthLabel];
+
     //Cria o indicador de moedas
     SKSpriteNode *coinIndicator = [SKSpriteNode spriteNodeWithImageNamed:@"coin_hud"];
-    coinIndicator.position = CGPointMake(130,CGRectGetMaxY(self.frame)-50);
-    coinIndicator.anchorPoint = CGPointMake(0, 0);
+    coinIndicator.position = CGPointMake(190,CGRectGetMaxY(self.frame)-30);
+    coinIndicator.xScale = 0.3;
+    coinIndicator.yScale = 0.3;
     coinIndicator.name = @"coinIndicator";
     
     //Cria label de coins
@@ -409,14 +411,15 @@
     coinLabel.text = [NSString stringWithFormat:@"%d", coins];
     coinLabel.fontSize = 14;
     coinLabel.fontColor = [SKColor blackColor];
-    coinLabel.position = CGPointMake(10+coinIndicator.frame.size.width/2, coinIndicator.frame.size.height/2);
+    coinLabel.position = CGPointMake(210,CGRectGetMaxY(self.frame)-38);
     coinLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
     coinLabel.name = @"coinLabel";
-    
-    //adiciona a label ao indicador
-    [coinIndicator addChild:coinLabel];
+   
     //adiciona o indicador a cena
     [self addChild: coinIndicator];
+    //adiciona a label ao indicador
+    [self addChild:coinLabel];
+   
 }
 
 //chamado quando um creep atravessa a linha de defesa.
@@ -453,16 +456,16 @@
 
 -(void) updateHealthIndicator{
     
-    SKNode *healthIndicator = [self childNodeWithName:@"healthIndicator"];
-    SKLabelNode *healthLabel = (SKLabelNode*)[healthIndicator childNodeWithName:@"healthLabel"];
+   // SKNode *healthIndicator = [self childNodeWithName:@"healthIndicator"];
+    SKLabelNode *healthLabel = (SKLabelNode*)[self childNodeWithName:@"healthLabel"];
     healthLabel.text = [NSString stringWithFormat:@"%d", health];
     NSLog(@"Health Updated");
 }
 
 -(void) updateCoinIndicator{
     
-    SKNode *coinIndicator = [self childNodeWithName:@"coinIndicator"];
-    SKLabelNode *coinLabel = (SKLabelNode*)[coinIndicator childNodeWithName:@"coinLabel"];
+    //SKNode *coinIndicator = [self childNodeWithName:@"coinIndicator"];
+    SKLabelNode *coinLabel = (SKLabelNode*)[self childNodeWithName:@"coinLabel"];
     coinLabel.text = [NSString stringWithFormat:@"%d", coins];
     NSLog(@"Coins Updated");
 }
