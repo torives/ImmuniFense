@@ -12,6 +12,8 @@
 #import "Terrain.h"
 #import "Creep.h"
 #import "Tower.h"
+#import "GameWin.h"
+#import "GameOver.h"
 
 //TODO  implementar o ingame menu
 //TODO  implementar a pausa do jogo.
@@ -532,17 +534,17 @@
 -(void) gameOver{
     
     NSLog(@"Game Over");
-    //    GameOver *gameOver = [GameOver sceneWithSize:self.frame.size];
-    //    SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
-    //    [self.view presentScene:gameOver transition:transition];
+    GameOver *gameOver = [GameOver sceneWithSize:self.frame.size];
+    SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
+    [self.view presentScene:gameOver transition:transition];
 }
 
 -(void) gameWin{
     
     NSLog(@"You Win");
-    //    GameWin *gameWin = [GameWin sceneWithSize:self.frame.size];
-    //    SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
-    //    [self.view presentScene:gameWin transition:transition];
+    GameWin *gameWin = [GameWin sceneWithSize:self.frame.size];
+    SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
+    [self.view presentScene:gameWin transition:transition];
 }
 
 @end
