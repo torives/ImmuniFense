@@ -42,7 +42,7 @@
     creep.damage = 1;
     creep.hitPoints = 80;
     creep.reward = 10;
-    creep.velocity = 10;
+    creep.velocity = 20;
     creep.direction = ' ';
     creep.lastPosition = CGPointMake(9999, 9999);
     

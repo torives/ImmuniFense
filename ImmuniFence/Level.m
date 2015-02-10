@@ -45,8 +45,12 @@
     NSTimeInterval currentWaveCooldown;
     int lastCreepIndex;
     int livingCreeps;
-    SKSpriteNode* selectedTower;
-    BOOL isTowerSelected;
+    
+    
+    BOOL isIconSelected;
+    SKSpriteNode* selectedSprite;
+    //NSMutableArray *towerBaseBounds;
+    NSMutableArray *towers;
 }
 
 
@@ -67,7 +71,9 @@
     lvl->currentWave = 1;
     lvl->lastCreepIndex = 0;
     lvl->livingCreeps = 0;
-    lvl->isTowerSelected = NO;
+    lvl->isIconSelected = NO;
+    lvl->towers = [[NSMutableArray alloc] init];
+    //lvl->coins = 100;
     
     //se registra como delegate de contato para tratar das colisões
     lvl.physicsWorld.contactDelegate = lvl;
@@ -92,6 +98,7 @@
     //cria o HUD do jogo
     [self createHud];
     
+
     //cria os placeholders para criar as torres
     towerSpots = levelOneTerrain.towerSpot;
     for ( NSValue *value in towerSpots) {
@@ -100,7 +107,7 @@
         CGPoint towerSpot = [value CGPointValue];
         
         SKShapeNode *towerSpawnPoint = [SKShapeNode shapeNodeWithCircleOfRadius:45];
-        //towerSpawnPoint.hidden = YES;
+        towerSpawnPoint.hidden = YES;
         towerSpawnPoint.fillColor = [SKColor blackColor];
         towerSpawnPoint.name = @"towerSpawnPoint";
         
@@ -108,7 +115,19 @@
         towerSpawnPoint.position = towerSpot;
         //adiciona o spawn point ao mapa
         [self addChild:towerSpawnPoint];
+        
+ 
     }
+//    towerBaseBounds = [[NSMutableArray alloc] init];
+    
+//    for (NSValue *base in towerBase) {
+//        
+//        CGPoint basePoint = [base CGPointValue];
+//        CGRect baseRect = CGRectMake(basePoint.x, basePoint.y, 0, 0);
+//        CGRect expandedRect = CGRectInset(baseRect, -69/4, -69/4);
+//        [towerBaseBounds addObject:[NSValue valueWithCGRect:expandedRect]];
+//    }
+  
     
     //adiciona os icones para adição das torres
     [self addTowerIcons];
@@ -145,17 +164,21 @@
         
         Tower *tower = (Tower *) node;
         
-        Creep *target = [tower.targets objectAtIndex:0];
-        
-        if (target.hitPoints <= 0) {
+        if (tower.targets.count != 0) {
             
-            [tower.targets removeObjectAtIndex:0];
-        }
-        else if (currentTime - timeOfLastMove >= tower.fireRate){
-            //esse método simplesmente cria o projétil e o manda na direção do alvo,
-            //removendo-o no contato. O dano e a morte do creep tem que ser tratados
-            //nos métodos de SKPhysicsContactDelegate
-            [tower shootAtTarget:target];
+            Creep *target = [tower.targets objectAtIndex:0];
+            
+            if (target.hitPoints <= 0) {
+                
+                [tower.targets removeObjectAtIndex:0];
+            }
+            else if (currentTime - timeOfLastMove >= tower.fireRate){
+                //esse método simplesmente cria o projétil e o manda na direção do alvo,
+                //removendo-o no contato. O dano e a morte do creep tem que ser tratados
+                //nos métodos de SKPhysicsContactDelegate
+                NSLog(@"target");
+                [tower shootAtTarget:target];
+            }
         }
     }];
     
@@ -285,86 +308,121 @@
     
 }
 
+// editando AQUI
 -(void)selectNodeForTouch:(CGPoint)touchLocation{
     
-//    BOOL spotTaken = false;
-//    SKSpriteNode *touchedNode = (SKSpriteNode*)[self nodeAtPoint:touchLocation];
-//
-//    if ([touchedNode.name isEqualToString: @"towerIcon"]){
-//
-//        if(![selectedTower isEqual:touchedNode]){
-//
-//            if (isTowerSelected) {
-//
-//                for (Tower *tower in self.towers) {
-//
-//                    CGRect touchFrame = CGRectInset(tower.frame, -9, -8);
-//
-//                    if (CGRectContainsPoint(touchFrame, touchLocation)) {
-//                        NSLog(@"%@", tower);
-//                        spotTaken = true;
-//                    }
-//                }
-//
-//                //Não entendo direito pra q q serve essa bagaça
-//                if (spotTaken) {
-//
-//                    [selectedTower removeAllActions];
-//                    [selectedTower runAction:[SKAction rotateToAngle:0.0f duration:0.1]];
-//                    [selectedTower setScale:1.0f];
-//                    isTowerSelected = NO;
-//
-//                }
-//
-//                else{
-//
-//                    for (NSValue *base in self.towerBaseBounds) {
-//
-//                        CGRect baseRect = [base CGRectValue];
-//
-//                        if (CGRectContainsPoint(baseRect, touchLocation)) {
-//
-//                            if (coins >= [[selectedTower.userData objectForKey:@"cost"] intValue]) {
-//
-//                                int turret_no = [[selectedTower.userData objectForKey:@"number"] intValue];
-//                                Tower *turretPlaced = [TowerNode towerOfType:(TowerType)turret_no withLevel:1];
-//                                [turretPlaced setPosition:[[_towerBases objectAtIndex:[_towerBaseBounds indexOfObject:base]]CGPointValue]];
-//                                //[turretPlaced debugDrawWithScene:self];
-//                                coins -= [[selectedTower.userData objectForKey:@"cost"] intValue];
-//                                [self updateHUD];
-//                                [self addChild:turretPlaced];
-//                                [self.towers addObject:turretPlaced];
-//                                isTowerSelected = NO;
-//                            }
-//                        }
-//                    }
-//                }
+    SKSpriteNode *touchedNode = (SKSpriteNode*)[self nodeAtPoint:touchLocation];
+    
+    if ([touchedNode.name isEqualToString:@"towerIcon"]) {
+        
+        if (isIconSelected) {
+            //[touchedNode removeAllActions];
+            //[touchedNode runAction:[SKAction rotateToAngle:0.0f duration:0.1]];
+            [touchedNode setScale:0.5f];
+            isIconSelected = NO;
+            selectedSprite = nil;
+        }
+        else{
+            isIconSelected = YES;
+            selectedSprite = touchedNode;
+            [selectedSprite setScale:1.5f];
+        }
+    }
+    else if ([touchedNode.name isEqualToString:@"towerSpawnPoint"]){
+        
+        if ( isIconSelected && coins >= [[selectedSprite.userData objectForKey:@"cost"]intValue]) {
+            
+            Tower* newTower = [Tower createTowerOfType: [[selectedSprite.userData objectForKey: @"type"] intValue] withLevel:1];
+            
+            [towers addObject:newTower];
+            newTower.position = touchedNode.position;
+            [self addChild:newTower];
+            
+            [towerSpots removeObject: [NSValue valueWithCGPoint: touchedNode.position]];
+            coins -= [[selectedSprite.userData objectForKey:@"cost"]intValue];
+            [self updateCoinIndicator];
+            
+            [selectedSprite setScale:0.5f];
+            isIconSelected = NO;
+            selectedSprite = nil;
+        }
+    }
+}
+
+
+//if(![selectedTower isEqual:touchedNode]){
+//    
+//    if (isTowerSelected) {
+//        
+//        
+//        for (Tower *tower in towers) {
+//            
+//            CGRect touchFrame = CGRectInset(tower.frame, -9, -8);
+//            
+//            if (CGRectContainsPoint(touchFrame, touchLocation)) {
+//                NSLog(@"TOWER %@", tower);
+//                spotTaken = true;
 //            }
-//
+//        }
+//        
+//        //Não entendo direito pra q q serve essa bagaça
+//        if (spotTaken) {
+//            //                    NSLog(@"testee");
 //            [selectedTower removeAllActions];
 //            [selectedTower runAction:[SKAction rotateToAngle:0.0f duration:0.1]];
-//            [selectedTower setScale:1.0f];
-//            selectedTower = touchedNode;
-//
-//
-//            if([[touchedNode name] isEqualToString:@"movable"] && (coins >= [[selectedTower.userData objectForKey:@"cost"] intValue])) {
-//                [selectedTower setScale:1.5f];
-//                isTowerSelected = YES;
-//                SKAction *sequence = [SKAction sequence:@[[SKAction rotateByAngle:degToRad(-6.0f) duration:0.1],
-//                                                          [SKAction rotateByAngle:0.0 duration:0.1],
-//                                                          [SKAction rotateByAngle:degToRad(6.0f) duration:0.1]]];
-//                [selectedTower runAction:[SKAction repeatActionForever:sequence]];
-//            }
+//            [selectedTower setScale:0.5f];
+//            isTowerSelected = NO;
 //            
+//        }
+//        
+//        else{
 //            
-//            
-//            
-//            if([[touchedNode name] isEqualToString:@"tower"]) {
-//                NSLog(@"tap turret");
+//            for (NSValue *base in towerSpots) {
+//                
+//                CGRect baseRect = [base CGRectValue];
+//                
+//                if (CGRectContainsPoint(baseRect, touchLocation)) {
+//                    
+//                    Tower* tower = (Tower*)selectedTower;
+//                    if (coins >= tower.cost) {
+//                        
+//                        Tower *turretPlaced = [Tower createTowerOfType:(TowerType)tower.type withLevel:1];
+//                        [turretPlaced setPosition:[[towerSpots objectAtIndex:[towerSpots indexOfObject:base]]CGPointValue]];
+//                        coins -= turretPlaced.cost;
+//                        [self updateCoinIndicator];
+//                        [self addChild:turretPlaced];
+//                        [towers addObject:turretPlaced];
+//                        isTowerSelected = NO;
+//                    }
+//                }
 //            }
 //        }
 //    }
-}
+//    
+//    [selectedTower removeAllActions];
+//    [selectedTower runAction:[SKAction rotateToAngle:0.0f duration:0.1]];
+//    [selectedTower setScale:0.5f];
+//    selectedTower = touchedNode;
+//    
+//    //Tower* auxTower = (Tower*)selectedTower;
+//    
+//    if ([[touchedNode name] isEqualToString:@"towerIcon"] && (coins >= [[selectedTower.userData objectForKey:@"cost"]intValue])) {
+//        
+//        [selectedTower setScale:0.5f];
+//        isTowerSelected = YES;
+//        
+//        //                SKAction *sequence = [SKAction sequence:@[[SKAction rotateByAngle:degToRad(-6.0f) duration:0.1],
+//        //                                                          [SKAction rotateByAngle:0.0 duration:0.1],
+//        //                                                          [SKAction rotateByAngle:degToRad(6.0f) duration:0.1]]];
+//        //                [selectedTower runAction:[SKAction repeatActionForever:sequence]];
+//    }
+//    
+//    
+//    if([[touchedNode name] isEqualToString:@"towerIcon"]) {
+//        NSLog(@"tap turret");
+//    }
+//    
+//}
 
 
 /***************************************
@@ -514,6 +572,7 @@
     
     NSArray *turretIconNames = @[@"tower1_down0",@"tower2_down0",@"tower3_down0", @"tower4_down0"];
 
+    int i = 1;
     for (NSString *turretIconName in turretIconNames) {
         
         SKSpriteNode *turretIconSprite = [SKSpriteNode spriteNodeWithImageNamed:turretIconName];
@@ -522,10 +581,31 @@
         [turretIconSprite setColor:[SKColor blackColor]];
         [turretIconSprite setColorBlendFactor:0.8];                                //adiciona o número da torre
         [turretIconSprite setPosition:CGPointMake(20+[turretIconNames indexOfObject:turretIconName]*40, 30)];
+
+        
+        if( i==1){
+         
+            turretIconSprite.userData = [NSMutableDictionary dictionaryWithObject:[NSNumber numberWithInt:90] forKey:@"cost"];
+            [turretIconSprite.userData setObject: [NSNumber numberWithInt:TowerOne] forKey:@"type"];
+            
+        }
+        else if ( i==2){
+            turretIconSprite.userData = [NSMutableDictionary dictionaryWithObject:[NSNumber numberWithInt:100] forKey:@"cost"];
+            [turretIconSprite.userData setObject: [NSNumber numberWithInt:TowerTwo] forKey:@"type"];
+        }
+        else if (i==3){
+            turretIconSprite.userData = [NSMutableDictionary dictionaryWithObject:[NSNumber numberWithInt:110] forKey:@"cost"];
+            [turretIconSprite.userData setObject: [NSNumber numberWithInt:TowerThree] forKey:@"type"];
+        }
+        else{
+            turretIconSprite.userData = [NSMutableDictionary dictionaryWithObject:[NSNumber numberWithInt:120] forKey:@"cost"];
+            [turretIconSprite.userData setObject: [NSNumber numberWithInt:TowerFour] forKey:@"type"];
+        }
         
         turretIconSprite.xScale = 0.3;
         turretIconSprite.yScale = 0.3;
         [self addChild:turretIconSprite];
+        i++;
     }
 }
 
@@ -544,5 +624,6 @@
     //    SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
     //    [self.view presentScene:gameWin transition:transition];
 }
+
 
 @end
