@@ -72,9 +72,9 @@
     lvl->currentWave = 1;
     lvl->lastCreepIndex = 0;
     lvl->livingCreeps = 0;
-    lvl->isIconSelected = NO;
-    lvl->towers = [[NSMutableArray alloc] init];
-    //lvl->coins = 100;
+    lvl->isTowerSelected = NO;
+    lvl->pathCount = 0;
+    lvl->level = levelName;
     
     //se registra como delegate de contato para tratar das colisões
     lvl.physicsWorld.contactDelegate = lvl;
@@ -108,7 +108,7 @@
         CGPoint towerSpot = [value CGPointValue];
         
         SKShapeNode *towerSpawnPoint = [SKShapeNode shapeNodeWithCircleOfRadius:45];
-        towerSpawnPoint.hidden = YES;
+        //towerSpawnPoint.hidden = YES;
         towerSpawnPoint.fillColor = [SKColor blackColor];
         towerSpawnPoint.name = @"towerSpawnPoint";
         
@@ -119,16 +119,6 @@
         
  
     }
-//    towerBaseBounds = [[NSMutableArray alloc] init];
-    
-//    for (NSValue *base in towerBase) {
-//        
-//        CGPoint basePoint = [base CGPointValue];
-//        CGRect baseRect = CGRectMake(basePoint.x, basePoint.y, 0, 0);
-//        CGRect expandedRect = CGRectInset(baseRect, -69/4, -69/4);
-//        [towerBaseBounds addObject:[NSValue valueWithCGRect:expandedRect]];
-//    }
-  
     
     //adiciona os icones para adição das torres
     [self addTowerIcons];
@@ -598,9 +588,8 @@
         
         [turretIconSprite setName:@"towerIcon"];
         [turretIconSprite setColor:[SKColor blackColor]];
-        [turretIconSprite setColorBlendFactor:0.8];                                //adiciona o número da torre
-        [turretIconSprite setPosition:CGPointMake(20+[turretIconNames indexOfObject:turretIconName]*40, 30)];
-
+        [turretIconSprite setColorBlendFactor:0.8];                    
+        [turretIconSprite setPosition:CGPointMake(40+[turretIconNames indexOfObject:turretIconName]*65, 30)];
         
         if( i==1){
          
@@ -621,8 +610,8 @@
             [turretIconSprite.userData setObject: [NSNumber numberWithInt:TowerFour] forKey:@"type"];
         }
         
-        turretIconSprite.xScale = 0.08;
-        turretIconSprite.yScale = 0.08;
+        turretIconSprite.xScale = 0.3;
+        turretIconSprite.yScale = 0.3;
         [self addChild:turretIconSprite];
         i++;
     }
