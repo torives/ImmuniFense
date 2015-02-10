@@ -49,6 +49,7 @@
 		61FFD74E1A894989001DE418 /* codex.png in Resources */ = {isa = PBXBuildFile; fileRef = 61FFD74B1A894989001DE418 /* codex.png */; };
 		61FFD74F1A894989001DE418 /* codex4.png in Resources */ = {isa = PBXBuildFile; fileRef = 61FFD74C1A894989001DE418 /* codex4.png */; };
 		61FFD7501A894989001DE418 /* codex5.png in Resources */ = {isa = PBXBuildFile; fileRef = 61FFD74D1A894989001DE418 /* codex5.png */; };
+		61FFD7521A899647001DE418 /* map2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 61FFD7511A899647001DE418 /* map2.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +126,7 @@
 		61FFD74B1A894989001DE418 /* codex.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = codex.png; sourceTree = "<group>"; };
 		61FFD74C1A894989001DE418 /* codex4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = codex4.png; sourceTree = "<group>"; };
 		61FFD74D1A894989001DE418 /* codex5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = codex5.png; sourceTree = "<group>"; };
+		61FFD7511A899647001DE418 /* map2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = map2.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,6 +257,7 @@
 		4FED28331A87F68500175FB0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				61FFD7511A899647001DE418 /* map2.jpg */,
 				61FFD74B1A894989001DE418 /* codex.png */,
 				4FB18BCD1A898B0900213E10 /* bullet_1.png */,
 				61FFD74C1A894989001DE418 /* codex4.png */,
@@ -384,6 +387,7 @@
 				4FD798981A83A0FF003BA098 /* creep1_down.atlas in Resources */,
 				4FED28391A87F75300175FB0 /* map1.jpg in Resources */,
 				4F7FD97F1A88416E00989CD0 /* creep2_left.atlas in Resources */,
+				61FFD7521A899647001DE418 /* map2.jpg in Resources */,
 				4FD671231A892FD200D6922F /* tower3_down.atlas in Resources */,
 				4FB18BCE1A898B0900213E10 /* bullet_1.png in Resources */,
 				4FD6711F1A892F1E00D6922F /* tower1_down.atlas in Resources */,
