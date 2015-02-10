@@ -33,6 +33,8 @@
 
 @implementation Level{
     
+    int level;
+    int pathCount;
     int health;
     int currentWave;
     int coins;
@@ -67,6 +69,8 @@
     lvl->lastCreepIndex = 0;
     lvl->livingCreeps = 0;
     lvl->isTowerSelected = NO;
+    lvl->pathCount = 0;
+    lvl->level = levelName;
     
     //se registra como delegate de contato para tratar das colisões
     lvl.physicsWorld.contactDelegate = lvl;
@@ -78,13 +82,13 @@
 -(void) didMoveToView:(SKView *)view{
     
     //define o mapa da fase
+   
     Terrain *levelOneTerrain = [Terrain initWithLevel:LevelOne];
     SKSpriteNode* map = levelOneTerrain.map;
     map.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     map.yScale = 0.3;
     map.xScale = 0.3;
     [self addChild: map];
-    
     coins = levelOneTerrain.coins;
     
     NSLog(@"terminou terreno");
@@ -113,14 +117,18 @@
     [self addTowerIcons];
     
     //guarda o path pra usar com a velocidade diferente de cada creep
-    path = levelOneTerrain.creepPath;
-    
+    if((pathCount%2)!=0){
+        path = levelOneTerrain.creepPath;
+    }
+    else{
+        path = levelOneTerrain.creepPath2;
+    }
     //pega a referencia para as waves da fase
     levelOneWaves = [[LevelWave alloc]initWithLevel: LevelOne];
   
     //descobre o tempo de espera para chamar a próxima wave
     //currentWaveCooldown = [levelOneWaves cooldownForWave: currentWave];
-    
+     pathCount++;
     //inicializa o vetor de creeps ativas
     activeCreeps = [[NSMutableArray alloc] init];
     
@@ -128,7 +136,9 @@
     SKAction *performSelector = [SKAction performSelector:@selector(addCreepWave) onTarget:self];
     SKAction *sequence = [SKAction sequence:@[performSelector, wait]];
     SKAction *repeat   = [SKAction repeatAction:sequence count: levelOneWaves.numberOfWaves];
+    
     [self runAction:repeat];
+  
 }
 
 

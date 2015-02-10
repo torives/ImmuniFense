@@ -12,6 +12,8 @@
 
 @interface Level : SKScene <SKPhysicsContactDelegate>
 
+@property int level;
+
 +(instancetype) createLevel: (LevelName) levelName withSize:(CGSize)size;
 
 @end
