@@ -7,7 +7,7 @@
 //
 
 #import "MainMenu.h"
-#import "Level.h"
+#import "LevelSelector.h"
 #import "Codex.h"
 
 @implementation MainMenu
@@ -66,10 +66,11 @@
     // if next button touched, start transition to next scene
     if ([node.name isEqualToString:@"startGameButton"]) {
         NSLog(@"startGameButton pressed");
-        Level *newLevel = [Level createLevel: LevelOne withSize: self.frame.size];
+        LevelSelector *newLevel = [LevelSelector sceneWithSize:self.frame.size];
         SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
         [self.view presentScene:newLevel transition:transition];
     }
+
     else if ([node.name isEqualToString:@"codexButton"]){
                 Codex *codexScene = [Codex sceneWithSize: self.frame.size];
                 SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];

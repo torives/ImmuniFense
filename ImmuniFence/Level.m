@@ -12,13 +12,12 @@
 #import "Terrain.h"
 #import "Creep.h"
 #import "Tower.h"
+#import "GameWin.h"
+#import "GameOver.h"
 
 //TODO  implementar o ingame menu
 //TODO  implementar a pausa do jogo.
-//TODO  ainda não está se adicionando as waves subsequentes, tem que acertar a questão do tempo
-//TODO  considerar o tempo de adição de cada creep da wave
 
-/*Declaração dos métodos privados da classe*/
 @interface Level ()
 
 -(void) createHud;
@@ -34,6 +33,8 @@
 
 @implementation Level{
     
+    int level;
+    int pathCount;
     int health;
     int currentWave;
     int coins;
@@ -55,10 +56,10 @@
 
 
 /*****************************
- *
- *  Métodos de SKScene
- *
- ***/
+*
+*  Métodos de SKScene
+*
+***/
 
 + (instancetype)createLevel: (LevelName) levelName withSize:(CGSize)size{
     
@@ -85,13 +86,13 @@
 -(void) didMoveToView:(SKView *)view{
     
     //define o mapa da fase
+   
     Terrain *levelOneTerrain = [Terrain initWithLevel:LevelOne];
     SKSpriteNode* map = levelOneTerrain.map;
     map.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     map.yScale = 0.3;
     map.xScale = 0.3;
     [self addChild: map];
-    
     coins = levelOneTerrain.coins;
     
     NSLog(@"terminou terreno");
@@ -133,14 +134,18 @@
     [self addTowerIcons];
     
     //guarda o path pra usar com a velocidade diferente de cada creep
-    path = levelOneTerrain.creepPath;
-    
+    if((pathCount%2)!=0){
+        path = levelOneTerrain.creepPath;
+    }
+    else{
+        path = levelOneTerrain.creepPath2;
+    }
     //pega a referencia para as waves da fase
     levelOneWaves = [[LevelWave alloc]initWithLevel: LevelOne];
   
     //descobre o tempo de espera para chamar a próxima wave
     //currentWaveCooldown = [levelOneWaves cooldownForWave: currentWave];
-    
+     pathCount++;
     //inicializa o vetor de creeps ativas
     activeCreeps = [[NSMutableArray alloc] init];
     
@@ -148,7 +153,9 @@
     SKAction *performSelector = [SKAction performSelector:@selector(addCreepWave) onTarget:self];
     SKAction *sequence = [SKAction sequence:@[performSelector, wait]];
     SKAction *repeat   = [SKAction repeatAction:sequence count: levelOneWaves.numberOfWaves];
+    
     [self runAction:repeat];
+  
 }
 
 
@@ -196,14 +203,14 @@
 
 
 /*****************************************************
- *
- *  Métodos de SKPhysicsContactDelegate
- *
- *  Utilizados para tratar as colisões entre os nós.
- *  No caso, um creep entrando no alcance de uma torre
- *  ou um projétil de torre acertando um creep
- *
- ***/
+*
+*  Métodos de SKPhysicsContactDelegate
+*
+*  Utilizados para tratar as colisões entre os nós.
+*  No caso, um creep entrando no alcance de uma torre
+*  ou um projétil de torre acertando um creep
+*
+***/
 
 //Chamado quando dois corpos iniciam contato
 -(void) didBeginContact:(SKPhysicsContact *)contact{
@@ -303,13 +310,13 @@
 
 
 /**************************************************
- *
- *  Métodos de UIResponder
- *
- *  Utilizados para tratar da interação do usuário
- *  com a interface do jogo
- *
- ***/
+*
+*  Métodos de UIResponder
+*
+*  Utilizados para tratar da interação do usuário
+*  com a interface do jogo
+*
+***/
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     
@@ -437,10 +444,10 @@
 
 
 /***************************************
- *
- *  Métodos Auxiliares
- *
- ***/
+*
+*  Métodos Auxiliares
+*
+***/
 
 //cria os indicadores de vida e moedas
 //TODO o HUD deve ser uma classe (ou várias) específicas, para encapsular a arte
@@ -504,6 +511,7 @@
     if (health <= 0){
         
         [self gameOver];
+        return;
     }
     
     //Atualiza o HUD
@@ -581,7 +589,7 @@
 
 -(void)addTowerIcons{
     
-    NSArray *turretIconNames = @[@"tower1_down0",@"tower2_down0",@"tower3_down0", @"tower4_down0"];
+    NSArray *turretIconNames = @[@"tower2_icon",@"tower3_icon",@"tower4_icon"];
 
     int i = 1;
     for (NSString *turretIconName in turretIconNames) {
@@ -613,8 +621,8 @@
             [turretIconSprite.userData setObject: [NSNumber numberWithInt:TowerFour] forKey:@"type"];
         }
         
-        turretIconSprite.xScale = 0.3;
-        turretIconSprite.yScale = 0.3;
+        turretIconSprite.xScale = 0.08;
+        turretIconSprite.yScale = 0.08;
         [self addChild:turretIconSprite];
         i++;
     }
@@ -623,17 +631,17 @@
 -(void) gameOver{
     
     NSLog(@"Game Over");
-    //    GameOver *gameOver = [GameOver sceneWithSize:self.frame.size];
-    //    SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
-    //    [self.view presentScene:gameOver transition:transition];
+    GameOver *gameOver = [GameOver sceneWithSize:self.frame.size];
+    SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
+    [self.view presentScene:gameOver transition:transition];
 }
 
 -(void) gameWin{
     
     NSLog(@"You Win");
-    //    GameWin *gameWin = [GameWin sceneWithSize:self.frame.size];
-    //    SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
-    //    [self.view presentScene:gameWin transition:transition];
+    GameWin *gameWin = [GameWin sceneWithSize:self.frame.size];
+    SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
+    [self.view presentScene:gameWin transition:transition];
 }
 
 

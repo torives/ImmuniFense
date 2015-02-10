@@ -17,7 +17,7 @@
     if (self = [super initWithSize:size]) {
         
         SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"youwinalert"];
-        background.position = CGPointMake(0, 0);
+        background.position = CGPointMake(60, 0);
         background.anchorPoint = CGPointMake(0, 0);
         background.yScale = 0.35;
         background.xScale = 0.35;
