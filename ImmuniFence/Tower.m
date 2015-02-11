@@ -86,40 +86,9 @@
     }
     
     tower.lastShot = 0;
-    // tower's rotate
-    //    SKAction *rotationTower = [SKAction sequence:@[[SKAction rotateByAngle: M_1_PI duration:2],
-    //                                                   [SKAction rotateByAngle: -M_1_PI duration:2]]];
-    //    [tower runAction:[SKAction repeatActionForever:rotationTower]];
-    
+
     return tower;
 }
-
-// método para transformar vetores em radianos.
-//static inline CGVector *RadiansToVector (CGFloat radians ){
-//    // criando um vetor
-//    CGVector vector;
-//    // transforma a distância de x em radianos
-//    vector.dx = cosf(radians);
-//    // transforma a distância de y em radianos
-//    vector.dy = sinf(radians);
-//    // retorno do vetor em radianos
-//    return &vector;
-//}
-
-//static inline float Rotation(CGPoint p)
-//{
-//    float arctg = tanhf(p.x/p.y);
-//    
-//    if(p.x < 0.0f)
-//    {
-//        if(p.y >= 0.0f)
-//            arctg += M_PI;
-//        else
-//            arctg -= M_PI;
-//    }
-//    
-//    return arctg;
-//}
 
 -(void) shootAtTarget {
     
@@ -141,35 +110,16 @@
         
         CGPoint creepPoint = [self convertPoint:target.position fromNode:self.parent];
         
-        SKAction *move = [SKAction moveTo:creepPoint duration:0.5];
+        SKAction *move = [SKAction moveTo:creepPoint duration:0.3];
         
         [bullet runAction:move completion:^{
             [bullet removeFromParent];
         }];
-    //
-    //    CGPoint direction = target.position;
-    //    direction.x -= self.position.x;
-    //    direction.y -= self.position.y;
-    //
-    //    //self.zRotation = angle + M_1_PI/2.0f;
-    //    self.zRotation = Rotation(direction) - M_PI/2.0f;
     
-    //    SKRange * range = [SKRange rangeWithConstantValue:0.0f];
-    //    SKConstraint * constraint = [SKConstraint orientToNode: offset:];
-    //
     }
+    else
+        [self removeAllActions];
 }
-
-
-// método que trata da vida do enemy
-//-(void) damageEnemy:(Creep*) enemy onKill:(void (^)()) killHandler {
-//    enemy.hitPoints = enemy.hitPoints - self.damage;
-//    if (enemy.hitPoints <= 0) {
-//        [enemy removeFromParent];
-//        NSLog(@"Creep killed");
-//        killHandler();
-//    }
-//}
 
 // método que pega o ponto do target para transformar e, radianos
 - (float)getRotationWithPoint:(CGPoint)spoint endPoint:(CGPoint)epoint {
