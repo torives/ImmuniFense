@@ -134,6 +134,7 @@
      pathCount++;
     //inicializa o vetor de creeps ativas
     activeCreeps = [[NSMutableArray alloc] init];
+    towers = [[NSMutableArray alloc]init];
     
     SKAction *wait = [SKAction waitForDuration: [levelOneWaves cooldownForWave: currentWave]];
     SKAction *performSelector = [SKAction performSelector:@selector(addCreepWave) onTarget:self];

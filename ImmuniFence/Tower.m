@@ -72,7 +72,7 @@
     }else if (type == TowerThree) {
         tower.damage = 15;
         tower.bulletType = 1;
-        tower.fireRate = 3;
+        tower.fireRate = 10;
         tower.cost = 110;
         tower.type = TowerThree;
         tower.bulletColor = [UIColor blueColor];
