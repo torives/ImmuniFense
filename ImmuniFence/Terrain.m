@@ -79,7 +79,7 @@
             }
             fscanf(terrain, "%d", &xp);
             fscanf(terrain, "%d", &yp);
-            novo.creepPath2 = NULL;
+            
             if(xp!=5000 && yp!=5000)
             {
                 CGPathMoveToPoint(novo.creepPath2, NULL, xp, yp);
@@ -87,7 +87,7 @@
                 fscanf(terrain, "%d", &xp);
                 fscanf(terrain, "%d", &yp);
                 
-                //printf("%d%d",xp,yp);
+                printf("%d%d",xp,yp);
                 while(xp!=5000 && yp!=5000)
                 {
                     CGPathAddLineToPoint(novo.creepPath2, NULL, xp, yp);
@@ -120,6 +120,7 @@
     fclose(terrain);
     if (novo.creepPath2 == NULL)
     {
+        printf("Entrou");
         novo.creepPath2 = novo.creepPath;
     }
     

@@ -94,7 +94,7 @@
     map.xScale = 0.3;
     [self addChild: map];
     coins = levelOneTerrain.coins;
-    
+    self.terrain = levelOneTerrain;
     NSLog(@"terminou terreno");
     //cria o HUD do jogo
     [self createHud];
@@ -124,12 +124,8 @@
     [self addTowerIcons];
     
     //guarda o path pra usar com a velocidade diferente de cada creep
-    if((pathCount%2)!=0){
-        path = levelOneTerrain.creepPath;
-    }
-    else{
-        path = levelOneTerrain.creepPath2;
-    }
+    path = levelOneTerrain.creepPath;
+    
     //pega a referencia para as waves da fase
     levelOneWaves = [[LevelWave alloc]initWithLevel: LevelOne];
   
@@ -441,6 +437,15 @@
     [self runAction:repeat];
     
     currentWave++;
+    if((currentWave%2)==0)
+    {
+        path = self.terrain.creepPath2;
+    }
+    else
+    {
+        path = self.terrain.creepPath;
+    }
+    
     NSLog(@"creep wave added");
 }
 
