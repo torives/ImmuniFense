@@ -140,7 +140,6 @@
     SKAction *repeat   = [SKAction repeatAction:sequence count: levelOneWaves.numberOfWaves];
     
     [self runAction:repeat];
-  
 }
 
 -(void) update:(NSTimeInterval)currentTime{
