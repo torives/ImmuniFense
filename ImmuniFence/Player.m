@@ -26,6 +26,8 @@
         self.prescriptions = 0;
         self.levelsCleared = [[NSMutableArray alloc]init];
         self.itemList = [[NSDictionary alloc]init];
+        
+        // itemList = Healthy e immunicoins
     }
     return self;
 }

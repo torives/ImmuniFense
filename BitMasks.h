@@ -9,7 +9,7 @@
 #ifndef ImmuniFense_BitMasks_h
 #define ImmuniFense_BitMasks_h
 
-#import <Foundation/Foundation.h>
+//#import <Foundation/Foundation.h>
 
 
 typedef NS_OPTIONS(uint32_t, CollisionMask) {

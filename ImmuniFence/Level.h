@@ -8,17 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <SpriteKit/SpriteKit.h>
-
-typedef NS_ENUM (NSUInteger, LevelName) {
-    
-    LevelOne = 1,
-    LevelTwo = 2,
-    LevelThree = 3,
-    
-};
-
+#import "LevelNames.h"
+#import "Terrain.h"
 
 @interface Level : SKScene <SKPhysicsContactDelegate>
+
+@property (nonatomic) Terrain* terrain;
 
 +(instancetype) createLevel: (LevelName) levelName withSize:(CGSize)size;
 

@@ -7,21 +7,14 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-
-typedef NS_ENUM (NSUInteger, CreepType) {
-    
-    CreepOne = 1,
-    CreepTwo = 2,
-    CreepThree = 3,
-    
-};
+#import "CreepTypes.h"
 
 @interface Creep : SKSpriteNode
 
 @property (nonatomic) int damage;
 @property (nonatomic) int hitPoints;
 @property (nonatomic) int reward;
-@property (nonatomic) NSTimeInterval velocity; //Não implementado
+@property (nonatomic) NSTimeInterval velocity;
 @property (nonatomic) CreepType type;
 @property (nonatomic) CGPoint lastPosition;
 @property (nonatomic) char direction;
