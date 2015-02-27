@@ -19,19 +19,19 @@
 @property (nonatomic) int cost;
 @property (nonatomic) NSTimeInterval fireRate;
 @property (nonatomic) NSTimeInterval lastShot;
+@property (nonatomic) TowerType type;
 
 //Acho que são variáveis privadas
-@property (nonatomic, strong) SKSpriteNode *bullet;
-@property (nonatomic, strong) SKSpriteNode *tower;
+@property (nonatomic, strong) UIColor *bulletColor;
+//@property (nonatomic, strong) SKSpriteNode *tower;
 
 
 +(instancetype) createTowerOfType: (TowerType)type withLevel:(NSInteger)level;
 // método para atirar nos creeps que ultrapassam o raio da tower.
--(void) shootAtTarget:(SKSpriteNode*)target;
+-(void) shootAtTarget;
 // método para pegar aonde a tower foi criada.
 -(float) getRotationWithPoint:(CGPoint)spoint endPoint:(CGPoint)epoint;
-// método que causa dano no creep, atira.
--(void) damageEnemy:(SKSpriteNode*) enemy onKill:(void (^)()) killHandler;
+
 @end
 
 

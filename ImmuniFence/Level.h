@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <SpriteKit/SpriteKit.h>
 #import "LevelNames.h"
+#import "Terrain.h"
 
 @interface Level : SKScene <SKPhysicsContactDelegate>
+
+@property (nonatomic) Terrain* terrain;
 
 +(instancetype) createLevel: (LevelName) levelName withSize:(CGSize)size;
 
