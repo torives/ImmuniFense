@@ -116,8 +116,6 @@
         towerSpawnPoint.position = towerSpot;
         //adiciona o spawn point ao mapa
         [self addChild:towerSpawnPoint];
-        
- 
     }
     
     //adiciona os icones para adição das torres
