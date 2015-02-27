@@ -144,26 +144,6 @@
 
 -(void) update:(NSTimeInterval)currentTime{
     
-    
-    //Controla o tiro das torres
-    [self enumerateChildNodesWithName:@"tower" usingBlock:^(SKNode *node, BOOL *stop) {
-        
-        Tower *tower = (Tower *) node;
-        
-        Creep *target = [tower.targets objectAtIndex:0];
-        
-        if (target.health <= 0) {
-            
-            [tower.targets removeObjectAtIndex:0];
-        }
-        else if (currentTime - timeOfLastMove >= tower.fireRate){
-            //esse método simplesmente cria o projétil e o manda na direção do alvo,
-            //removendo-o no contato. O dano e a morte do creep tem que ser tratados
-            //nos métodos de SKPhysicsContactDelegate
-            [tower shootAtTarget:target];
-        }
-    }];
-    
     //atualiza o sprite dos creeps de acordo com a direção que eles seguem
     [self enumerateChildNodesWithName:@"creep" usingBlock:^(SKNode *node, BOOL *stop){
         
