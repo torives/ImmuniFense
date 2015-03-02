@@ -10,11 +10,11 @@
 #define ImmuniFense_TowerTypes_h
 
 typedef NS_ENUM(NSUInteger, TowerType) {
-    TowerOne = 1,
-    TowerTwo = 2,
-    TowerThree = 3,
-    TowerFour = 4,
-    TowerFive = 5
+    TowerOne,
+    TowerTwo,
+    TowerThree,
+    TowerFour,
+    TowerFive
 };
 
 #endif

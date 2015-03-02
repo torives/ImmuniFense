@@ -11,13 +11,10 @@
 
 #import <Foundation/Foundation.h>
 
-
-typedef NS_OPTIONS(uint32_t, CollisionMask) {
-    
-    CreepMask   = 1 << 0,   //0000
+typedef NS_OPTIONS(uint32_t, CollisionMask) {    
+    CreepMask   = 1 << 0,   //0001
     TowerMask   = 1 << 1,   //0010
     BulletMask  = 1 << 2,   //0100
 };
-
 
 #endif

@@ -10,10 +10,9 @@
 #define ImmuniFense_CreepNames_h
 
 typedef NS_ENUM (NSUInteger, CreepType) {
-    
-    CreepOne = 1,
-    CreepTwo = 2,
-    CreepThree = 3,
+    CreepOne,
+    CreepTwo,
+    CreepThree,
 };
 
 #endif
