@@ -10,11 +10,9 @@
 #define ImmuniFense_LevelNames_h
 
 typedef NS_ENUM (NSUInteger, LevelName) {
-    
-    LevelOne = 1,
-    LevelTwo = 2,
-    LevelThree = 3,
-    
+    LevelOne,
+    LevelTwo,
+    LevelThree,
 };
 
 #endif
