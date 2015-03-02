@@ -32,10 +32,9 @@
 // método para pegar aonde a tower foi criada.
 -(float) getRotationWithPoint:(CGPoint)spoint endPoint:(CGPoint)epoint;
 
-@end
 
 
 @interface Bullet : SKSpriteNode
 //método que cria a bala.
 +(instancetype) bulletOfType:(int) type withColor:(UIColor*) color;
-@end
+@end@end
