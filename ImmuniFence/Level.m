@@ -279,7 +279,7 @@
     
 }
 
-//
+// editando AQUI
 -(void)selectNodeForTouch:(CGPoint)touchLocation{
     
     SKSpriteNode *touchedNode = (SKSpriteNode*)[self nodeAtPoint:touchLocation];
