@@ -116,8 +116,6 @@
         towerSpawnPoint.position = towerSpot;
         //adiciona o spawn point ao mapa
         [self addChild:towerSpawnPoint];
-        
- 
     }
     
     //adiciona os icones para adição das torres
@@ -142,7 +140,6 @@
     SKAction *repeat   = [SKAction repeatAction:sequence count: levelOneWaves.numberOfWaves];
     
     [self runAction:repeat];
-  
 }
 
 -(void) update:(NSTimeInterval)currentTime{
