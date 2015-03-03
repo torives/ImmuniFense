@@ -25,3 +25,5 @@
 -(void) stopShooting;
 
 //-(float) getRotationWithPoint:(CGPoint)spoint endPoint:(CGPoint)epoint;
+
+@end

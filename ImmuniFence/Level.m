@@ -18,6 +18,7 @@
 //TODO  implementar o ingame menu
 //TODO  implementar a pausa do jogo.
 
+#pragma mark Métodos Privados
 @interface Level ()
 
 -(void) createHud;
@@ -30,7 +31,7 @@
 -(void)addTowerIcons;
 
 @end
-
+#pragma mark -Variáveis de Instância
 @implementation Level{
     
     int level;
@@ -47,14 +48,13 @@
     int lastCreepIndex;
     int livingCreeps;
     
-    
     BOOL isIconSelected;
     SKSpriteNode* selectedSprite;
-    //NSMutableArray *towerBaseBounds;
     NSMutableArray *towers;
+    NSMutableArray *contactQueue;
 }
 
-
+#pragma mark -Métodos de SKScene
 /*****************************
 *
 *  Métodos de SKScene
@@ -133,6 +133,7 @@
     //inicializa o vetor de creeps ativas
     activeCreeps = [[NSMutableArray alloc] init];
     towers = [[NSMutableArray alloc]init];
+    contactQueue = [[NSMutableArray alloc]init];
     
     SKAction *wait = [SKAction waitForDuration: [levelOneWaves cooldownForWave: currentWave]];
     SKAction *performSelector = [SKAction performSelector:@selector(addCreepWave) onTarget:self];
@@ -151,10 +152,12 @@
         [creep updateAnimation];
     }];
     
+    [self processContactsForUpdate:currentTime];
+    
     timeOfLastMove = currentTime;
 }
 
-
+#pragma mark -Tratamento da Física
 /*****************************************************
 *
 *  Métodos de SKPhysicsContactDelegate
@@ -168,67 +171,8 @@
 //Chamado quando dois corpos iniciam contato
 -(void) didBeginContact:(SKPhysicsContact *)contact{
     
-    SKPhysicsBody* firstBody;
-    SKPhysicsBody* secondBody;
-    
-    //diferencia os corpos pelo BitMask, colocando sempre em ordem crescente
-    //creep < tower < bullet
-    if (contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask){
-        firstBody = contact.bodyA;
-        secondBody = contact.bodyB;
-    }
-    
-    else{
-        firstBody = contact.bodyB;
-        secondBody = contact.bodyA;
-    }
-    
-    //se um creep entrou em contato com o corpo da torre (seu alcance), ele se torna um alvo
-    if (firstBody.categoryBitMask == CreepMask && secondBody.categoryBitMask == TowerMask) {
-        
-        Creep *creep = (Creep *) firstBody.node;
-        Tower *tower = (Tower *) secondBody.node;
-        [tower.targets addObject:creep];
-        
-        
-        SKAction *wait = [SKAction waitForDuration:tower.fireRate];
-        SKAction *shoot = [SKAction performSelector:@selector(shootAtTarget) onTarget:tower];
-        SKAction *sequence = [SKAction sequence:@[shoot, wait]];
-        SKAction *repeat   = [SKAction repeatActionForever:sequence];
-        [self runAction: repeat];
-    }
-    //se um projétil atingiu um creep, desconta o dano da torre
-    else if (firstBody.categoryBitMask == CreepMask && secondBody.categoryBitMask == BulletMask) {
-        
-        Creep *creep = (Creep *) firstBody.node;
-        Tower *tower = (Tower *) secondBody.node.parent;
-        
-        if (creep.hitPoints > 0) {
-            //aplica o dano
-            creep.hitPoints -= tower.damage;
-            NSLog(@"bala atingiu alvo");
-            //se creep morreu
-            if (creep.hitPoints <= 0) {
-                
-                [tower.targets removeObject:creep];
-                
-                //incrementa as coins
-                coins += creep.reward;
-                //atualiza o HUD
-                [self updateCoinIndicator];
-                //retira o creep da cena
-                [creep removeFromParent];
-                //retira o creep da relação de creeps vivos
-                //[activeCreeps removeObject: creep];
-                livingCreeps--;
-                
-                //Se não há creeps ativos e acabaram as waves
-                if (livingCreeps == 0 && currentWave >= [levelOneWaves numberOfWaves]){
-                    
-                    [self gameWin];
-                }
-            }
-        }
+    if (contact != nil) {
+        [contactQueue addObject:contact];
     }
 }
 
@@ -261,7 +205,81 @@
     }
 }
 
+-(void) handleContact: (SKPhysicsContact*) contact{
+    
+    SKPhysicsBody* firstBody;
+    SKPhysicsBody* secondBody;
 
+    //diferencia os corpos pelo BitMask, colocando sempre em ordem crescente
+    //creep < tower < bullet
+    if (contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask){
+        firstBody = contact.bodyA;
+        secondBody = contact.bodyB;
+    }
+
+    else{
+        firstBody = contact.bodyB;
+        secondBody = contact.bodyA;
+    }
+
+    //se um creep entrou em contato com o corpo da torre (seu alcance), ele se torna um alvo
+    if (firstBody.categoryBitMask == CreepMask && secondBody.categoryBitMask == TowerMask) {
+
+        Creep *creep = (Creep *) firstBody.node;
+        Tower *tower = (Tower *) secondBody.node;
+        [tower.targets addObject:creep];
+
+        [tower startShooting];
+    }
+    //se um projétil atingiu um creep, desconta o dano da torre
+    else if (firstBody.categoryBitMask == CreepMask && secondBody.categoryBitMask == BulletMask) {
+
+        Creep *creep = (Creep *) firstBody.node;
+        Tower *tower = (Tower *) secondBody.node.parent;
+
+        if (creep.hitPoints > 0) {
+            //aplica o dano
+            creep.hitPoints -= tower.damage;
+            NSLog(@"bala atingiu alvo");
+            //se creep morreu
+            if (creep.hitPoints <= 0) {
+
+                [tower stopShooting];
+
+                //incrementa as coins
+                coins += creep.reward;
+                //atualiza o HUD
+                [self updateCoinIndicator];
+                //retira o creep da cena
+                [creep removeFromParent];
+                //retira o creep da relação de creeps vivos
+                //[activeCreeps removeObject: creep];
+                livingCreeps--;
+
+                //Se não há creeps ativos e acabaram as waves
+                if (livingCreeps == 0 && currentWave >= [levelOneWaves numberOfWaves]){
+                    
+                    [self gameWin];
+                }
+            }
+        }
+    }
+}
+
+-(void) processContactsForUpdate: (CFTimeInterval) currentTime {
+    
+     if (contactQueue.count != 0){
+         
+         for (SKPhysicsContact* contact in contactQueue) {
+
+            [self handleContact: contact];
+            [contactQueue removeObject:contact];
+        }
+    }
+}
+
+
+#pragma mark -Tratamento dos Toques
 /**************************************************
 *
 *  Métodos de UIResponder
@@ -302,7 +320,7 @@
         
         if ( isIconSelected && coins >= [[selectedSprite.userData objectForKey:@"cost"]intValue]) {
             
-            Tower* newTower = [Tower createTowerOfType: [[selectedSprite.userData objectForKey: @"type"] intValue] withLevel:1];
+            Tower* newTower = [Tower createTowerOfType: [[selectedSprite.userData objectForKey: @"type"] intValue]];
             
             [towers addObject:newTower];
             newTower.position = touchedNode.position;
@@ -319,7 +337,7 @@
     }
 }
 
-
+#pragma mark -Métodos Auxiliares
 /***************************************
 *
 *  Métodos Auxiliares

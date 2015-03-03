@@ -206,7 +206,7 @@
 -(void) configureBullet: (SKSpriteNode*) bullet{
     
     bullet.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize: bullet.frame.size];
-    bullet.physicsBody.dynamic = NO;
+    bullet.physicsBody.dynamic = YES;
     bullet.physicsBody.categoryBitMask = BulletMask;
     bullet.physicsBody.contactTestBitMask = CreepMask;
     bullet.physicsBody.collisionBitMask = 0;
