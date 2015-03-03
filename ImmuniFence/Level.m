@@ -31,7 +31,7 @@
 -(void)addTowerIcons;
 
 @end
-#pragma mark -Variáveis de Instância
+#pragma mark Variáveis de Instância
 @implementation Level{
     
     int level;
@@ -54,7 +54,7 @@
     NSMutableArray *contactQueue;
 }
 
-#pragma mark -Métodos de SKScene
+#pragma mark - Métodos de SKScene
 /*****************************
 *
 *  Métodos de SKScene
@@ -157,7 +157,7 @@
     timeOfLastMove = currentTime;
 }
 
-#pragma mark -Tratamento da Física
+#pragma mark - Tratamento da Física
 /*****************************************************
 *
 *  Métodos de SKPhysicsContactDelegate
@@ -253,7 +253,6 @@
                 //retira o creep da cena
                 [creep removeFromParent];
                 //retira o creep da relação de creeps vivos
-                //[activeCreeps removeObject: creep];
                 livingCreeps--;
 
                 //Se não há creeps ativos e acabaram as waves
@@ -262,6 +261,8 @@
                     [self gameWin];
                 }
             }
+            //remove o projetil
+            [secondBody.node removeFromParent];
         }
     }
 }

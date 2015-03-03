@@ -22,11 +22,12 @@
 
 @end
 
-#pragma mark -Variáveis de Instância
+#pragma mark - Variáveis de Instância
 @implementation Tower{
     
     int currentLevel;
     int bulletType;
+    BOOL isNotShooting;
     NSTimeInterval fireRate;
     NSTimeInterval lastShot;
     TowerType type;
@@ -44,11 +45,11 @@
     Tower *tower;
 
     //O level é o imutável, logo deve ser o primero e o typo é o sprite da tower.
-    tower = [self spriteNodeWithImageNamed:[NSString stringWithFormat:@"tower%d_down0", type]];
+    tower = [self spriteNodeWithImageNamed:[NSString stringWithFormat:@"tower%d_down0", type+1]];
     tower.anchorPoint = CGPointMake(0.5, 0.5);
     tower.name = @"tower";
     tower->currentLevel = 1;
-    tower.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:75];
+    tower.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:175];
     tower.physicsBody.dynamic = YES;
     tower.physicsBody.affectedByGravity = NO;
     tower.physicsBody.categoryBitMask = TowerMask;
@@ -62,25 +63,25 @@
     tower.targets = [[NSMutableArray alloc] init];
     
     if (type == TowerOne) {
-        tower.damage = 10;
+        tower.damage = 5;
         tower->bulletType = 1;
-        tower->fireRate = 3;
+        tower->fireRate = 1.5;
         tower.cost = 90;
         tower->type = TowerOne;
     }else if (type == TowerTwo) {
-        tower.damage = 20;
+        tower.damage = 5;
         tower->bulletType = 1;
-        tower->fireRate = 3;
+        tower->fireRate = 1.5;
         tower.cost = 100;
         tower->type = TowerTwo;
     }else if (type == TowerThree) {
-        tower.damage = 15;
+        tower.damage = 5;
         tower->bulletType = 1;
-        tower->fireRate = 10;
+        tower->fireRate = 3;
         tower.cost = 110;
         tower->type = TowerThree;
     }else if (type == TowerFour) {
-        tower.damage = 20;
+        tower.damage = 5;
         tower->bulletType = 1;
         tower->fireRate = 3;
         tower.cost = 120;
@@ -88,7 +89,8 @@
     }
     
     tower->lastShot = 0;
-
+    tower->isNotShooting = TRUE;
+    
     return tower;
 }
 
@@ -96,7 +98,7 @@
 -(void) startShooting {
     
     //se existem alvos
-    if (self.targets.count != 0){
+    if (self.targets.count != 0 && isNotShooting){
         
         NSLog(@"atira no alvo");
         
@@ -108,7 +110,7 @@
                                     nil]]];
 
         [self runAction:shootingStream];
-    
+        isNotShooting = FALSE;
     }
     else{
         NSLog(@"Não há alvos no alcance da torre");
@@ -117,6 +119,8 @@
 
 //para de atirar no alvo, quando este morre ou sai do alcance
 -(void) stopShooting{
+    
+    isNotShooting = TRUE;
     
     if (self.targets.count != 0){
         [self removeAllActions];
@@ -128,7 +132,7 @@
 }
 
 
-#pragma mark -Métodos Auxiliares
+#pragma mark - Métodos Auxiliares
 /***************************************
 *
 *  Métodos Auxiliares
@@ -142,15 +146,24 @@
     
     SKSpriteNode *targetCreep = [self.targets firstObject];
     
+    float angle = [self getRotationWithPoint:self.position endPoint:targetCreep.position];
+    
+    bullet.zRotation = angle;
+    
     //OBS: talvez tenha que converter, pq o (x,y) do target pode estar em outro sistema coordenado
-    CGPoint destination = targetCreep.position;
+    CGPoint destination = [self convertPoint:targetCreep.position fromNode:self.parent];
+    CGPoint towerPosition = self.position;
     
-    SKAction *sequence = [SKAction sequence:[NSArray arrayWithObjects:
-                                             [SKAction moveTo:destination duration:1.0],
-                                             [SKAction removeFromParent],
-                                             nil]];
+    CGPoint deslocamento = CGPointMake(destination.x - towerPosition.x, destination.y - towerPosition.y);
     
-    [bullet runAction: sequence];
+    float distance = hypotf(deslocamento.x, deslocamento.y);
+    
+    SKAction *fire = [SKAction moveTo:destination duration:0.067f * distance];
+
+    //ESSA BUDEGA NÃO É CHAMADA
+    [bullet runAction: fire completion:^{
+        [bullet removeFromParent];
+    }];
     
     [self addChild:bullet];
 }
@@ -213,10 +226,10 @@
 }
 
 // método que pega o ponto do target para transformar e, radianos
-//- (float)getRotationWithPoint:(CGPoint)spoint endPoint:(CGPoint)epoint {
-//    CGPoint originPoint = CGPointMake(epoint.x - spoint.x, epoint.y - spoint.y); // get origin point to origin by subtracting end from start
-//    float bearingRadians = atan2f(originPoint.y, originPoint.x); // get bearing in radians
-//    return bearingRadians;
-//    
-//}
+- (float)getRotationWithPoint:(CGPoint)spoint endPoint:(CGPoint)epoint {
+    CGPoint originPoint = CGPointMake(epoint.x - spoint.x, epoint.y - spoint.y); // get origin point to origin by subtracting end from start
+    float bearingRadians = atan2f(originPoint.y, originPoint.x); // get bearing in radians
+    return bearingRadians;
+    
+}
 @end
