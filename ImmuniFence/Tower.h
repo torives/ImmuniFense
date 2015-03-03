@@ -18,8 +18,10 @@
 
 +(instancetype) createTowerOfType: (TowerType)type;
 
-// método para atirar nos creeps que entram no raio da tower.
--(void) shootAtTarget;
+//começa a atirar nos creeps que estão a alcance
+-(void) startShooting;
 
-// método para pegar aonde a tower foi criada.
--(float) getRotationWithPoint:(CGPoint)spoint endPoint:(CGPoint)epoint;
+//para de atirar nos creeps que estão a alcance
+-(void) stopShooting;
+
+//-(float) getRotationWithPoint:(CGPoint)spoint endPoint:(CGPoint)epoint;

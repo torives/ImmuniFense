@@ -11,12 +11,13 @@
 #import "BitMasks.h"
 #import "Level.h"
 
-#pragma mark -Métodos Privados
+#pragma mark Métodos Privados
 @interface Tower()
 
 //TODO considerar essa história do level pra permitir o upgrade
--(SKNode*) makeBulletForTower: (TowerType) type withLevel: (int) level;
--(void) fireBullet: (SKNode *) bullet toDestination: (CGPoint) destination withDuration: (CFTimeInterval) duration;
+-(SKSpriteNode*) makeBulletForTower: (TowerType) type;
+-(void) configureBullet: (SKSpriteNode*) bullet;
+-(void) fireBullet;
 //-(float)getRotationWithPoint:(CGPoint)spoint endPoint:(CGPoint)epoint;
 
 @end
@@ -91,36 +92,41 @@
     return tower;
 }
 
--(void) shootAtTarget {
+//cria uma ação infinita para atirar no primeiro alvo de acordo com o fireRate da torre
+-(void) startShooting {
     
-    SKSpriteNode *target;
-    
+    //se existem alvos
     if (self.targets.count != 0){
-
+        
         NSLog(@"atira no alvo");
+        
+        SKAction *shootingStream =
+                [SKAction repeatActionForever:
+                          [SKAction sequence: [NSArray arrayWithObjects:
+                                    [SKAction performSelector:@selector(fireBullet) onTarget:self],
+                                    [SKAction waitForDuration:fireRate],
+                                    nil]]];
 
-        target = self.targets[0];
-        
-        float angle = [self getRotationWithPoint:self.position endPoint:target.position];
-        
-        SKSpriteNode *bullet = [Bullet bulletOfType:_bulletType withColor: _bulletColor];
-        bullet.zRotation = angle;
-        
-        [self addChild:bullet];
-        
-        
-        CGPoint creepPoint = [self convertPoint:target.position fromNode:self.parent];
-        
-        SKAction *move = [SKAction moveTo:creepPoint duration:0.3];
-        
-        [bullet runAction:move completion:^{
-            [bullet removeFromParent];
-        }];
+        [self runAction:shootingStream];
     
     }
-    else
-        [self removeAllActions];
+    else{
+        NSLog(@"Não há alvos no alcance da torre");
+    }
 }
+
+//para de atirar no alvo, quando este morre ou sai do alcance
+-(void) stopShooting{
+    
+    if (self.targets.count != 0){
+        [self removeAllActions];
+        [self.targets removeObjectAtIndex:0];
+    }
+    else{
+        NSLog(@"stopShooting foi chamada sem ter alvos no vetor");
+    }
+}
+
 
 #pragma mark -Métodos Auxiliares
 /***************************************
@@ -129,15 +135,82 @@
 *
 ***/
 
--(SKNode*) makeBulletForTower: (TowerType) type withLevel: (int) level{
+//cria a bullet e a ação que a direciona para o alvo
+-(void) fireBullet{
     
-    SKNode *bullet
+    SKSpriteNode *bullet = [self makeBulletForTower: type];
+    
+    SKSpriteNode *targetCreep = [self.targets firstObject];
+    
+    //OBS: talvez tenha que converter, pq o (x,y) do target pode estar em outro sistema coordenado
+    CGPoint destination = targetCreep.position;
+    
+    SKAction *sequence = [SKAction sequence:[NSArray arrayWithObjects:
+                                             [SKAction moveTo:destination duration:1.0],
+                                             [SKAction removeFromParent],
+                                             nil]];
+    
+    [bullet runAction: sequence];
+    
+    [self addChild:bullet];
 }
 
--(void) fireBullet: (SKNode *) bullet toDestination: (CGPoint) destination withDuration: (CFTimeInterval) duration{
+-(SKSpriteNode*) makeBulletForTower: (TowerType) towerType{
     
+    SKSpriteNode *bullet;
+    
+    switch (towerType) {
+
+        case TowerOne:
+            bullet = [SKSpriteNode  spriteNodeWithImageNamed:
+                                    [NSString stringWithFormat:@"bullet_%d", towerType]];
+            bullet.name = @"bullet";
+            [self configureBullet: bullet];
+            break;
+            
+        case TowerTwo:
+            bullet = [SKSpriteNode  spriteNodeWithImageNamed:
+                                    [NSString stringWithFormat:@"bullet_%d", towerType]];
+            bullet.name = @"bullet";
+            [self configureBullet: bullet];
+            break;
+            
+        case TowerThree:
+            bullet = [SKSpriteNode  spriteNodeWithImageNamed:
+                                    [NSString stringWithFormat:@"bullet_%d", towerType]];
+            bullet.name = @"bullet";
+            [self configureBullet: bullet];
+            break;
+            
+        case TowerFour:
+            bullet = [SKSpriteNode  spriteNodeWithImageNamed:
+                                    [NSString stringWithFormat:@"bullet_%d", towerType]];
+            bullet.name = @"bullet";
+            [self configureBullet: bullet];
+            break;
+            
+        case TowerFive:
+            bullet = [SKSpriteNode  spriteNodeWithImageNamed:
+                                    [NSString stringWithFormat:@"bullet_%d", towerType]];
+            bullet.name = @"bullet";
+            [self configureBullet: bullet];
+            break;
+            
+        default:
+            break;
+    }
+    return bullet;
 }
 
+//função auxiliar para setar as configurações comuns a todas as bullets
+-(void) configureBullet: (SKSpriteNode*) bullet{
+    
+    bullet.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize: bullet.frame.size];
+    bullet.physicsBody.dynamic = NO;
+    bullet.physicsBody.categoryBitMask = BulletMask;
+    bullet.physicsBody.contactTestBitMask = CreepMask;
+    bullet.physicsBody.collisionBitMask = 0;
+}
 
 // método que pega o ponto do target para transformar e, radianos
 //- (float)getRotationWithPoint:(CGPoint)spoint endPoint:(CGPoint)epoint {
