@@ -20,8 +20,10 @@
     [super viewWillLayoutSubviews];
     
     SKView * view = (SKView *)self.view;
-    //view.showsNodeCount = YES;
-    //view.showsFPS = YES;
+
+    view.showsNodeCount = YES;
+    view.showsFPS = YES;
+    view.showsPhysics = YES;
     
     // Create and configure the scene.
     SKScene * mainMenu = [MainMenu sceneWithSize:view.frame.size];

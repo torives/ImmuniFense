@@ -267,15 +267,15 @@
 }
 
 -(void) processContactsForUpdate: (CFTimeInterval) currentTime {
-    
-     if (contactQueue.count != 0){
-         
-         for (SKPhysicsContact* contact in contactQueue) {
 
-            [self handleContact: contact];
-            [contactQueue removeObject:contact];
-        }
-    }
+    SKPhysicsContact* contact;
+         
+     while (contactQueue.count != 0) {
+      
+         contact = [contactQueue firstObject];
+         [self handleContact: contact];
+         [contactQueue removeObject:contact];
+     }
 }
 
 
