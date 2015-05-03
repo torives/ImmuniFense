@@ -48,10 +48,6 @@
         [background addChild:buttondrogstore];
     }
     
-    
-    
-    
-    
     return self;
 }
 
@@ -78,9 +74,9 @@
         
     }
     else if ([node.name isEqualToString:@"drogstoreButton"]){
-        //        Drugstore *drugstoreScene = [Drugstore sceneWithSize: self.frame.size];
-        //        SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
-        //        [self.view presentScene:drogstoreScene transition:transition];]
+//                Drugstore *drugstoreScene = [Drugstore sceneWithSize: self.frame.size];
+//                SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
+//                [self.view presentScene:drogstoreScene transition:transition];]
     }
 }
 @end

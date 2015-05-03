@@ -23,6 +23,10 @@
         self.map  = theMap;
         self.creepPath2 = thePath2;
     }
+    
+    printf("valor da veriável level na claase terrain %d ", theLevel);
+
+    
     return self;
 }
 
@@ -42,6 +46,8 @@
     char temp[200];
     
     SKSpriteNode *mapBackground = [[SKSpriteNode alloc]initWithImageNamed:[NSString stringWithFormat:@"map%d.jpg",theLevel]];
+    
+//    printf("NÍVEL:%d ", theLevel);
     
     NSString * terrains = [[NSBundle mainBundle] pathForResource:@"TerrainInformation" ofType:@".txt"];
     

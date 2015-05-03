@@ -39,6 +39,7 @@
     int currentWave;
     int coins;
     LevelWave *levelOneWaves;
+    LevelWave *levelTwoWaves;
     NSMutableArray *towerSpots;
     NSMutableArray *activeCreeps;
     CGMutablePathRef path;
@@ -75,9 +76,10 @@
     lvl->isIconSelected = NO;
     lvl->pathCount = 0;
     lvl->level = levelName;
-    
+        
     //se registra como delegate de contato para tratar das colisões
     lvl.physicsWorld.contactDelegate = lvl;
+    printf("LEVEL NAME  da classe level %d ", levelName);
     
     return lvl;
 }
@@ -87,6 +89,8 @@
     
     //define o mapa da fase
    
+    if (level == 1){
+    
     Terrain *levelOneTerrain = [Terrain initWithLevel:LevelOne];
     SKSpriteNode* map = levelOneTerrain.map;
     map.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
@@ -95,6 +99,7 @@
     [self addChild: map];
     coins = levelOneTerrain.coins;
     self.terrain = levelOneTerrain;
+    
     NSLog(@"terminou terreno");
     //cria o HUD do jogo
     [self createHud];
@@ -140,6 +145,69 @@
     SKAction *repeat   = [SKAction repeatAction:sequence count: levelOneWaves.numberOfWaves];
     
     [self runAction:repeat];
+    }
+    
+    else if(level == 2){
+        
+        Terrain *levelTwoTerrain = [Terrain initWithLevel:LevelTwo];
+        SKSpriteNode* map = levelTwoTerrain.map;
+        map.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+        map.yScale = 0.3;
+        map.xScale = 0.3;
+        [self addChild: map];
+        coins = levelTwoTerrain.coins;
+        self.terrain = levelTwoTerrain;
+        
+        NSLog(@"terminou terreno");
+        //cria o HUD do jogo
+        [self createHud];
+        
+        
+        //cria os placeholders para criar as torres
+        towerSpots = levelTwoTerrain.towerSpot;
+        for ( NSValue *value in towerSpots) {
+            
+//            NSValue *getPoint = [towerSpots objectAtIndex:i];
+            CGPoint towerSpot = [value CGPointValue];
+            
+            SKShapeNode *towerSpawnPoint = [SKShapeNode shapeNodeWithCircleOfRadius:45];
+            towerSpawnPoint.hidden = YES;
+//            towerSpawnPoint.fillColor = [SKColor blackColor];
+            towerSpawnPoint.name = @"towerSpawnPoint";
+            
+            //TODO Pode dar merda pq a posição tem que ser de acordo com o sistema de coordenadas do pai. Conferir isso.
+            towerSpawnPoint.position = towerSpot;
+            //adiciona o spawn point ao mapa
+            [self addChild:towerSpawnPoint];
+        }
+
+        //adiciona os icones para adição das torres
+        [self addTowerIcons];
+
+        //guarda o path pra usar com a velocidade diferente de cada creep
+        path = levelTwoTerrain.creepPath;
+
+        //pega a referencia para as waves da fase
+        levelTwoWaves = [[LevelWave alloc]initWithLevel: LevelTwo];
+
+        //descobre o tempo de espera para chamar a próxima wave
+        //currentWaveCooldown = [levelOneWaves cooldownForWave: currentWave];
+        pathCount++;
+        //inicializa o vetor de creeps ativas
+        activeCreeps = [[NSMutableArray alloc] init];
+        towers = [[NSMutableArray alloc]init];
+
+        SKAction *wait = [SKAction waitForDuration: [levelTwoWaves cooldownForWave: currentWave]];
+        SKAction *performSelector = [SKAction performSelector:@selector(addCreepWave) onTarget:self];
+        SKAction *sequence = [SKAction sequence:@[performSelector, wait]];
+        SKAction *repeat   = [SKAction repeatAction:sequence count: levelTwoWaves.numberOfWaves];
+        
+        printf("número de waves no level 2 %d ", levelTwoWaves.numberOfWaves);
+        
+        
+// O PROBLEMA ESTÁ QUANDO A RUNACTION: REPEAT é chamada
+//        [self runAction:repeat];
+    }
 }
 
 -(void) update:(NSTimeInterval)currentTime{
@@ -152,6 +220,7 @@
     }];
     
     timeOfLastMove = currentTime;
+    
 }
 
 
@@ -196,6 +265,7 @@
         SKAction *sequence = [SKAction sequence:@[shoot, wait]];
         SKAction *repeat   = [SKAction repeatActionForever:sequence];
         [self runAction: repeat];
+        
     }
     //se um projétil atingiu um creep, desconta o dano da torre
     else if (firstBody.categoryBitMask == CreepMask && secondBody.categoryBitMask == BulletMask) {

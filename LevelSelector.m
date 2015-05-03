@@ -61,11 +61,13 @@
         Level *newLevel = [Level createLevel: LevelOne withSize: self.frame.size];
         SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
         [self.view presentScene:newLevel transition:transition];
+        printf("teste botão 1 ");
     }
     else if ([node.name isEqualToString:@"buttonlevel2"]) {
         Level *newLevel = [Level createLevel: LevelTwo withSize: self.frame.size];
         SKTransition *transition = [SKTransition crossFadeWithDuration:1.0];
         [self.view presentScene:newLevel transition:transition];
+        printf("teste botão 2 ");
     }
     
 }

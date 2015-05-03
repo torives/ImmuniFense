@@ -44,6 +44,7 @@
     tower.anchorPoint = CGPointMake(0.5, 0.5);
     tower.name = @"tower";
     tower.level = level;
+    printf("level na classe tower %d ", level);
     tower.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:75];
     tower.physicsBody.dynamic = YES;
     tower.physicsBody.affectedByGravity = NO;

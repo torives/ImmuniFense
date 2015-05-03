@@ -37,6 +37,7 @@
     
     Creep *creep = [self spriteNodeWithImageNamed: [NSString stringWithFormat:
                                                     @"creep%d_left0", type]];
+    printf("type: %d ", type);
     
     //TODO carregar isso de um arquivo
     creep.damage = 1;
@@ -45,6 +46,8 @@
     creep.velocity = 30;
     creep.direction = ' ';
     creep.lastPosition = CGPointMake(9999, 9999);
+    
+//    printf("teste na clase creep valor da variável type %d ", type);
     
     if (type == CreepOne) {
         

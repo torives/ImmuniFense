@@ -41,6 +41,7 @@
         j = 30;
     }
     self.level = level;
+//    printf("level na classe level wave %d ", level);
     self.numberOfWaves = 0;
     
     int wv = 0;
@@ -66,6 +67,7 @@
             printf("%lf\n",self.cooldown[wv]);
             
             fscanf(waves, "%d", &type);
+            
             while(type != 5000)
             {
                 fscanf(waves, "%d", &number);
@@ -88,6 +90,9 @@
 
 -(NSMutableArray*) createCreepsForWave:(int)wave
 {
+    // não passa aqui na fase 2.
+    printf("teste na classe levelwave");
+    
     NSMutableArray *creeps = [[NSMutableArray alloc]init];
     for(int j = 0; j < 30; j++)
     {
@@ -97,6 +102,8 @@
             [creeps addObject:novo];
             
             self.waves[wave][j]--;
+//            printf("waves na classe level wave %d  e valor do j %d", wave, j);
+
         }
     }
     
